@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { Context } from "../context/firebaseContext";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../redux/actions/userActions";
-import { setActiveIconHome } from "../redux/actions/iconAction";
 import * as ROUTES from '../constants/links'
 import ItemDropMenu from "../components/ItemDropMenu";
 import DropMenu from "../components/DropMenu";
@@ -42,6 +41,7 @@ const Header = () => {
                     day: '',
                     month: '',
                 },
+                uid: '',
             }
         )
         dispatch(setUser(firestoreCurrentUser))

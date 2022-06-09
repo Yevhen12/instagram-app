@@ -5,6 +5,7 @@ import { FirebaseContextProvider } from './context/firebaseContext'
 import * as ReactDOMClient from 'react-dom/client';
 import { Provider as ReduxProvider } from 'react-redux'
 import { store } from './redux/store';
+import Profile from './pages/Profile';
 const root = document.getElementById('root');
 
 const Сontainer = ReactDOMClient.createRoot(root);

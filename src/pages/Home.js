@@ -2,7 +2,6 @@ import React from "react";
 import Header from "../components/Header";
 
 const Home = () => {
-    window.onload = function () {window.location.reload()}
     return (
         <div className="bg-[#fafafa]">
             <Header />
