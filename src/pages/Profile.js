@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Header from "../components/Header";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -31,11 +31,6 @@ const Profile = () => {
 
 
     const isUserOnStrangeProfile = userRedux.uid !== currentProfileUser.uid
-    console.log(isUserOnStrangeProfile)
-
-    console.log(currentProfileUser)
-
-
 
     return (
         <>

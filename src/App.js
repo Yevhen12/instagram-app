@@ -22,7 +22,7 @@ const Explore = lazy(() => import('./pages/Explore'))
 
 
 function App() {
-  console.log(1)
+
   return (
     <>
       <Suspense fallback={"Loading..."}>

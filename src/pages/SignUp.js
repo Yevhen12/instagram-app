@@ -20,10 +20,17 @@ const SignUp = () => {
     const func = () => {
         const {email, password} = userData
         createUserWithEmailAndPassword(auth, email, password)
-        .then(data => {
+        .then(() => {
             const currentUser = auth.currentUser
             const userRef = doc(db, 'users', currentUser.uid)
-            setDoc(userRef, {...userData, uid: currentUser.uid})
+            const userObj = {
+                ...userData,
+                uid: currentUser.uid,
+                followers: [],
+                following: [],
+                posts: [],
+            }
+            setDoc(userRef, userObj)
             navigate("/sign-in")
         })
         .catch(someError => {

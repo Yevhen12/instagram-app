@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 const Tagged = () => {
 
     const userRedux = useSelector((state) => state.userReducer.user)
-    const currentProfileUser = useSelector((state) => state.currentProfileUserReducer.user)
-    const isUserOnStrangeProfile = userRedux.uid !== currentProfileUser.uid
+    const currentProfileUserRedux = useSelector((state) => state.currentProfileUserReducer.user)
+    const isUserOnStrangeProfile = userRedux.uid !== currentProfileUserRedux.uid
     
     return (
         <>

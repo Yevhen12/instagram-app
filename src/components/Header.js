@@ -7,13 +7,12 @@ import * as ROUTES from '../constants/links'
 import ItemDropMenu from "../components/ItemDropMenu";
 import DropMenu from "../components/DropMenu";
 import { HeaderStyles } from "../styles/Header";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
-    const { user, getDoc, db, doc, setFirestoreCurrentUser, firestoreCurrentUser, signOut, auth } = useContext(Context)
+    const { setFirestoreCurrentUser, firestoreCurrentUser, signOut, auth } = useContext(Context)
 
     const userRedux = useSelector((state) => state.userReducer.user)
-    const navigate = useNavigate()
     const location = useLocation()
 
     const [dropMenuProfile, setDropMenuProfile] = useState(false)
@@ -24,7 +23,7 @@ const Header = () => {
 
     useEffect(() => {
         dispatch(setUser(firestoreCurrentUser))
-    }, [firestoreCurrentUser, user])
+    }, [firestoreCurrentUser])
 
 
 
@@ -76,7 +75,7 @@ const Header = () => {
                 <div className="flex justify-between items-center">
                     <Link to={ROUTES.HOME}>
                         <div className="cursor-pointer">
-                            <img src="/images/instagram.png" className="h-10"></img>
+                            <img src="/images/instagram.png" alt="instagram" className="h-10"></img>
                         </div>
                     </Link>
                     {auth.currentUser ?
@@ -90,6 +89,7 @@ const Header = () => {
                                         <img
                                             data-name="home"
                                             src={`/images/home-${location.pathname === '/' && !isActiveModals ? '' : 'un'}colored.png`}
+                                            alt="home"
                                             className="h-6"
                                         >
                                         </img>
@@ -100,6 +100,7 @@ const Header = () => {
                                         <img
                                             data-name="messenger"
                                             src={`/images/messenger-${location.pathname === ROUTES.DIRECT && !isActiveModals ? '' : 'un'}colored.png`}
+                                            alt="messenger"
                                             className="h-6"
                                         >
                                         </img>
@@ -108,6 +109,7 @@ const Header = () => {
                                 <div className="mr-6 cursor-pointer" onClick={addPostModalHendler}>
                                     <img data-name="add"
                                         src={`/images/add-${addPostModal ? '' : 'un'}colored.png`}
+                                        alt="add"
                                         className="h-6"
                                     >
                                     </img>
@@ -117,6 +119,7 @@ const Header = () => {
                                         <img
                                             data-name="compass"
                                             src={`/images/compass-${location.pathname === ROUTES.EXPLORE && !isActiveModals ? '' : 'un'}colored.png`}
+                                            alt="compass"
                                             className="h-6"
                                         >
                                         </img>
@@ -126,6 +129,7 @@ const Header = () => {
                                     <img
                                         data-name="heart"
                                         src={`/images/heart-${dropMenuHeart ? '' : 'un'}colored.png`}
+                                        alt="heart"
                                         className="h-6"
                                         onClick={dropHeartMenuHendler}
                                     >
@@ -139,7 +143,7 @@ const Header = () => {
 
                                     >
                                         <div className="flex items-center justify-center flex-col">
-                                            <img className="h-10 opacity-30" src="/images/search-icon.png"></img>
+                                            <img className="h-10 opacity-30" src="/images/search-icon.png" alt="search"></img>
                                             <p className="text-sm mt-2 italic text-gray-400">No info yet</p>
                                         </div>
                                     </DropMenu>
@@ -155,7 +159,12 @@ const Header = () => {
                                         onClick={dropMenuHendler}
                                     >
                                         {/* {activeIcon.profile && <img src="/images/circle-contor.png" className="h-7 absolute"></img>} */}
-                                        <img src={userRedux.imageUrl ? userRedux.imageUrl : '/images/standart-profile.png'} className="w-full h-full object-cover overflow-hidden rounded-full "></img>
+                                        <img
+                                            src={userRedux.imageUrl ? userRedux.imageUrl : '/images/standart-profile.png'}
+                                            className="w-full h-full object-cover overflow-hidden rounded-full "
+                                            alt = "profile"
+                                            >
+                                        </img>
                                     </button>
 
 

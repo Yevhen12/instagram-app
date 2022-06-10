@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
 import { firebase, storage } from '../firebase/firebase'
-import { doc, setDoc, getFirestore, getDoc, collection, getDocs, updateDoc, query, where } from "firebase/firestore";
+import { doc, setDoc, getFirestore, getDoc, collection, getDocs, updateDoc, query, where, arrayRemove, arrayUnion } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { useSelector } from "react-redux";
 
@@ -14,7 +14,7 @@ const db = getFirestore(firebase)
 
 const FirebaseContextProvider = ({children}) => {
     const [user, setUser] = useState(null)
-    const [firestoreCurrentUser, setFirestoreCurrentUser] = useState(JSON.parse(localStorage.getItem('infoCurrentUser')))
+    const [firestoreCurrentUser, setFirestoreCurrentUser] = useState(() => JSON.parse(localStorage.getItem('infoCurrentUser')))
 
     useEffect(() => {
         const unsubsribe = onAuthStateChanged (auth, (currentUser) => {
@@ -83,6 +83,8 @@ const FirebaseContextProvider = ({children}) => {
               updateProfile,
               query,
               where,
+              arrayRemove,
+              arrayUnion
             }
         }>
             {children}

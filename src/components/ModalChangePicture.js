@@ -7,12 +7,7 @@ import { setUser } from "../redux/actions/userActions";
 const ModalChangePicture = ({ activeModal, setActiveModal }) => {
 
     const { ref, storage, uploadBytes, auth, getDownloadURL, doc, db, updateDoc, getDoc, deleteObject, setFirestoreCurrentUser } = useContext(Context)
-
-    const closeModal = () => {
-        setActiveModal(false)
-    }
     const userRedux = useSelector((state) => state.userReducer.user)
-
     const dispatch = useDispatch()
 
     const hendleChange = async (e) => {
@@ -42,6 +37,10 @@ const ModalChangePicture = ({ activeModal, setActiveModal }) => {
         setFirestoreCurrentUser({...userRedux, imageUrl: imageUrl})
         dispatch(setUser({...userRedux, imageUrl: imageUrl}))
 
+    }
+
+    const closeModal = () => {
+        setActiveModal(false)
     }
 
 
