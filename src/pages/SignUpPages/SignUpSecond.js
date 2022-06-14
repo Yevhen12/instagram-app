@@ -107,8 +107,8 @@ const SignUpSecond = ({ setUserData, setPage, userData }) => {
                     <Modal
                         activeModal={activeModal}
                         setActiveModal={setActiveModal}
-                        image='images\birthday-auth.png'
                         textTitle="Birthdays"
+                        styleBlock = 'bg-white w-1/5 rounded-xl duration-300 '
                     >
                         <img src="images\birthday-auth.png" className="mt-4 mb-4 w-1/3 mr-auto ml-auto" />
                         <p className="text-center text-xl font-semibold">Birthdays in instagram</p>

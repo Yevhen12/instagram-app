@@ -16,6 +16,7 @@ const NotFound = lazy(() => import('./pages/NotFound'))
 const Profile = lazy(() => import('./pages/Profile'))
 const Direct = lazy(() => import('./pages/Direct'))
 const Explore = lazy(() => import('./pages/Explore'))
+const Followers = lazy(() => import('./pages/ProfilePages/Followers'))
 // const Saved = lazy(() => import('./pages/ProfilePages/Saved'))
 // const Tagged = lazy(() => import('./pages/ProfilePages/Tagged'))
 // const Posts = lazy(() => import('./pages/ProfilePages/Posts'))
@@ -37,6 +38,7 @@ function App() {
               <Route path={ProfileRoutes.POSTS} element={<Posts />} />
               <Route path={ProfileRoutes.SAVED} element={<Saved />} />
               <Route path={ProfileRoutes.TAGGED} element={<Tagged />} />
+              <Route path = {ProfileRoutes.FOLLOWERS} element={<Followers />} />
             </Route>
             <Route path={ROUTES.DIRECT} element={<Direct />} />
             <Route path={ROUTES.EXPLORE} element={<Explore />} />

@@ -1,90 +1,28 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { Link, Outlet } from "react-router-dom";
 import * as ProfileRoutes from '../../constants/profileLinks'
 import NotFound from "../NotFound";
-import { setUser } from "../../redux/actions/userActions";
-import { setCurrentProfileUser } from "../../redux/actions/currentProfileUser";
-import { Context } from "../../context/firebaseContext";
 import ReusebleModal from "../../components/ReusebleModal";
+import UnfollowModal from "../../components/UnfollowModal";
+import useFollow from "../../hooks/useFollow";
 
 const StrangeProfileUser = () => {
     const currentProfileUserRedux = useSelector((state) => state.currentProfileUserReducer.user)
     const userRedux = useSelector((state) => state.userReducer.user)
-    const { updateDoc, doc, db } = useContext(Context)
-    const dispatch = useDispatch()
     const [activeModal, setActiveModal] = useState(false)
+    
 
-
-    console.log(currentProfileUserRedux)
-    console.log(userRedux)
-
+    //console.log(currentProfileUserRedux)
     const location = useLocation()
-    const hendleFollow = async () => {
-        const userFollow = currentProfileUserRedux.followers.find(elem => elem.uid === userRedux.uid)
-        const currentProfileUserRef = doc(db, "users", `${currentProfileUserRedux.uid}`);
-        const ReduxUserRef = doc(db, "users", `${userRedux.uid}`);
-
-        console.log(userFollow)
-        if (!userFollow?.displayName) {
-            dispatch(
-                setCurrentProfileUser(
-                    {
-                        ...currentProfileUserRedux,
-                        followers: [...currentProfileUserRedux.followers, userRedux]
-                    }
-                )
-            )
-            dispatch(
-                setUser(
-                    {
-                        ...userRedux,
-                        following: [...userRedux.following, currentProfileUserRedux]
-                    }
-                )
-            )
-
-            await updateDoc(currentProfileUserRef, {
-                "followers": [...currentProfileUserRedux.followers, userRedux]
-            });
-
-            await updateDoc(ReduxUserRef, {
-                "following": [...userRedux.following, currentProfileUserRedux]
-            });
-
-        } else {
-
-            const newFilteredArrayFollowers = currentProfileUserRedux.followers.filter(elem => elem.uid !== userRedux.uid)
-            const newFilteredArrayFollowing = userRedux.following.filter(elem => elem.uid !== currentProfileUserRedux.uid)
-            dispatch(
-                setCurrentProfileUser(
-                    {
-                        ...currentProfileUserRedux,
-                        followers: newFilteredArrayFollowers
-                    }
-                )
-            )
-
-            dispatch(
-                setUser(
-                    {
-                        ...userRedux,
-                        following: newFilteredArrayFollowing
-                    }
-                )
-            )
-
-            await updateDoc(currentProfileUserRef, {
-                "followers": newFilteredArrayFollowers
-            });
-
-            await updateDoc(ReduxUserRef, {
-                "following": newFilteredArrayFollowing
-            });
-        }
+    const {imageUrl, name, uid, displayName} = currentProfileUserRedux
+    const { hendleFollow } = useFollow({imageUrl, name, uid, displayName})
+    const addToFollowing = () => {
+        setActiveModal(false)
+        hendleFollow()
     }
-
+    console.log(currentProfileUserRedux)
 
     const isUserReduxFollowing = currentProfileUserRedux.followers && currentProfileUserRedux.followers.find(elem => elem.uid === userRedux.uid)
 
@@ -116,13 +54,13 @@ const StrangeProfileUser = () => {
                                                     (
                                                         <>
                                                             <button
-                                                                className="border rounded rounded-[0.15] px-2.5 py-1.5 text-sm font-semibold mr-2 bg-transparent text-black "
+                                                                className="active:opacity-60 border rounded rounded-[0.15] px-2.5 py-1.5 text-sm font-semibold mr-2 bg-transparent text-black "
                                                                 type="button"
                                                             >
                                                                 Message
                                                             </button>
                                                             <button
-                                                                className="border rounded rounded-[0.15] px-[1.6rem] py-1.5 text-sm font-semibold mr-2 bg-transparent text-black "
+                                                                className="active:opacity-60 border rounded rounded-[0.15] px-[1.6rem] py-1.5 text-sm font-semibold mr-2 bg-transparent text-black "
                                                                 type="button"
                                                                 onClick={() => setActiveModal(true)}
                                                             >
@@ -131,12 +69,16 @@ const StrangeProfileUser = () => {
                                                             <ReusebleModal
                                                                 activeModal={activeModal}
                                                                 setActiveModal={setActiveModal}
-                                                                styleForContainerBlock = "w-[25rem] flex items-center flex-col w-full"
                                                             >
-
+                                                                <UnfollowModal
+                                                                    activeModal={activeModal}
+                                                                    imageUrl={currentProfileUserRedux.imageUrl}
+                                                                    displayName={currentProfileUserRedux.displayName}
+                                                                    setActiveModal={setActiveModal}
+                                                                />
                                                             </ReusebleModal>
-                                                            <button className="border rounded rounded-[0.15] px-3 py-2.5 text-sm font-semibold mr-5 bg-transparent text-black" type="button">
-                                                                <img className="h-3" src="/images/down-arrow-white.png" alt="arrow"></img>
+                                                            <button className="border rounded rounded-[0.15] px-3 py-2.5 text-sm font-semibold mr-5 bg-transparent text-black active:opacity-60" type="button">
+                                                                <img className="h-3" src="/images/arrow-down-gray.png" alt="arrow"></img>
                                                             </button>
                                                             <div className="h-6 w-6">
                                                                 <img src="/images/option-icon.png" alt="options"></img>
@@ -147,13 +89,13 @@ const StrangeProfileUser = () => {
                                                     (
                                                         <>
                                                             <button
-                                                                className="rounded rounded-[0.15] px-6 py-1.5 text-sm font-semibold mr-2 bg-[#0195f6] text-white "
+                                                                className="active:opacity-60 rounded rounded-[0.15] px-6 py-1.5 text-sm font-semibold mr-2 bg-[#0195f6] text-white "
                                                                 type="button"
-                                                                onClick={hendleFollow}
+                                                                onClick={addToFollowing}
                                                             >
                                                                 Follow
                                                             </button>
-                                                            <button className="rounded rounded-[0.15] px-3 py-2.5 text-sm font-semibold mr-5 bg-[#0195f6] text-white" type="button">
+                                                            <button className="active:opacity-60 rounded rounded-[0.15] px-3 py-2.5 text-sm font-semibold mr-5 bg-[#0195f6] text-white" type="button">
                                                                 <img className="h-3" src="/images/down-arrow-white.png" alt="arrow"></img>
                                                             </button>
                                                             <div className="h-6 w-6">
@@ -164,9 +106,17 @@ const StrangeProfileUser = () => {
                                             }
                                         </div>
                                         <div className="flex items-center">
-                                            <p className="mr-10"><span className="font-semibold">0 </span>posts</p>
-                                            <p className="mr-10"><span className="font-semibold">{currentProfileUserRedux.followers.length}</span> followers</p>
-                                            <p><span className="font-semibold">{currentProfileUserRedux.following.length}</span> following</p>
+                                            <div className="mr-10">
+                                                <p><span className="font-semibold">0 </span>posts</p>
+                                            </div>
+                                            <div className="mr-10">
+                                                <Link to={`${ProfileRoutes.FOLLOWERS}`}>
+                                                    <p className="cursor-pointer"><span className="font-semibold">{currentProfileUserRedux.followers.length}</span> followers</p>
+                                                </Link>
+                                            </div>
+                                            <div className="mr-10">
+                                                <p className="cursor-pointer"><span className="font-semibold">{currentProfileUserRedux.following.length}</span> following</p>
+                                            </div>
                                         </div>
 
                                     </div>
