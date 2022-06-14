@@ -33,14 +33,14 @@ const Profile = () => {
     const isUserOnStrangeProfile = userRedux.uid !== currentProfileUser.uid
 
     return (
-        <>
+        <div>
             <Header />
             {isUserOnStrangeProfile ?
                 <StrangeProfileUser /> :
                 <RealUser />
             }
 
-        </>
+        </div>
     )
 }
 

@@ -12,11 +12,11 @@ const Modal = ({ children, activeModal, setActiveModal, textTitle, nav, styleBlo
     return (
         <div
             onClick={closeModal}
-            className={`w-full h-full bg-black/60 fixed top-0 left-0 flex justify-center items-center z-10 duration-300 ${activeModal ? 'opacity-1 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+            className={`fixed w-screen h-screen bg-black/60 top-0 left-0 flex justify-center items-center z-10 duration-300 ${activeModal ? 'opacity-1 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         >
             <div
                 onClick={(e) => e.stopPropagation()}
-                className={`${styleBlock} ${activeModal ? 'scale-100' : 'scale-50'}`}
+                className={`${styleBlock}`}
             >
                 <div className={`w-full border-b relative`}>
                     <p className="text-center font-semibold p-2">{textTitle}</p>

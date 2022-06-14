@@ -74,6 +74,8 @@ const StrangeProfileUser = () => {
                                                                     activeModal={activeModal}
                                                                     imageUrl={currentProfileUserRedux.imageUrl}
                                                                     displayName={currentProfileUserRedux.displayName}
+                                                                    name = {currentProfileUserRedux.name}
+                                                                    uid = {currentProfileUserRedux.uid}
                                                                     setActiveModal={setActiveModal}
                                                                 />
                                                             </ReusebleModal>

@@ -27,8 +27,8 @@ const Posts = () => {
                     <div className="flex">
                         <img className="h-96" src="/images/in-profile-some.jpg" alt = "happy-people"></img>
                         <div className="bg-white w-full flex flex-col items-center justify-center">
-                            <p className="text-lg font-semibold">Take photos and videos of interesting moments and share them</p>
-                            <p className="text-base">Download the app to share your first photo or video.</p>
+                            <p className="text-lg font-semibold">Start capturing and sharing your moments.</p>
+                            <p className="text-base">Get the app to share your first photo or video.</p>
                             <div className="flex justify-center mt-5">
                                 <a target="_blank" href="https://apps.apple.com/app/instagram/id389801252?vt=li">
                                     <img className="h-10 mr-2" src="/images/in-profile-download-app-store.png" alt = "download-app-store"></img>
