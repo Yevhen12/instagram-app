@@ -41,6 +41,9 @@ const Header = () => {
                     month: '',
                 },
                 uid: '',
+                followers: [],
+                following: [],
+                posts: [],
             }
         )
         dispatch(setUser(firestoreCurrentUser))
@@ -81,9 +84,6 @@ const Header = () => {
                     {auth.currentUser ?
                         (
                             <div className="flex justify-between items-center">
-                                {/* <Link to={ROUTES.SIGN_IN}>
-                                    <button onClick={userSignOut}>Sign out, {userRedux.displayName}</button>
-                                </Link> */}
                                 <div className="mr-6 cursor-pointer">
                                     <Link to={ROUTES.HOME}>
                                         <img

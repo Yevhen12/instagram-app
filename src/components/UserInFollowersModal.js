@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import useFollow from "../hooks/useFollow";
 import ReusebleModal from "./ReusebleModal";
@@ -13,9 +13,6 @@ const UserInFollowersModal = ({ currentUser }) => {
     const { hendleFollow } = useFollow({ imageUrl, name, displayName, uid })
     const isUserReduxFollowing = userRedux.following && userRedux.following.find(elem => elem.displayName === currentUser.displayName)
 
-
-
-
     return (
         <li className="pt-2.5 px-5">
             <div className="flex justify-between items-center">
@@ -23,7 +20,7 @@ const UserInFollowersModal = ({ currentUser }) => {
                     <div className="h-[2.1rem] w-[2.1rem] rounded-full border overflow-hidden mt-1">
                         <img
                             className="w-full h-full object-cover"
-                            src={`${currentUser.imageUrl ? currentUser.imageUrl : '/images/standart-profile.png'}`}
+                            src={`${imageUrl ? imageUrl : '/images/standart-profile.png'}`}
                             alt="UserPhoto"
                         />
                     </div>

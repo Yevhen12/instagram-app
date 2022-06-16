@@ -20,7 +20,7 @@ const ModalChangePicture = ({ activeModal, setActiveModal }) => {
         const pathName = `/images/${userUID}/avatar/${currentFile.name}`
         const fileReff = ref(storage, pathName);
 
-        if(userRedux.imageUrl) {
+        if (userRedux.imageUrl) {
             await deleteObject(ref(storage, userRedux.imageUrl))
         }
 
@@ -34,10 +34,23 @@ const ModalChangePicture = ({ activeModal, setActiveModal }) => {
             "imageUrl": `${imageUrl}`
         })
 
-        setFirestoreCurrentUser({...userRedux, imageUrl: imageUrl})
-        dispatch(setUser({...userRedux, imageUrl: imageUrl}))
+        setFirestoreCurrentUser({ ...userRedux, imageUrl: imageUrl })
+        dispatch(setUser({ ...userRedux, imageUrl: imageUrl }))
 
     }
+
+    const deleteImage = async () => {
+
+        setActiveModal(false)
+
+        await deleteObject(ref(storage, userRedux.imageUrl))
+
+        setFirestoreCurrentUser({ ...userRedux, imageUrl: "" })
+        dispatch(setUser({ ...userRedux, imageUrl: "" }))
+        
+    }
+
+
 
     const closeModal = () => {
         setActiveModal(false)
@@ -67,6 +80,7 @@ const ModalChangePicture = ({ activeModal, setActiveModal }) => {
                 <button
                     disabled={userRedux.imageUrl ? false : true}
                     className={`w-full pt-3 pb-3 text-sm font-bold text-red-500 border-t ${!userRedux.imageUrl && 'cursor-not-allowed text-red-200'}`}
+                    onClick = {deleteImage}
                 >
                     Remove current photo
                 </button>
