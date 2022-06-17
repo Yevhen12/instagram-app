@@ -44,10 +44,15 @@ const ModalChangePicture = ({ activeModal, setActiveModal }) => {
         setActiveModal(false)
 
         await deleteObject(ref(storage, userRedux.imageUrl))
+        const currentData = doc(db, 'users', `${userRedux.uid}`)
+
+        await updateDoc(currentData, {
+            "imageUrl": ""
+        })
 
         setFirestoreCurrentUser({ ...userRedux, imageUrl: "" })
         dispatch(setUser({ ...userRedux, imageUrl: "" }))
-        
+
     }
 
 

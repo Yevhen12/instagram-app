@@ -8,6 +8,7 @@ import ItemDropMenu from "../components/ItemDropMenu";
 import DropMenu from "../components/DropMenu";
 import { HeaderStyles } from "../styles/Header";
 import { useLocation } from "react-router-dom";
+import SearchUsers from "./SearchUsers";
 
 const Header = () => {
     const { setFirestoreCurrentUser, firestoreCurrentUser, signOut, auth } = useContext(Context)
@@ -70,7 +71,10 @@ const Header = () => {
         setAddPostModal(prevAddPostModal => !prevAddPostModal)
     }
 
+
+
     const isActiveModals = dropMenuProfile || dropMenuHeart || addPostModal
+
 
     return (
         <header className="h-16 border-b flex justify-center bg-white">
@@ -81,6 +85,7 @@ const Header = () => {
                             <img src="/images/instagram.png" alt="instagram" className="h-10"></img>
                         </div>
                     </Link>
+                    <SearchUsers />
                     {auth.currentUser ?
                         (
                             <div className="flex justify-between items-center">
@@ -162,8 +167,8 @@ const Header = () => {
                                         <img
                                             src={userRedux.imageUrl ? userRedux.imageUrl : '/images/standart-profile.png'}
                                             className="w-full h-full object-cover overflow-hidden rounded-full "
-                                            alt = "profile"
-                                            >
+                                            alt="profile"
+                                        >
                                         </img>
                                     </button>
 
