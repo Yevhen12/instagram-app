@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import DropMenu from '../DropMenu'
-import ModalSuggestions from "./ModalSuggestions";
+import useSearch from "../../hooks/useSearch";
+import { useNavigate } from "react-router-dom";
+import { nanoid } from 'nanoid'
 
 const SearchUsers = () => {
 
     const inputEl = useRef(null);
+    const { searchUsers } = useSearch()
     const [searchState, setSearchState] = useState(
         {
             searchFocus: false,
@@ -13,6 +16,12 @@ const SearchUsers = () => {
         }
     )
     const [activeModal, setActiveModal] = useState(false)
+    const [usersSuggestions, setUsersSuggestions] = useState([])
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (searchState.searchText.length > 0) setActiveModal(true)
+    }, [searchState])
 
     const hendleFocus = () => {
         setSearchState(prevSearchState => {
@@ -40,7 +49,7 @@ const SearchUsers = () => {
         })
     }
 
-    const hendleChange = (e) => {
+    const hendleChange = async (e) => {
         const { value } = e.target
         setSearchState(prevSearchState => {
             return (
@@ -50,6 +59,7 @@ const SearchUsers = () => {
                 }
             )
         })
+        setUsersSuggestions(await searchUsers(value))
     }
 
     const clearInput = (e) => {
@@ -61,6 +71,7 @@ const SearchUsers = () => {
                 }
             )
         })
+        setUsersSuggestions([])
         inputEl.current.focus()
     }
 
@@ -68,12 +79,37 @@ const SearchUsers = () => {
         paddingLeft: "40px",
     }
 
-    useEffect(() => {
-        if (searchState.searchText.length > 0) setActiveModal(true)
-    }, [searchState])
+ 
 
-    console.log(searchState)
-    console.log(activeModal)
+    const redirectToAnotherUser = (displayName) => {
+        console.log(1)
+        navigate(`/${displayName}`)
+        setActiveModal(false)
+    }
+
+    const mapUsersSuggestions = usersSuggestions.length > 0 ?
+        usersSuggestions.map(elem => {
+            return (
+                <li key={nanoid()} className = "py-1.5 pl-4 hover:bg-gray-100/50 cursor-pointer" onClick={() => redirectToAnotherUser(elem.displayName)}>
+                    <div className="flex justify-between items-center">
+                        <div className="w-[2.75rem] h-[2.75rem] rounded-full overflow-hidden mt-1">
+                            <img
+                                className="w-full h-full object-cover"
+                                src={`${elem.imageUrl ? elem.imageUrl : '/images/standart-profile.png'}`}
+                                alt="UserPhoto"
+                            />
+                        </div>
+                        <div className="w-[19rem] pr-5">
+                            <p className="font-semibold text-sm">
+                                {elem.displayName}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            )
+        })
+        : false
+
 
     return (
         <div className="relative">
@@ -98,14 +134,21 @@ const SearchUsers = () => {
                                 type="button"
                                 onClick={clearInput}
                             >
-                                <img src="/images/close-for-search.png"></img>
+                                <img src="/images/close-for-search.png" />
                             </div>
                             <DropMenu
                                 dropMenuProfile={activeModal}
                                 setDropMenuProfile={setActiveModal}
-                                styleForContainerBlock={`absolute w-[23.4rem] h-[22.6rem] shadow-defaultModal rounded bg-white flex items-center top-16 right-[48.5rem] p-0 m-0 z-20 cursor-pointer`}
-                                styleForInnerBlock='flex items-center flex-col w-full'
+                                styleForContainerBlock={`absolute w-[23.4rem] h-[22.6rem] shadow-defaultModal rounded bg-white flex top-16 right-[48.5rem] p-0 m-0 z-20`}
+                                styleForInnerBlock='flex flex-col w-full'
                             >
+
+                                {
+                                    mapUsersSuggestions &&
+                                    <ul className="pt-3">
+                                        {mapUsersSuggestions}
+                                    </ul>
+                                }
                             </DropMenu>
                         </>
                     )
