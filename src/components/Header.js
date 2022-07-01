@@ -8,7 +8,7 @@ import ItemDropMenu from "../components/ItemDropMenu";
 import DropMenu from "../components/DropMenu";
 import { HeaderStyles } from "../styles/Header";
 import { useLocation } from "react-router-dom";
-import SearchUsers from "./SearchUsers";
+import SearchUsers from './SearchUser/SearchUsers'
 
 const Header = () => {
     const { setFirestoreCurrentUser, firestoreCurrentUser, signOut, auth } = useContext(Context)
@@ -80,12 +80,16 @@ const Header = () => {
         <header className="h-16 border-b flex justify-center bg-white">
             <div className="container max-w-5xl mt-3 relative pl-5">
                 <div className="flex justify-between items-center">
-                    <Link to={ROUTES.HOME}>
+                    <div className="w-1/3">
                         <div className="cursor-pointer">
-                            <img src="/images/instagram.png" alt="instagram" className="h-10"></img>
+                            <Link to={ROUTES.HOME}>
+                                <img src="/images/instagram.png" alt="instagram" className="h-10"></img>
+                            </Link>
                         </div>
-                    </Link>
-                    <SearchUsers />
+                    </div>
+                    <div className="w-1/3 h-9">
+                        <SearchUsers />
+                    </div>
                     {auth.currentUser ?
                         (
                             <div className="flex justify-between items-center">
@@ -238,7 +242,7 @@ const Header = () => {
 
                 </div>
             </div>
-        </header>
+        </header >
     )
 }
 
