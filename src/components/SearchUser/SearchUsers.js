@@ -87,20 +87,50 @@ const SearchUsers = () => {
 
 
 
-    const redirectToAnotherUser = async ({ displayName, imageUrl }) => {
+    const redirectToAnotherUser = async ({ displayName, imageUrl, uid }) => {
+        setActiveModal(false)
+        navigate(`/${displayName}`)
+
         const ReduxUserRef = doc(db, "users", `${userRedux.uid}`);
         const filteredRecentVisitedUsers = userRedux.recentVisitedUsers.filter(elem => elem.displayName != displayName)
         dispatch(setUser(
             {
                 ...userRedux,
-                recentVisitedUsers: [{ displayName, imageUrl }, ...filteredRecentVisitedUsers]
+                recentVisitedUsers: [{ displayName, imageUrl, uid }, ...filteredRecentVisitedUsers]
             }
         ))
         await updateDoc(ReduxUserRef, {
-            "recentVisitedUsers": [{ displayName, imageUrl }, ...filteredRecentVisitedUsers]
+            "recentVisitedUsers": [{ displayName, imageUrl, uid }, ...filteredRecentVisitedUsers]
         });
-        navigate(`/${displayName}`)
-        setActiveModal(false)
+    }
+
+    const clearVisitedUser = async (uid, e) => {
+        e.stopPropagation()
+        const ReduxUserRef = doc(db, "users", `${userRedux.uid}`);
+        const filteredArrayVisitedUsers = userRedux.recentVisitedUsers.filter(elem => elem.uid !== uid)
+        dispatch(setUser(
+            {
+                ...userRedux,
+                recentVisitedUsers: [...filteredArrayVisitedUsers]
+            }
+        ))
+        await updateDoc(ReduxUserRef, {
+            "recentVisitedUsers": [...filteredArrayVisitedUsers]
+        });
+    }
+
+    const clearAllVisitedUsers = async () => {
+        const ReduxUserRef = doc(db, "users", `${userRedux.uid}`);
+        dispatch(setUser(
+            {
+                ...userRedux,
+                recentVisitedUsers: []
+            }
+        ))
+
+        await updateDoc(ReduxUserRef, {
+            "recentVisitedUsers": []
+        });
     }
 
     console.log(userRedux)
@@ -108,7 +138,15 @@ const SearchUsers = () => {
     const mapUsersSuggestions = usersSuggestions.length > 0 ?
         usersSuggestions.map((elem) => {
             return (
-                <li key={elem.uid} className="py-1.5 pl-4 hover:bg-gray-100/50 cursor-pointer" onClick={() => redirectToAnotherUser({ displayName: elem.displayName, imageUrl: elem.imageUrl })}>
+                <li key={elem.uid} className="py-1.5 pl-4 hover:bg-gray-100/50 cursor-pointer" onClick={() => redirectToAnotherUser(
+                    {
+                        displayName: elem.displayName,
+                        imageUrl: elem.imageUrl,
+                        uid: elem.uid
+                    }
+                )
+                }
+                >
                     <div className="flex justify-between items-center">
                         <div className="w-[2.75rem] h-[2.75rem] rounded-full overflow-hidden mt-1">
                             <img
@@ -117,7 +155,7 @@ const SearchUsers = () => {
                                 alt="UserPhoto"
                             />
                         </div>
-                        <div className="w-[18rem] pr-5">
+                        <div className="w-[17.8rem] pr-5">
                             <p className="font-semibold text-sm">
                                 {elem.displayName}
                             </p>
@@ -127,6 +165,38 @@ const SearchUsers = () => {
             )
         })
         : false
+
+    const mapRecentVisitedUsers = userRedux.recentVisitedUsers && userRedux.recentVisitedUsers.map(elem => {
+        return (
+            <li key={elem.uid} className="py-1.5 pl-4 hover:bg-gray-100/50 cursor-pointer" onClick={(e) => redirectToAnotherUser(
+                {
+                    displayName: elem.displayName,
+                    imageUrl: elem.imageUrl,
+                    uid: elem.uid
+                }
+            )
+            }
+            >
+                <div className="flex justify-left items-center">
+                    <div className="w-[2.75rem] h-[2.75rem] rounded-full overflow-hidden mt-1 mr-3">
+                        <img
+                            className="w-full h-full object-cover"
+                            src={`${elem.imageUrl ? elem.imageUrl : '/images/standart-profile.png'}`}
+                            alt="UserPhoto"
+                        />
+                    </div>
+                    <div className="w-[15.5rem] pr-5">
+                        <p className="font-semibold text-sm">
+                            {elem.displayName}
+                        </p>
+                    </div>
+                    <button type = "button" className="p-1" onClick={(e) => clearVisitedUser(elem.uid, e)}>
+                        <img alt = "close" src = "/images/close-icon.png" className="w-3.5 h-3.5 opacity-60"/>
+                    </button>
+                </div>
+            </li>
+        )
+    })
 
 
     return (
@@ -180,13 +250,14 @@ const SearchUsers = () => {
                                     dropMenuProfile={activeModal}
                                     setDropMenuProfile={setActiveModal}
                                     styleForContainerBlock={`fixed w-[23.4rem] h-[22.6rem] shadow-defaultModal rounded bg-white flex top-16 right-[48.5rem] p-0 m-0 z-20`}
-                                    styleForInnerBlock='flex flex-col w-full overflow-y-scroll py-5 px-4'
+                                    styleForInnerBlock='flex flex-col w-full overflow-y-scroll'
                                 >
-                                    <div className="flex justify-between">
+                                    <div className="flex justify-between pt-5 px-4">
                                         <p className="font-semibold">Recent</p>
-                                        <button type="button" className="text-sm font-semibold text-[#0195f6]">Clear all</button>
+                                        <button type="button" className="text-sm font-semibold text-[#0195f6]" onClick={() => clearAllVisitedUsers()}>Clear all</button>
                                     </div>
-                                    <ul className="pt-3">
+                                    <ul className="pt-2">
+                                        {mapRecentVisitedUsers}
                                     </ul>
                                 </DropMenu>
                             )

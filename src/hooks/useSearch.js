@@ -1,9 +1,8 @@
-import { useState, useContext } from "react"
+import { useContext } from "react"
 import { Context } from "../context/firebaseContext"
 
 const useSearch = () => {
     const { collection, db, where, query, getDocs } = useContext(Context)
-    //const [suggestionsUsers, setSuggestionsUser] = useState([])
 
     const searchUsers = async (searhStr) => {
         const usersArray = []
