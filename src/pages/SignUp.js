@@ -1,19 +1,14 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Link, useNavigate } from 'react-router-dom'
-import * as ROUTES from '../constants/links'
+import React, { useState, useContext } from "react";
+import { useNavigate } from 'react-router-dom'
 import { Context } from "../context/firebaseContext";
 import SignUpFirst from "./SignUpPages/SignUpFirst";
 import SignUpSecond from "./SignUpPages/SignUpSecond";
-import { useDispatch } from "react-redux";
-import { setUser } from "../redux/actions/userActions";
 
 const SignUp = () => {
 
     const [userData, setUserData] = useState({})
     const [page, setPage] = useState(0)
-    const [error, setError] = useState()
-    const dispatch = useDispatch()
-    const { auth, createUserWithEmailAndPassword, doc, setDoc, db, setUser, updateProfile, setFirestoreCurrentUser, firestoreCurrentUser, signOut} = useContext(Context)
+    const { auth, createUserWithEmailAndPassword, doc, setDoc, db } = useContext(Context)
     const navigate = useNavigate()
 
 
@@ -29,6 +24,7 @@ const SignUp = () => {
                 followers: [],
                 following: [],
                 posts: [],
+                recentVisitedUsers: []
             }
             setDoc(userRef, userObj)
             navigate("/sign-in")

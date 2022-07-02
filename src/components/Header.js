@@ -45,6 +45,7 @@ const Header = () => {
                 followers: [],
                 following: [],
                 posts: [],
+                recentVisitedUsers: [],
             }
         )
         dispatch(setUser(firestoreCurrentUser))
@@ -57,7 +58,7 @@ const Header = () => {
 
 
     const openProfileUser = () => {
-        //console.log(userRedux.displayName)
+        setDropMenuProfile(false)
     }
     const dropMenuHendler = () => {
         setDropMenuProfile(true)
@@ -70,8 +71,6 @@ const Header = () => {
     const addPostModalHendler = () => {
         setAddPostModal(prevAddPostModal => !prevAddPostModal)
     }
-
-
 
     const isActiveModals = dropMenuProfile || dropMenuHeart || addPostModal
 
@@ -145,7 +144,8 @@ const Header = () => {
                                     </img>
 
                                     <DropMenu
-                                        styleForContainerBlock={`absolute w-[32rem] h-[23rem] shadow-defaultModal rounded bg-white flex items-center top-14 right-[29.5rem] p-0 m-0 z-20 cursor-pointer`}
+                                        styleForWindowBlock="w-full h-full fixed top-0 left-0 flex justify-center items-center z-20 cursor-default "
+                                        styleForContainerBlock={`absolute w-[32rem] h-[23rem] shadow-defaultModal rounded bg-white flex items-center top-14 right-[29.5rem] p-0 m-0 z-30 cursor-pointer`}
                                         styleForInnerBlock='flex items-center flex-col w-full'
                                         dropMenuProfile={dropMenuHeart}
                                         setDropMenuProfile={setDropMenuHeart}
@@ -178,7 +178,8 @@ const Header = () => {
 
 
                                     <DropMenu
-                                        styleForContainerBlock='absolute w-60 shadow-defaultModal rounded bg-white flex items-center top-14 right-[28rem] p-0 m-0 z-20'
+                                        styleForWindowBlock="w-full h-full fixed top-0 left-0 flex justify-center items-center z-20 cursor-default "
+                                        styleForContainerBlock='absolute w-60 shadow-defaultModal rounded bg-white flex items-center top-14 right-[28rem] p-0 m-0 z-30'
                                         styleForInnerBlock='flex items-center flex-col w-full'
                                         dropMenuProfile={dropMenuProfile}
                                         setDropMenuProfile={setDropMenuProfile}
@@ -198,6 +199,7 @@ const Header = () => {
                                             action={userSignOut}
                                             style={HeaderStyles.itemDropItem}
                                             link={`/${userRedux.displayName}`}
+
                                         />
                                         <ItemDropMenu
                                             imageUrl='../images/settings-icon.png'

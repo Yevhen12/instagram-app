@@ -13,7 +13,6 @@ const RealUser = () => {
     const hendleActiveModal = () => {
         setActiveModal(true)
     }
-    console.log(userRedux)
     return (
         <>
             {userRedux.displayName &&

@@ -13,7 +13,7 @@ const UnfollowModal = ({ imageUrl, displayName, activeModal, setActiveModal, nam
     }
 
     return (
-        <div onClick={(e) => e.stopPropagation()} className={`bg-white w-[25rem] rounded-xl duration-300 ${activeModal ? 'scale-100' : 'scale-50'}`}>
+        <div onClick={(e) => e.stopPropagation()} className={`bg-white w-[25rem] rounded-xl duration-300 ${activeModal ? 'opacity-1 scale-100' : 'opacity-0 scale-50'}`}>
             <div className="flex flex-col justify-center items-center">
                 <div className="w-[5.5rem] h-[5.5rem] rounded-full border overflow-hidden my-8">
                     <img
