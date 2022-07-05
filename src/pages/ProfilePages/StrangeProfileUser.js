@@ -69,6 +69,7 @@ const StrangeProfileUser = () => {
                                                             <ReusebleModal
                                                                 activeModal={activeModal}
                                                                 setActiveModal={setActiveModal}
+                                                                styleForContainerBlock = 'fixed w-screen h-screen top-0 left-0 right-0 flex justify-center items-center z-20 cursor-default bg-black/60 duration-300'
                                                             >
                                                                 <UnfollowModal
                                                                     activeModal={activeModal}

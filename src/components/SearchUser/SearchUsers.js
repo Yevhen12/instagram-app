@@ -190,8 +190,8 @@ const SearchUsers = () => {
                             {elem.displayName}
                         </p>
                     </div>
-                    <button type = "button" className="p-1" onClick={(e) => clearVisitedUser(elem.uid, e)}>
-                        <img alt = "close" src = "/images/close-icon.png" className="w-3.5 h-3.5 opacity-60"/>
+                    <button type="button" className="p-1" onClick={(e) => clearVisitedUser(elem.uid, e)}>
+                        <img alt="close" src="/images/close-icon.png" className="w-3.5 h-3.5 opacity-60" />
                     </button>
                 </div>
             </li>
@@ -232,12 +232,19 @@ const SearchUsers = () => {
                                 styleForInnerBlock='flex flex-col w-full overflow-y-scroll'
                             >
                                 {
-                                    mapUsersSuggestions.length > 0 &&
-                                    <ul className="pt-3">
-                                        {mapUsersSuggestions}
-                                    </ul>
+                                    mapUsersSuggestions.length > 0 ?
+                                        (
+                                            <ul className="pt-3">
+                                                {mapUsersSuggestions}
+                                            </ul>
+                                        )
+                                        :
+                                        (
+                                            <div className="flex items-center justify-center h-full">
+                                                <p className="text-sm text-gray-400">No results found.</p>
+                                            </div>
+                                        )
                                 }
-
                             </DropMenu>
                         </>
                     )
