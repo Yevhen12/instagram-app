@@ -7,6 +7,8 @@ import * as ProfileRoutes from './constants/profileLinks'
 import Posts from './pages/ProfilePages/Posts';
 import Tagged from './pages/ProfilePages/Tagged';
 import Saved from './pages/ProfilePages/Saved';
+import * as directLinks from './constants/directLinks'
+import Chat from './pages/Direct/Chat';
 
 const Home = lazy(() => import('./pages/Home'))
 const SignIn = lazy(() => import('./pages/SignIn'))
@@ -40,7 +42,9 @@ function App() {
               <Route path={ProfileRoutes.TAGGED} element={<Tagged />} />
               <Route path = {ProfileRoutes.FOLLOWERS} element={<Followers />} />
             </Route>
-            <Route path={ROUTES.DIRECT} element={<Direct />} />
+            <Route path={ROUTES.DIRECT} element={<Direct />}>
+              <Route path = {directLinks.CHAT} element = {<Chat />}/>
+            </Route>
             <Route path={ROUTES.EXPLORE} element={<Explore />} />
 
 

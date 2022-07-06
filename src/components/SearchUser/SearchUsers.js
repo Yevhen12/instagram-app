@@ -133,8 +133,6 @@ const SearchUsers = () => {
         });
     }
 
-    console.log(userRedux)
-
     const mapUsersSuggestions = usersSuggestions.length > 0 ?
         usersSuggestions.map((elem) => {
             return (

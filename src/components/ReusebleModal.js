@@ -1,10 +1,12 @@
 import React from "react";
 
-const ReusebleModal = ({ children, activeModal, setActiveModal, styleForContainerBlock }) => {
+const ReusebleModal = ({ children, activeModal, setActiveModal, styleForContainerBlock, closeModal }) => {
 
     const hendleMenu = (e) => {
         setActiveModal(false)
+        closeModal()
         e.stopPropagation()
+        
     }
     return (
         <div onClick={(e) => hendleMenu(e)} className={`${styleForContainerBlock} 

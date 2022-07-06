@@ -30,7 +30,7 @@ const Followers = () => {
             nav={-1}
             styleBlock='bg-white w-[25rem] rounded-xl duration-300 h-[25rem]'
         >
-            <ul key={nanoid()} className="flex flex-col">
+            <ul key={nanoid()} className="flex flex-col overflow-y-scroll max-h-[350px]">
                 {mapFollowersArray}
             </ul>
 

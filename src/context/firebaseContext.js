@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
 import { firebase, storage } from '../firebase/firebase'
-import { doc, setDoc, getFirestore, getDoc, collection, getDocs, updateDoc, query, where, arrayRemove, arrayUnion } from "firebase/firestore";
+import { doc, setDoc, getFirestore, getDoc, collection, getDocs, updateDoc, query, where, arrayRemove, arrayUnion, onSnapshot } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { useSelector } from "react-redux";
 
@@ -84,7 +84,8 @@ const FirebaseContextProvider = ({children}) => {
               query,
               where,
               arrayRemove,
-              arrayUnion
+              arrayUnion,
+              onSnapshot,
             }
         }>
             {children}
