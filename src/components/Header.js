@@ -160,7 +160,7 @@ const Header = () => {
 
 
                                 </div>
-                                <div className="mr-6 cursor-pointer box-border ">
+                                <div className="mr-6 cursor-pointer box-border relative">
 
                                     <button
                                         className={`rounded-full overflow-hidden mt-1 border p-0.5 h-[1.9rem] w-[1.9rem] ${(location.pathname === '/' + userRedux.displayName || dropMenuProfile) && !dropMenuHeart && !addPostModal ? 'border-black' : 'border-transparent'}`}

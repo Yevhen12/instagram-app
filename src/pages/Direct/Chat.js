@@ -5,11 +5,13 @@ import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../context/firebaseContext";
 import { setChats } from "../../redux/actions/chatsAction";
+import Picker from 'emoji-picker-react'
 
 const Chat = () => {
     const chatsRedux = useSelector((state) => state.chatsReducer)
     const userRedux = useSelector((state) => state.userReducer.user)
     const [messages, setMessages] = useState([])
+    const [showPicker, setShowPicker] = useState(false)
     const ref = useRef(null)
 
     const dispatch = useDispatch()
@@ -60,14 +62,14 @@ const Chat = () => {
         const chatRef = doc(db, "chats", `${chat}`);
 
         await updateDoc(chatRef, {
-            "messages": [...messages, { uniqKey_time: uniqKey, text: text, user: { uid: userRedux.uid, displayName: userRedux.displayName } }]
+            "messages": [...messages, { uniqKey_time: uniqKey, text: text, user: { uid: userRedux.uid, displayName: userRedux.displayName, imageUrl: userRedux.imageUrl } }]
         });
 
         const mapChatsArray = chatsRedux.map(elem => {
             if (elem.uid === currentChat.uid) {
                 return {
                     ...currentChat,
-                    messages: [...messages, { uniqKey_time: uniqKey, text: text, user: { uid: userRedux.uid, displayName: userRedux.displayName } }]
+                    messages: [...messages, { uniqKey_time: uniqKey, text: text, user: { uid: userRedux.uid, displayName: userRedux.displayName, imageUrl: userRedux.imageUrl} }]
                 }
             } else return elem
         })
@@ -76,15 +78,20 @@ const Chat = () => {
         setText('')
     }
 
+    const onEmojiClick = (event, emojiObject) => {
+        setText(prevText => prevText + emojiObject.emoji)
+        setShowPicker(false)
+    }
+
     const allMessages = messages.length > 0 && messages.map((elem, idx) => {
         return (
             <li key={elem.uniqKey_time} className={`flex items-end ${elem.user.uid === userRedux.uid ? 'justify-end' : 'justify-start'}`}>
                 {
                     (elem.user.uid !== userRedux.uid && (messages[idx + 1] ? messages[idx + 1].user.uid !== messages[idx].user.uid : true)) &&
                     (
-                        <div>
+                        <div className="rounded-full overflow-hidden w-6 h-6 mr-3 mb-1">
                             <Link to={`/${elem.user.displayName}`}>
-                                <img className="w-6 h-6 mr-3 mb-1" alt="userPhoto" src={`${elem.user.imageUrl ? elem.user.imageUrl : '/images/standart-profile.png'}`} />
+                                <img className="w-6 h-6" alt="userPhoto" src={`${elem.user.imageUrl ? elem.user.imageUrl : '/images/standart-profile.png'}`} />
                             </Link>
                         </div>
                     )
@@ -100,6 +107,7 @@ const Chat = () => {
 
 
     const strangeChatUser = currentChat.users.find(elem => elem.uid !== userRedux.uid)
+    console.log(strangeChatUser.imageUrl)
 
     return (
         <div className="w-[calc(100%-350px)] h-[100%-60px] flex flex-col">
@@ -107,7 +115,7 @@ const Chat = () => {
                 <div className="flex justify-between items-center h-[60px] px-10">
                     <button className="flex cursor-pointer" onClick={() => navigate(`/${strangeChatUser.displayName}`)}>
                         <div className="rounded-full overflow-hidden mr-4 ">
-                            <img className="w-6 h-6 object-cover" alt="userPhoto" src={strangeChatUser.imageUrl ? strangeChatUser.imageUrl : '/images/standart-profile.png'} />
+                            <img className="w-6 h-6 object-cover" alt="userPhoto" src={strangeChatUser.imageUrl ? `${strangeChatUser.imageUrl}` : '/images/standart-profile.png'} />
                         </div>
                         <p className="font-semibold">{strangeChatUser.displayName}</p>
                     </button>
@@ -123,10 +131,36 @@ const Chat = () => {
             <div className="m-5 relative">
                 <input
                     placeholder="Message..."
-                    className="border w-full rounded-3xl pr-2.5 pl-5 py-2.5 placeholder:text-sm outline-none text-sm"
+                    className="border w-full rounded-3xl pr-2.5 pl-16 py-2.5 placeholder:text-sm outline-none text-sm"
                     value={text}
                     onChange={(e) => hendleText(e)}
                 />
+                <button className="absolute top-2.5 left-5" onClick={() => setShowPicker(prevShowPicker => !prevShowPicker)}>
+                    <img alt="smile" src="/images/smile-icon.png" className="w-6 h-6" />
+                </button>
+                {
+                    showPicker &&
+                    (
+                        <div
+                            className={`w-full h-full fixed top-0 left-0 items-center z-20 ${showPicker ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                            onClick={() => setShowPicker(false)}
+                        >
+                            <div onClick={(e) => e.stopPropagation()}>
+                                <Picker
+                                    onEmojiClick={onEmojiClick}
+                                    pickerStyle={
+                                        {
+                                            width: '310px',
+                                            position: "absolute",
+                                            top: '500px',
+                                            left: '840px'
+                                        }
+                                    }
+                                />
+                            </div>
+                        </div>
+                    )
+                }
                 {text.length > 0 ?
                     (
                         <button
@@ -140,7 +174,9 @@ const Chat = () => {
                     :
                     (
                         <div>
-
+                            <div className="absolute top-2.5 right-5 cursor-pointer" >
+                                <img alt = "heart" src="/images/heart-uncolored.png" className="h-6 w-6"/>
+                            </div>
                         </div>
                     )
                 }

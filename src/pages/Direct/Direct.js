@@ -50,7 +50,7 @@ const Direct = () => {
         const years = months > 12 ? (months / 12).toFixed(0) : 0
         const nowTime = minutes === 0 ? 'Now' : 0
 
-        console.log("hours" + time.getHours())
+        console.log(new Date().getMinutes())
 
         const currentTime = (years || months || weeks || days || hours || minutes || nowTime)
         const currentTimeString = (currentTime === years && currentTime.toString() + 'd') || (currentTime === months && currentTime.toString() + 'm')
