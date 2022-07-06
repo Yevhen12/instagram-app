@@ -1,7 +1,7 @@
 import { onSnapshot } from "firebase/firestore";
 import React, { useState, useContext, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../context/firebaseContext";
 import { setChats } from "../../redux/actions/chatsAction";
@@ -30,11 +30,11 @@ const Chat = () => {
     useEffect(() => {
         const getMsg = async () => {
             const ref = doc(db, "chats", `${currentChat.uid}`)
-            if(messages.length === 0) {
+            if (messages.length === 0) {
                 const docSnap = await getDoc(ref);
                 setMessages(docSnap.data().messages)
             }
-           
+
             onSnapshot(doc(db, "chats", `${currentChat.uid}`), (doc) => {
                 const allMessages = doc.data().messages
                 setMessages(allMessages)
@@ -76,15 +76,28 @@ const Chat = () => {
         setText('')
     }
 
-    const allMessages = messages.length > 0 && messages.map(elem => {
+    const allMessages = messages.length > 0 && messages.map((elem, idx) => {
         return (
-            <li key={elem.uniqKey_time} className={`flex ${elem.user.uid === userRedux.uid ? 'justify-end' : 'justify-start'}`}>
-                <div style={{ wordWrap: "break-word" }} className={`py-2.5 px-4 mt-2 rounded-3xl max-w-[230px] ${elem.user.uid === userRedux.uid ? 'bg-black/5' : 'border'}`}>
+            <li key={elem.uniqKey_time} className={`flex items-end ${elem.user.uid === userRedux.uid ? 'justify-end' : 'justify-start'}`}>
+                {
+                    (elem.user.uid !== userRedux.uid && (messages[idx + 1] ? messages[idx + 1].user.uid !== messages[idx].user.uid : true)) &&
+                    (
+                        <div>
+                            <Link to={`/${elem.user.displayName}`}>
+                                <img className="w-6 h-6 mr-3 mb-1" alt="userPhoto" src={`${elem.user.imageUrl ? elem.user.imageUrl : '/images/standart-profile.png'}`} />
+                            </Link>
+                        </div>
+                    )
+                }
+                <div style={{ wordWrap: "break-word" }} className={`py-2.5 px-4 mt-2 rounded-3xl max-w-[230px] 
+                ${elem.user.uid === userRedux.uid ? 'bg-black/5' : (messages[idx + 1] ? messages[idx + 1].user.uid !== messages[idx].user.uid : true) ? 'border' : 'border ml-9'}`}>
                     <span className="max-w-[230px] text-sm text-ellipsis">{elem.text}</span>
                 </div>
             </li>
         )
     })
+
+
 
     const strangeChatUser = currentChat.users.find(elem => elem.uid !== userRedux.uid)
 
@@ -103,7 +116,7 @@ const Chat = () => {
                     </div>
                 </div>
             </div>
-            <ul style={{flexFlow: 'column nowrap'}} className="w-full h-[calc(100%)] overflow-y-auto flex flex-col px-4 first-child: mt-auto">
+            <ul style={{ flexFlow: 'column nowrap' }} className="w-full h-[calc(100%)] overflow-y-auto flex flex-col pr-4 first-child: mt-auto pl-4">
                 {allMessages}
                 <div ref={ref}></div>
             </ul>
@@ -133,7 +146,7 @@ const Chat = () => {
                 }
 
             </div>
-            
+
         </div>
 
     )

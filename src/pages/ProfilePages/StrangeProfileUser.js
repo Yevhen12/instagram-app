@@ -12,12 +12,12 @@ const StrangeProfileUser = () => {
     const currentProfileUserRedux = useSelector((state) => state.currentProfileUserReducer.user)
     const userRedux = useSelector((state) => state.userReducer.user)
     const [activeModal, setActiveModal] = useState(false)
-    
+
 
     //console.log(currentProfileUserRedux)
     const location = useLocation()
-    const {imageUrl, name, uid, displayName} = currentProfileUserRedux
-    const { hendleFollow } = useFollow({imageUrl, name, uid, displayName})
+    const { imageUrl, name, uid, displayName } = currentProfileUserRedux
+    const { hendleFollow } = useFollow({ imageUrl, name, uid, displayName })
     const addToFollowing = () => {
         setActiveModal(false)
         hendleFollow()
@@ -60,7 +60,7 @@ const StrangeProfileUser = () => {
                                                                 Message
                                                             </button>
                                                             <button
-                                                                className="active:opacity-60 border rounded rounded-[0.15] px-[1.6rem] py-1.5 text-sm font-semibold mr-2 bg-transparent text-black "
+                                                                className="active:opacity-60 border rounded rounded-[0.15] px-[0.7rem] py-1.5 text-sm font-semibold mr-2 bg-transparent text-black "
                                                                 type="button"
                                                                 onClick={() => setActiveModal(true)}
                                                             >
@@ -69,14 +69,14 @@ const StrangeProfileUser = () => {
                                                             <ReusebleModal
                                                                 activeModal={activeModal}
                                                                 setActiveModal={setActiveModal}
-                                                                styleForContainerBlock = 'fixed w-screen h-screen top-0 left-0 right-0 flex justify-center items-center z-20 cursor-default bg-black/60 duration-300'
+                                                                styleForContainerBlock='fixed w-screen h-screen top-0 left-0 right-0 flex justify-center items-center z-20 cursor-default bg-black/60 duration-300'
                                                             >
                                                                 <UnfollowModal
                                                                     activeModal={activeModal}
                                                                     imageUrl={currentProfileUserRedux.imageUrl}
                                                                     displayName={currentProfileUserRedux.displayName}
-                                                                    name = {currentProfileUserRedux.name}
-                                                                    uid = {currentProfileUserRedux.uid}
+                                                                    name={currentProfileUserRedux.name}
+                                                                    uid={currentProfileUserRedux.uid}
                                                                     setActiveModal={setActiveModal}
                                                                 />
                                                             </ReusebleModal>
@@ -92,7 +92,13 @@ const StrangeProfileUser = () => {
                                                     (
                                                         <>
                                                             <button
-                                                                className="active:opacity-60 rounded rounded-[0.15] px-6 py-1.5 text-sm font-semibold mr-2 bg-[#0195f6] text-white "
+                                                                className="active:opacity-60 border rounded rounded-[0.15] px-2.5 py-1.5 text-sm font-semibold mr-2 bg-transparent text-black "
+                                                                type="button"
+                                                            >
+                                                                Message
+                                                            </button>
+                                                            <button
+                                                                className="active:opacity-60 rounded rounded-[0.15] px-4 py-1.5 text-sm font-semibold mr-2 bg-[#0195f6] text-white "
                                                                 type="button"
                                                                 onClick={addToFollowing}
                                                             >
