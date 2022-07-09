@@ -4,7 +4,7 @@ const ReusebleModal = ({ children, activeModal, setActiveModal, styleForContaine
 
     const hendleMenu = (e) => {
         setActiveModal(false)
-        closeModal()
+        closeModal && closeModal()
         e.stopPropagation()
         
     }

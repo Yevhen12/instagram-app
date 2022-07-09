@@ -34,33 +34,38 @@ const Direct = () => {
         getChats()
     }, [userRedux.uid])
 
-    console.log(userRedux)
+    console.log(chatsArray)
 
-    const sortChatsArray = chatsArray.sort((a, b) => b.messages[b.messages.length - 1].uniqKey_time - a.messages[a.messages.length - 1].uniqKey_time)
+    const sortChatsArray = chatsArray.sort((a, b) => {
+        if (!b.messages.length || !a.messages.length) return b.uid - a.uid
+        else return b.messages[b.messages.length - 1].uniqKey_time - a.messages[a.messages.length - 1].uniqKey_time
+
+    })
 
     const mapChatsArray = sortChatsArray.map((elem, idx) => {
         const strangeUser = elem.users.find(elem => elem.uid !== userRedux.uid)
-        const time = new Date(((new Date().getTime() - elem.messages[elem.messages.length - 1].uniqKey_time)))
-        
-        const minutes = time.getMinutes()
-        const hours = minutes > 60 ? (minutes / 60).toFixed(0) : 0
-        const days = hours > 24 ? (hours / 24).toFixed(0) : 0
-        const weeks = days > 7 ? (days / 7).toFixed(0) : 0
-        const months = days > 30 ? (days / 30).toFixed(0) : 0
-        const years = months > 12 ? (months / 12).toFixed(0) : 0
-        const nowTime = minutes === 0 ? 'Now' : 0
+        let currentTimeString = 'Now';
+        if (elem.messages.length > 0) {
+            const time = new Date(((new Date().getTime() - elem.messages[elem.messages.length - 1].uniqKey_time)))
 
-        console.log(new Date().getMinutes())
+            const minutes = time.getMinutes()
+            const hours = minutes > 60 ? (minutes / 60).toFixed(0) : 0
+            const days = hours > 24 ? (hours / 24).toFixed(0) : 0
+            const weeks = days > 7 ? (days / 7).toFixed(0) : 0
+            const months = days > 30 ? (days / 30).toFixed(0) : 0
+            const years = months > 12 ? (months / 12).toFixed(0) : 0
+            const nowTime = minutes === 0 ? 'Now' : 0
 
-        const currentTime = (years || months || weeks || days || hours || minutes || nowTime)
-        const currentTimeString = (currentTime === years && currentTime.toString() + 'd') || (currentTime === months && currentTime.toString() + 'm')
-            || (currentTime === weeks && currentTime.toString() + 'w') || (currentTime === days && currentTime.toString() + 'd') ||
-            (currentTime === hours && currentTime.toString() + 'h') || (currentTime === minutes && currentTime.toString() + 'm') || 'Now'
+            console.log(new Date().getMinutes())
+
+            const currentTime = (years || months || weeks || days || hours || minutes || nowTime)
+            currentTimeString = (currentTime === years && currentTime.toString() + 'd') || (currentTime === months && currentTime.toString() + 'm')
+                || (currentTime === weeks && currentTime.toString() + 'w') || (currentTime === days && currentTime.toString() + 'd') ||
+                (currentTime === hours && currentTime.toString() + 'h') || (currentTime === minutes && currentTime.toString() + 'm') || 'Now'
+
+        }
 
 
-        console.log(time.getTime())
-
-        console.log("  minutes" + minutes + "   hours" + hours + "  days" + days + "  month" + months + "  years" + years)
         return (
             <li key={idx} className={`py-1.5 pl-4 hover:bg-gray-100/50 cursor-pointer ${location.pathname === `/direct/${elem.uid}` && 'bg-black/5 hover:bg-black/5 cursor-default'}`}>
                 <Link to={elem.uid} className={`${location.pathname === `/direct/${elem.uid}` && 'cursor-default'}`}>
@@ -76,7 +81,10 @@ const Direct = () => {
                             <p className="text-sm">
                                 {strangeUser.displayName}
                             </p>
-                            <p className="text-sm text-black/40">{elem.messages[elem.messages.length - 1].text} · {currentTimeString}</p>
+                            <div className="flex">
+                                <p className="text-sm text-black/40 max-w-[115px] overflow-hidden mr-1">{elem.messages.length > 0 && elem.messages[elem.messages.length - 1].text} </p>
+                                <p className="text-sm text-black/40 min-w-[30px]"> · {currentTimeString}</p>
+                            </div>
                         </div>
                     </div>
                 </Link>
