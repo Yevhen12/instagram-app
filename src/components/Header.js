@@ -9,6 +9,7 @@ import DropMenu from "../components/DropMenu";
 import { HeaderStyles } from "../styles/Header";
 import { useLocation } from "react-router-dom";
 import SearchUsers from './SearchUser/SearchUsers'
+import PostModal from "./Post/PostModal";
 
 const Header = () => {
     const { setFirestoreCurrentUser, firestoreCurrentUser, signOut, auth } = useContext(Context)
@@ -26,7 +27,7 @@ const Header = () => {
         dispatch(setUser(firestoreCurrentUser))
     }, [firestoreCurrentUser])
 
-
+    console.log(userRedux)
 
     const userSignOut = () => {
         setFirestoreCurrentUser(
@@ -121,6 +122,10 @@ const Header = () => {
                                         className="h-6"
                                     >
                                     </img>
+                                    <PostModal
+                                        activeModal = {addPostModal}
+                                        setActiveModal = {addPostModalHendler}
+                                    />
                                 </div>
                                 <div className="mr-6 cursor-pointer">
                                     <Link to={ROUTES.EXPLORE}>

@@ -12,7 +12,7 @@ const DeleteChatModal = ({ activeModal, setActiveModal }) => {
     const { doc, db, deleteDoc } = useContext(Context)
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const chatsRedux = useSelector((state) => state.chatsReducer)
+    const chatsRedux = useSelector((state) => state.chatsReducer.chats)
 
     const deleteChat = async () => {
 

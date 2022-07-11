@@ -10,17 +10,17 @@ import Info from "./Info";
 import { List, AutoSizer, CellMeasurer, CellMeasurerCache } from 'react-virtualized'
 
 const Chat = () => {
-    const chatsRedux = useSelector((state) => state.chatsReducer)
+    const chatsRedux = useSelector((state) => state.chatsReducer.chats)
     const userRedux = useSelector((state) => state.userReducer.user)
     const [messages, setMessages] = useState([])
     const [showPicker, setShowPicker] = useState(false)
     const [isInfoActive, setIsInfoActive] = useState(false)
 
     const scroll = useRef(null)
-    const cache = useRef(new CellMeasurerCache({
-        fixedWidth: true,
-        defaultHeigth: 50
-    }))
+    // const cache = useRef(new CellMeasurerCache({
+    //     fixedWidth: true,
+    //     defaultHeigth: 50
+    // }))
 
     const dispatch = useDispatch()
 

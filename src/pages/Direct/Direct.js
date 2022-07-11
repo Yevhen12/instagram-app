@@ -10,7 +10,7 @@ import NotFound from "../NotFound";
 const Direct = () => {
     const [activeModal, setActiveModal] = useState(false)
     const userRedux = useSelector((state) => state.userReducer.user)
-    const chatsArray = useSelector((state) => state.chatsReducer)
+    const chatsArray = useSelector((state) => state.chatsReducer.chats)
     const { db, collection, getDocs } = useContext(Context)
     const dispatch = useDispatch()
     const location = useLocation()

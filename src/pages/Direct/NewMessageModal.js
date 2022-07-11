@@ -12,7 +12,7 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
     const [selectedUsers, setSelectedUsers] = useState([])
     const { searchUsers } = useSearch()
     const { setDoc, doc, db, collection, getDocs } = useContext(Context)
-    const chatsArray = useSelector((state) => state.chatsReducer)
+    const chatsArray = useSelector((state) => state.chatsReducer.chats)
     const userRedux = useSelector((state) => state.userReducer.user)
 
     const dispatch = useDispatch()
