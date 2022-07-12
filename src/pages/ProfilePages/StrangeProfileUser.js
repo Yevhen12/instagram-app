@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { Link, Outlet } from "react-router-dom";
@@ -116,7 +116,7 @@ const StrangeProfileUser = () => {
                                         </div>
                                         <div className="flex items-center">
                                             <div className="mr-10">
-                                                <p><span className="font-semibold">0 </span>posts</p>
+                                                <p><span className="font-semibold">{currentProfileUserRedux.posts.length} </span>posts</p>
                                             </div>
                                             <div className="mr-10">
                                                 <Link to={`${ProfileRoutes.FOLLOWERS}`}>

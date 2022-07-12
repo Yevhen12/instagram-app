@@ -6,6 +6,7 @@ import { Context } from "../../context/firebaseContext";
 import { setChats } from "../../redux/actions/chatsAction";
 import { Outlet, Link, useLocation, useParams } from "react-router-dom";
 import NotFound from "../NotFound";
+import convertUnixTime from "../../helpers/converUnixTime";
 
 const Direct = () => {
     const [activeModal, setActiveModal] = useState(false)
@@ -46,25 +47,9 @@ const Direct = () => {
         const strangeUser = elem.users.find(elem => elem.uid !== userRedux.uid)
         let currentTimeString = 'Now';
         if (elem.messages.length > 0) {
-            const time = new Date(((new Date().getTime() - elem.messages[elem.messages.length - 1].uniqKey_time)))
-
-            const minutes = time.getMinutes()
-            const hours = minutes > 60 ? (minutes / 60).toFixed(0) : 0
-            const days = hours > 24 ? (hours / 24).toFixed(0) : 0
-            const weeks = days > 7 ? (days / 7).toFixed(0) : 0
-            const months = days > 30 ? (days / 30).toFixed(0) : 0
-            const years = months > 12 ? (months / 12).toFixed(0) : 0
-            const nowTime = minutes === 0 ? 'Now' : 0
-
-            console.log(new Date().getMinutes())
-
-            const currentTime = (years || months || weeks || days || hours || minutes || nowTime)
-            currentTimeString = (currentTime === years && currentTime.toString() + 'd') || (currentTime === months && currentTime.toString() + 'm')
-                || (currentTime === weeks && currentTime.toString() + 'w') || (currentTime === days && currentTime.toString() + 'd') ||
-                (currentTime === hours && currentTime.toString() + 'h') || (currentTime === minutes && currentTime.toString() + 'm') || 'Now'
-
+            currentTimeString = convertUnixTime(elem.messages[elem.messages.length - 1].uniqKey_time).split(' ')
+            currentTimeString = currentTimeString[0] + currentTimeString[1][0]
         }
-
 
         return (
             <li key={idx} className={`py-1.5 pl-4 hover:bg-gray-100/50 cursor-pointer ${location.pathname === `/direct/${elem.uid}` && 'bg-black/5 hover:bg-black/5 cursor-default'}`}>

@@ -4,7 +4,7 @@ import AreUSureModal from "./Post/Modals/AreUSureModal";
 const ReusebleModal = ({ children, activeModal, setActiveModal, styleForContainerBlock, closeModal }) => {
 
     const hendleMenu = (e) => {
-        setActiveModal(false)
+        setActiveModal && setActiveModal(false)
         closeModal && closeModal()
         e.stopPropagation()
 

@@ -28,7 +28,7 @@ const PostModalOne = ({ activeModal, setActiveModal, setPage, setPost, post }) =
             images: []
         })
     }
-
+    
 
     return (
         <ReusebleModal

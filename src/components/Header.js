@@ -27,7 +27,6 @@ const Header = () => {
         dispatch(setUser(firestoreCurrentUser))
     }, [firestoreCurrentUser])
 
-    console.log(userRedux)
 
     const userSignOut = () => {
         setFirestoreCurrentUser(

@@ -9,6 +9,7 @@ import Tagged from './pages/ProfilePages/Tagged';
 import Saved from './pages/ProfilePages/Saved';
 import * as directLinks from './constants/directLinks'
 import Chat from './pages/Direct/Chat';
+import ModalDetailedPost from './pages/ProfilePages/Post/ModalDetailedPost';
 
 const Home = lazy(() => import('./pages/Home'))
 const SignIn = lazy(() => import('./pages/SignIn'))
@@ -38,6 +39,7 @@ function App() {
             <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
             <Route path={ROUTES.PROFILE} element={<Profile />}>
               <Route path={ProfileRoutes.POSTS} element={<Posts />} />
+              <Route path={ProfileRoutes.POST} element = {<ModalDetailedPost />} />
               <Route path={ProfileRoutes.SAVED} element={<Saved />} />
               <Route path={ProfileRoutes.TAGGED} element={<Tagged />} />
               <Route path = {ProfileRoutes.FOLLOWERS} element={<Followers />} />

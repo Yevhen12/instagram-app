@@ -43,7 +43,7 @@ const RealUser = () => {
                                     </div>
                                 </div>
                                 <div className="flex items-center">
-                                    <p className="mr-10"><span className="font-semibold">0</span> posts</p>
+                                    <p className="mr-10"><span className="font-semibold">{userRedux.posts.length}</span> posts</p>
                                     <p className="font-semibold mr-10">{userRedux.followers.length}<span className="font-normal"> followers</span></p>
                                     <p className="font-semibold">{userRedux.following.length}<span className="font-normal"> following</span></p>
                                 </div>

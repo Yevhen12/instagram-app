@@ -4,12 +4,15 @@ import { useSelector, useDispatch } from "react-redux";
 import Picker from 'emoji-picker-react'
 import { Context } from "../../../context/firebaseContext";
 import { setUser } from "../../../redux/actions/userActions";
+import { setCurrentProfileUser } from "../../../redux/actions/currentProfileUser";
+import { useParams } from "react-router-dom";
 
 const PostModalTwo = ({ activeModal, setActiveModal, setPage, setPost, post }) => {
 
     const [text, setText] = useState('')
     const [showPicker, setShowPicker] = useState(false)
-    const { storage, db, updateDoc, ref, doc, uploadBytes, getDownloadURL } = useContext(Context)
+    const { storage, db, updateDoc, ref, doc, uploadBytes, getDownloadURL, setFirestoreCurrentUser } = useContext(Context)
+    const { user } = useParams()
 
     const closeModal = () => {
         setPage(0)
@@ -28,6 +31,7 @@ const PostModalTwo = ({ activeModal, setActiveModal, setPage, setPost, post }) =
     }
     const dispatch = useDispatch()
     const userRedux = useSelector(state => state.userReducer.user)
+    const currentProfileUser = useSelector((state) => state.currentProfileUserReducer.user)
 
     const onEmojiClick = (event, emojiObject) => {
         setText(prevText => prevText + emojiObject.emoji)
@@ -42,19 +46,25 @@ const PostModalTwo = ({ activeModal, setActiveModal, setPage, setPost, post }) =
 
         const imageUrl = await getDownloadURL(fileReff)
 
-        const newPost  = {
+        const newPost = {
             image: imageUrl,
             text,
             comments: [],
             likes: [],
-            uid: new Date().getTime().toString()
+            uid: new Date().getTime().toString(),
+            user: userRedux.uid
         }
 
         await updateDoc(doc(db, "users", userRedux.uid), {
             "posts": [...userRedux.posts, newPost]
         })
 
-        dispatch(setUser({...userRedux, posts: [...userRedux.posts, newPost]}))
+        dispatch(setUser({ ...userRedux, posts: [newPost, ...userRedux.posts] }))
+        setFirestoreCurrentUser({ ...userRedux, posts: [newPost, ...userRedux.posts] })
+        if(!user || user === userRedux.displayName) {
+            dispatch(setCurrentProfileUser({ ...currentProfileUser, posts: [newPost, ...currentProfileUser.posts] }))
+        }
+        
         setPage(0)
         setPost({
             images: []
