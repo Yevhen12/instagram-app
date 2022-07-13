@@ -21,15 +21,38 @@ const ModalDetailedPost = () => {
         navigate(`/${currenUserInProfile.displayName}`)
 
     }
-    console.log(currenUserInProfile)
 
     const currentPost = currenUserInProfile.posts.find(elem => elem.uid === userPost)
 
-    const mapedArrayComments = currentPost.comments.map(elem => <Comment key = {elem.createdAt} postComment={elem} />)
+
+    const mapedArrayComments = currentPost.comments.length > 0 && currentPost.comments.map(elem => <Comment key={elem.createdAt} postComment={elem} />)
+
+    const isNextPostExist = currenUserInProfile.posts.find(elem=> {
+        if (Number(elem.uid) < Number(userPost)) return elem
+
+        return false
+    })
+
+   
+
+    const isPrevPostExist = currenUserInProfile.posts.find((elem, idx) => {
+        if (Number(elem.uid) > Number(userPost) && currenUserInProfile.posts[idx + 1].uid === userPost) return elem
+        
+        return false
+    })
+
+    const nextPost = (e) => {
+        e.stopPropagation()
+        navigate(`/${currenUserInProfile.displayName}/${isNextPostExist.uid}`)
+    }
+
+    const prevPost = (e) => {
+        e.stopPropagation()
+        navigate(`/${currenUserInProfile.displayName}/${isPrevPostExist.uid}`)
+    }
 
 
-    console.log(userPost, user)
-    console.log(currenUserInProfile)
+
     return (
         <ReusebleModal
             activeModal={activeModal}
@@ -37,6 +60,20 @@ const ModalDetailedPost = () => {
             styleForContainerBlock='fixed w-screen h-screen top-0 left-0 right-0 flex justify-center items-center z-20 cursor-default bg-black/60 duration-300'
             closeModal={closeModal}
         >
+
+            {
+                isNextPostExist &&
+                <div className="h-8 w-8 bg-white absolute top-[50%] right-[30px] rounded-full cursor-pointer" onClick={(e) => nextPost(e)}>
+                    <img alt="next" src="/images/down-arrow.png" className="w-5 h-5 rotate-[270deg] mt-1.5 ml-1.5" />
+                </div>
+            }
+
+             {
+                isPrevPostExist &&
+                <div className="h-8 w-8 bg-white absolute top-[50%] left-[30px] rounded-full cursor-pointer" onClick={(e) => prevPost(e)}>
+                    <img alt="next" src="/images/down-arrow.png" className="w-5 h-5 rotate-[90deg] mt-1.5 ml-1" />
+                </div>
+            }
             <div className={`max-w-[70%] w-full bg-white max-h-[85%] h-full my-5 flex items-center rounded-r-md ${activeModal ? 'scale-100' : 'scale-50'}`} onClick={(e) => e.stopPropagation()}>
                 <div className="w-3/5 h-full">
                     <img
