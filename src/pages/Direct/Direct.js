@@ -29,13 +29,12 @@ const Direct = () => {
                 const mapUidUsers = elem.users.map(someUser => someUser.uid)
                 return mapUidUsers.includes(userRedux.uid)
             })
-            console.log(filteredArray)
             dispatch(setChats(filteredArray))
         }
         getChats()
     }, [userRedux.uid])
 
-    console.log(chatsArray)
+
 
     const sortChatsArray = chatsArray.sort((a, b) => {
         if (!b.messages.length || !a.messages.length) return b.uid - a.uid
@@ -43,12 +42,19 @@ const Direct = () => {
 
     })
 
+
     const mapChatsArray = sortChatsArray.map((elem, idx) => {
         const strangeUser = elem.users.find(elem => elem.uid !== userRedux.uid)
         let currentTimeString = 'Now';
         if (elem.messages.length > 0) {
             currentTimeString = convertUnixTime(elem.messages[elem.messages.length - 1].uniqKey_time).split(' ')
-            currentTimeString = currentTimeString[0] + currentTimeString[1][0]
+            console.log(currentTimeString[1])
+            if(currentTimeString[1] === 'Now') {
+                currentTimeString = 'Now'
+            } else {
+                currentTimeString = currentTimeString[0] + currentTimeString[1][0]
+            }
+            
         }
 
         return (

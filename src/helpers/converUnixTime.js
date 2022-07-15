@@ -11,9 +11,9 @@ const convertUnixTime = (time) => {
     const nowTime = minutes === 0 ? ' Now' : 0
 
     const currentTime = (years || months || weeks || days || hours || minutes || nowTime)
-    currentTimeString = (currentTime === years && currentTime.toString() + ' year') || (currentTime === months && currentTime.toString() + ' month')
-        || (currentTime === weeks && currentTime.toString() + ' week') || (currentTime === days && currentTime.toString() + ' day') ||
-        (currentTime === hours && currentTime.toString() + ' hour') || (currentTime === minutes && currentTime.toString() + ' minutes') || ' Now'
+    currentTimeString = (currentTime === years && currentTime.toString() + ' years') || (currentTime === months && currentTime.toString() + ' months')
+        || (currentTime === weeks && currentTime.toString() + ' weeks') || (currentTime === days && currentTime.toString() + ' days') ||
+        (currentTime === hours && currentTime.toString() + ' hours') || (currentTime === minutes && currentTime.toString() + ' minutes') || ' Now'
 
         return currentTimeString
 }

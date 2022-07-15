@@ -7,11 +7,16 @@ import NotFound from "../NotFound";
 import ReusebleModal from "../../components/ReusebleModal";
 import UnfollowModal from "../../components/UnfollowModal";
 import useFollow from "../../hooks/useFollow";
+import useChat from "../../hooks/useChat";
 
 const StrangeProfileUser = () => {
     const currentProfileUserRedux = useSelector((state) => state.currentProfileUserReducer.user)
     const userRedux = useSelector((state) => state.userReducer.user)
+    const chatsArray = useSelector((state) => state.chatsReducer.chats)
+
     const [activeModal, setActiveModal] = useState(false)
+
+    const {createChat} = useChat(chatsArray)
 
 
     //console.log(currentProfileUserRedux)
@@ -25,6 +30,12 @@ const StrangeProfileUser = () => {
     console.log(currentProfileUserRedux)
 
     const isUserReduxFollowing = currentProfileUserRedux.followers && currentProfileUserRedux.followers.find(elem => elem.uid === userRedux.uid)
+
+    const startChat = () => {
+        console.log(1)
+        createChat([currentProfileUserRedux])
+
+    }
 
 
 
@@ -56,6 +67,7 @@ const StrangeProfileUser = () => {
                                                             <button
                                                                 className="active:opacity-60 border rounded rounded-[0.15] px-2.5 py-1.5 text-sm font-semibold mr-2 bg-transparent text-black "
                                                                 type="button"
+                                                                onClick = {startChat}
                                                             >
                                                                 Message
                                                             </button>
@@ -94,6 +106,7 @@ const StrangeProfileUser = () => {
                                                             <button
                                                                 className="active:opacity-60 border rounded rounded-[0.15] px-2.5 py-1.5 text-sm font-semibold mr-2 bg-transparent text-black "
                                                                 type="button"
+                                                                onClick = {startChat}
                                                             >
                                                                 Message
                                                             </button>
@@ -155,7 +168,7 @@ const StrangeProfileUser = () => {
                                         </Link>
                                     </div>
                                 </div>
-                                <Outlet />
+                                <Outlet context={{posts: currentProfileUserRedux.posts}}/>
                             </div>
                         </section >
                     )

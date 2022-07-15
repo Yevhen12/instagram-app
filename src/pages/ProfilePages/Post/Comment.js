@@ -5,6 +5,8 @@ import { Context } from "../../../context/firebaseContext";
 import convertUnixTime from "../../../helpers/converUnixTime";
 import { setCurrentProfileUser } from "../../../redux/actions/currentProfileUser";
 import { setUser } from "../../../redux/actions/userActions";
+import LikesModal from "./LikesModal";
+import { setCurrentPost } from "../../../redux/actions/currentPostAction";
 
 const Comment = ({ postComment }) => {
 
@@ -12,13 +14,15 @@ const Comment = ({ postComment }) => {
 
     const currentUserInProfile = useSelector(state => state.currentProfileUserReducer.user)
     const userRedux = useSelector(state => state.userReducer.user)
+    const currentPostRedux = useSelector(state => state.currentPostReducer.post)
 
-    const { db, doc, updateDoc } = useContext(Context)
+    const { db, doc, updateDoc, getDoc } = useContext(Context)
 
     const isCommentLiked = postComment.likes.length > 0 && postComment.likes.find(elem => elem.uid === userRedux.uid) ? true : false
 
     const [isLiked, setIsLiked] = useState(isCommentLiked)
     const [likeAnimation, setLikeAnimation] = useState(false)
+    const [activeModal, setActiveModal] = useState(false)
 
 
     let currentTimeString = convertUnixTime(postComment.createdAt).split(' ')
@@ -27,7 +31,12 @@ const Comment = ({ postComment }) => {
     const likeComment = async () => {
 
         const { imageUrl, displayName, uid } = userRedux
-        const userCurrentProfileDoc = doc(db, 'users', currentUserInProfile.uid)
+
+        const userCurrentProfileDoc = doc(db, 'users', currentPostRedux.user.uid)
+        const userSnap = await getDoc(userCurrentProfileDoc);
+
+        const userToUpdate = userSnap.data()
+
         let newProfileUser;
 
         setIsLiked(prevIsLiked => !prevIsLiked)
@@ -35,18 +44,22 @@ const Comment = ({ postComment }) => {
 
         if (isLiked) {
             const filteredLikeArray = postComment.likes.filter(elem => elem.uid !== uid)
-            const mapPostsArray = currentUserInProfile.posts.map(elem => {
+            const mapPostsArray = userToUpdate.posts.map(elem => {
                 if (elem.uid === postComment.parent) {
+                    const mapedComments = elem.comments.map(elemComment => {
+                        if (elemComment.createdAt === postComment.createdAt) {
+                            return {
+                                ...elemComment,
+                                likes: filteredLikeArray
+                            }
+                        } else return elemComment
+                    })
+
+                    dispatch(setCurrentPost({...currentPostRedux, comments: mapedComments}))
+
                     return {
                         ...elem,
-                        comments: elem.comments.map(elemComment => {
-                            if (elemComment.createdAt === postComment.createdAt) {
-                                return {
-                                    ...elemComment,
-                                    likes: filteredLikeArray
-                                }
-                            } else return elemComment
-                        })
+                        comments: mapedComments
                     }
                 } else return elem
             })
@@ -57,29 +70,32 @@ const Comment = ({ postComment }) => {
             })
 
             newProfileUser = {
-                ...currentUserInProfile,
+                ...userToUpdate,
                 posts: mapPostsArray
             }
 
         } else {
             const newArrayLikes = [{ imageUrl, displayName, uid }, ...postComment.likes]
-            const mapPostsArray = currentUserInProfile.posts.map(elem => {
+            const mapPostsArray = userToUpdate.posts.map(elem => {
                 if (elem.uid === postComment.parent) {
-                    console.log(1)
+
+                    const mapedComments = elem.comments.map(elemComment => {
+                        if (elemComment.createdAt === postComment.createdAt) {
+                            return {
+                                ...elemComment,
+                                likes: newArrayLikes
+                            }
+                        } else return elemComment
+                    })
+
+                    dispatch(setCurrentPost({...currentPostRedux, comments: mapedComments}))
+
                     return {
-                        ...elem, comments: elem.comments.map(elemComment => {
-                            if (elemComment.createdAt === postComment.createdAt) {
-                                return {
-                                    ...elemComment,
-                                    likes: newArrayLikes
-                                }
-                            } else return elemComment
-                        })
+                        ...elem, 
+                        comments: mapedComments,
                     }
                 } else return elem
             })
-
-            console.log(mapPostsArray)
 
 
             await updateDoc(userCurrentProfileDoc, {
@@ -87,14 +103,17 @@ const Comment = ({ postComment }) => {
             })
 
             newProfileUser = {
-                ...currentUserInProfile,
+                ...userToUpdate,
                 posts: mapPostsArray
             }
         }
 
-        dispatch(setCurrentProfileUser(newProfileUser))
+        if(userToUpdate.uid === currentUserInProfile.uid) {
+            dispatch(setCurrentProfileUser(newProfileUser))
+        }
 
-        if (currentUserInProfile.uid === userRedux.uid) {
+
+        if (userToUpdate.uid === userRedux.uid) {
             dispatch(setUser(newProfileUser))
         }
     }
@@ -115,10 +134,17 @@ const Comment = ({ postComment }) => {
                     <p className="text-xs text-black/50 mr-4">{currentTimeString}</p>
                     {postComment.likes.length > 0 &&
                         (
-                            <p className="text-xs text-black/50 mr-4 font-bold">{postComment.likes.length} like</p>
+                            <>
+                                <button type="button" className="text-xs text-black/50 mr-4 font-bold" onClick={() => setActiveModal(true)}>{postComment.likes.length} like</button>
+                                <LikesModal
+                                    activeModal={activeModal}
+                                    setActiveModal={setActiveModal}
+                                    likes={postComment.likes}
+                                />
+                            </>
                         )
                     }
-                    <p className="text-xs text-black/50">Reply</p>
+                    <button className="text-xs text-black/50">Reply</button>
                 </div>
             </div>
             <div className="mt-2 cursor-pointer">

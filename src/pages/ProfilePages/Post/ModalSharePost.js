@@ -1,14 +1,14 @@
-import React, { useState, useContext, useEffect } from "react";
-import ReusebleModal from "../../components/ReusebleModal";
-import useSearch from "../../hooks/useSearch";
-import { Context } from "../../context/firebaseContext";
+import React, { useState, useContext } from "react";
+import useSearch from "../../../hooks/useSearch";
+import { Context } from "../../../context/firebaseContext";
 import { useDispatch, useSelector } from "react-redux";
-import { setChats } from "../../redux/actions/chatsAction";
 import { useNavigate } from "react-router-dom";
-import useChat from "../../hooks/useChat";
+import useChat from "../../../hooks/useChat";
+import ReusebleModal from "../../../components/ReusebleModal";
 
-const NewMessageModal = ({ activeModal, setActiveModal }) => {
+const ModalSharePost = ({ activeModal, setActiveModal }) => {
     const [text, setText] = useState('')
+    const [messageToPost, setMessageToPost] = useState('')
     const [usersFound, setUsersFound] = useState([])
     const [selectedUsers, setSelectedUsers] = useState([])
     const { searchUsers } = useSearch()
@@ -16,7 +16,7 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
     const chatsArray = useSelector((state) => state.chatsReducer.chats)
     const userRedux = useSelector((state) => state.userReducer.user)
 
-    const {createChat} = useChat(chatsArray)
+    const { createChat } = useChat(chatsArray)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -43,15 +43,38 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
         setText('')
     }
 
-    const addChat =  (usersArray) => {
+
+    const addChat = async (usersArray) => {
 
         createChat(usersArray)
+
+        const chatToUpdate = chatsArray.find(elem => elem.users.every(user => user.displayName === usersArray[0].displayName || user.displayName === userRedux.displayName))
+
+        // const chatRef = doc(db, "chats", `${chat}`);
+
+        // await updateDoc(chatRef, {
+        //     "messages": [...messages, { uniqKey_time: uniqKey, images: { heart: '', userImage: '' }, text: text, user: { uid: userRedux.uid, displayName: userRedux.displayName, imageUrl: userRedux.imageUrl } }]
+        // });
+
+        // const mapChatsArray = chatsRedux.map(elem => {
+        //     if (elem.uid === currentChat.uid) {
+        //         return {
+        //             ...currentChat,
+        //             messages: [...messages, { uniqKey_time: uniqKey, text: text, user: { uid: userRedux.uid, displayName: userRedux.displayName, images: { heart: '', userImage: '' } } }]
+        //         }
+        //     } else return elem
+        // })
+
+        // dispatch(setChats(mapChatsArray))
+
 
         setActiveModal(false)
         setUsersFound([])
         setSelectedUsers([])
         setText('')
     }
+
+    console.log(chatsArray)
 
     const mapUsersFound = usersFound.length > 0 ?
         usersFound.map((elem) => {
@@ -74,7 +97,7 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
                         <div className="relative">
                             <img src={`${(findUser) ? '/images/circle-full-blue-icon.png' : '/images/circle-contor.png'}`} className='h-6 w-6 ml-5' />
                             {
-                                findUser && <img src='/images/check-white-icon.png' className='absolute h-5 w-5 top-0.5 right-0.5' />
+                                findUser && <div><img src='/images/check-white-icon.png' className='absolute h-5 w-5 top-0.5 right-0.5' /></div>
                             }
                         </div>
                     </div>
@@ -82,6 +105,35 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
             )
         })
         : false
+
+    // const mapSuggestedUsers = chatsArray.map((elem) => {
+    //     const strangeUser = chatsArray.users && chatsArray.users.find(user => user.uid === userRedux.uid)
+    //     const findUser = selectedUsers.length > 0 ? selectedUsers.find(user => user.uid === elem.uid) : false
+    //     return (
+    //         <li key={elem.uid} className="py-1.5 pl-4 hover:bg-gray-100/50 cursor-pointer" onClick={() => findUser ? deleteSelectedUser(strangeUser) : addToSelectedUsers(strangeUser)}>
+    //             <div className="flex justify-start items-center">
+    //                 <div className="w-[2.75rem] h-[2.75rem] rounded-full overflow-hidden mt-1">
+    //                     <img
+    //                         className="w-full h-full object-cover"
+    //                         src={`${strangeUser.imageUrl ? strangeUser.imageUrl : '/images/standart-profile.png'}`}
+    //                         alt="UserPhoto"
+    //                     />
+    //                 </div>
+    //                 <div className="w-[15rem] ml-3">
+    //                     <p className="font-semibold text-sm">
+    //                         {strangeUser.displayName}
+    //                     </p>
+    //                 </div>
+    //                 <div className="relative">
+    //                     <img src={`${(findUser) ? '/images/circle-full-blue-icon.png' : '/images/circle-contor.png'}`} className='h-6 w-6 ml-5' />
+    //                     {
+    //                         findUser && <div><img src='/images/check-white-icon.png' className='absolute h-5 w-5 top-0.5 right-0.5' /></div>
+    //                     }
+    //                 </div>
+    //             </div>
+    //         </li>
+    //     )
+    // })
 
     const mapSelectedUsers = selectedUsers.length > 0 ? (
         selectedUsers.map(elem => {
@@ -96,6 +148,8 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
         })
     ) : false
 
+
+    console.log(messageToPost)
     return (
         <ReusebleModal
             activeModal={activeModal}
@@ -108,20 +162,13 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
                 className={`bg-white w-[400px] h-2/3 rounded-xl duration-300 flex flex-col ${activeModal ? 'scale-100' : 'scale-50'}`}
             >
                 <div className="border-b px-4 py-2">
-                    <div className="flex justify-between ">
-                        <button className="h-3.5 w-3.5 mt-2" onClick={() => closeModal()}>
-                            <img src="/images/close-icon.png" />
-                        </button>
+                    <div className="flex justify-center ">
+
                         <div>
-                            <p className="font-semibold">New message</p>
+                            <p className="font-semibold">Share</p>
                         </div>
-                        <button
-                            type="button"
-                            className={`${selectedUsers.length > 0 ? 'text-[#0195f6]' : 'text-[#0195f6]/30'} font-semibold text-sm`}
-                            disabled={selectedUsers.length > 0 ? false : true}
-                            onClick={() => addChat(selectedUsers)}
-                        >
-                            Next
+                        <button className="h-3.5 w-3.5 mt-2 absolute top-1.5 right-2.5" onClick={() => closeModal()}>
+                            <img src="/images/close-icon.png" />
                         </button>
                     </div>
                 </div>
@@ -136,8 +183,21 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
                     {text.length === 0 ?
                         (
                             <div className="px-4 mt-4">
-                                <p className="font-semibold text-sm">Suggested</p>
-                                <p className="text-gray-500 text-sm mt-7">No account found.</p>
+                                {chatsArray.length > 0 ?
+                                    (
+                                        <ul className="mt-3">
+                                            {/* {mapSuggestedUsers} */}
+                                        </ul>
+                                    )
+                                    :
+                                    (
+                                        <>
+                                            <p className="font-semibold text-sm">Suggested</p>
+                                            <p className="text-gray-500 text-sm mt-7">No account found.</p>
+                                        </>
+                                    )
+                                }
+
                             </div>
                         )
                         :
@@ -155,10 +215,32 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
                         )
                     }
                 </div>
-
+                <div className="flex flex-col border-t">
+                    {selectedUsers.length > 0 &&
+                        (
+                            <input
+                                type='text'
+                                value={messageToPost}
+                                onChange={(e) => setMessageToPost(e.target.value)}
+                                placeholder='Write a message...'
+                                className="outline-none placeholder:text-sm pt-4 px-5 text-sm"
+                            />
+                        )
+                    }
+                    <div className="flex justify-center items-center p-4 ">
+                        <button
+                            disabled={!selectedUsers.length}
+                            type="button"
+                            className={`${!selectedUsers.length ? ' bg-[#0195f6]/40' : 'bg-[#0195f6]'} w-full py-1.5 text-white  rounded font-semibold`}
+                            onClick={() => addChat(selectedUsers)}
+                        >
+                            Send
+                        </button>
+                    </div>
+                </div>
             </div>
         </ReusebleModal>
     )
 }
 
-export default NewMessageModal
+export default ModalSharePost

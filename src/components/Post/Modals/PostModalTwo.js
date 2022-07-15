@@ -39,20 +39,22 @@ const PostModalTwo = ({ activeModal, setActiveModal, setPage, setPost, post }) =
     }
 
     const createPost = async () => {
+
+        const { displayName, uid, imageUrl } = userRedux
         const pathName = `/images/${userRedux.uid}/posts/${post.images[0].name}`
         const fileReff = ref(storage, pathName);
 
         await uploadBytes(fileReff, post.images[0])
 
-        const imageUrl = await getDownloadURL(fileReff)
+        const image = await getDownloadURL(fileReff)
 
         const newPost = {
-            image: imageUrl,
+            image,
             text,
             comments: [],
             likes: [],
             uid: new Date().getTime().toString(),
-            user: userRedux.uid
+            user: { displayName, uid, imageUrl }
         }
 
         await updateDoc(doc(db, "users", userRedux.uid), {
@@ -61,10 +63,10 @@ const PostModalTwo = ({ activeModal, setActiveModal, setPage, setPost, post }) =
 
         dispatch(setUser({ ...userRedux, posts: [newPost, ...userRedux.posts] }))
         setFirestoreCurrentUser({ ...userRedux, posts: [newPost, ...userRedux.posts] })
-        if(!user || user === userRedux.displayName) {
+        if (!user || user === userRedux.displayName) {
             dispatch(setCurrentProfileUser({ ...currentProfileUser, posts: [newPost, ...currentProfileUser.posts] }))
         }
-        
+
         setPage(0)
         setPost({
             images: []

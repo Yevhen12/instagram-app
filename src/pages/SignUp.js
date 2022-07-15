@@ -24,7 +24,9 @@ const SignUp = () => {
                 followers: [],
                 following: [],
                 posts: [],
-                recentVisitedUsers: []
+                recentVisitedUsers: [],
+                savedPosts: [],
+                taggedPosts: [],
             }
             setDoc(userRef, userObj)
             navigate("/sign-in")

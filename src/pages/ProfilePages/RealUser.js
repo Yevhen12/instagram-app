@@ -10,9 +10,12 @@ const RealUser = () => {
     const userRedux = useSelector((state) => state.userReducer.user)
     const location = useLocation()
 
+    console.log(location)
+
     const hendleActiveModal = () => {
         setActiveModal(true)
     }
+
     return (
         <>
             {userRedux.displayName &&
@@ -86,7 +89,7 @@ const RealUser = () => {
                                 </Link>
                             </div>
                         </div>
-                        <Outlet />
+                        <Outlet context={{posts: userRedux.posts, savedPosts: userRedux.savedPosts}}/>
                     </div>
                 </section >
             }

@@ -39,13 +39,15 @@ function App() {
             <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
             <Route path={ROUTES.PROFILE} element={<Profile />}>
               <Route path={ProfileRoutes.POSTS} element={<Posts />} />
-              <Route path={ProfileRoutes.POST} element = {<ModalDetailedPost />} />
-              <Route path={ProfileRoutes.SAVED} element={<Saved />} />
+              <Route path={ProfileRoutes.POST} element={<ModalDetailedPost />} />
+              <Route path={ProfileRoutes.SAVED} element={<Saved />}>
+                <Route path={ProfileRoutes.SAVED_POSTS} element={<ModalDetailedPost />} />
+              </Route>
               <Route path={ProfileRoutes.TAGGED} element={<Tagged />} />
-              <Route path = {ProfileRoutes.FOLLOWERS} element={<Followers />} />
+              <Route path={ProfileRoutes.FOLLOWERS} element={<Followers />} />
             </Route>
             <Route path={ROUTES.DIRECT} element={<Direct />}>
-              <Route path = {directLinks.CHAT} element = {<Chat />}/>
+              <Route path={directLinks.CHAT} element={<Chat />} />
             </Route>
             <Route path={ROUTES.EXPLORE} element={<Explore />} />
 

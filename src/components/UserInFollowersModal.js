@@ -35,11 +35,11 @@ const UserInFollowersModal = ({ currentUser }) => {
                         isUserReduxFollowing ?
                             (
                                 <div>
-                                    <button onClick={() =>setActiveModal(true)} className="border rounded rounded-[0.15] px-3 py-1 text-sm font-semibold bg-transparent text-black active:opacity-60">Following</button>
+                                    <button onClick={() => setActiveModal(true)} className="border rounded rounded-[0.15] px-3 py-1 text-sm font-semibold bg-transparent text-black active:opacity-60">Following</button>
                                     <ReusebleModal
                                         activeModal={activeModal}
                                         setActiveModal={setActiveModal}
-                                        styleForContainerBlock = 'fixed w-screen h-screen top-0 left-0 right-0 flex justify-center items-center z-10 cursor-default bg-black/60 duration-300'
+                                        styleForContainerBlock='fixed w-screen h-screen top-0 left-0 right-0 flex justify-center items-center z-10 cursor-default bg-black/60 duration-300'
                                     >
                                         <UnfollowModal
                                             activeModal={activeModal}
@@ -51,7 +51,7 @@ const UserInFollowersModal = ({ currentUser }) => {
                                         />
                                     </ReusebleModal>
                                 </div>
-                            ) 
+                            )
                             :
                             (
                                 <div>

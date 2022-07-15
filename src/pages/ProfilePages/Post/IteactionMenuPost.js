@@ -1,28 +1,43 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import converUnixTime from '../../../helpers/converUnixTime'
 import { Context } from "../../../context/firebaseContext";
 import { setCurrentProfileUser } from "../../../redux/actions/currentProfileUser";
+import { setCurrentPost } from "../../../redux/actions/currentPostAction";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../../redux/actions/userActions";
+import LikesModal from "./LikesModal";
+import { useNavigate } from "react-router-dom";
+import ModalSharePost from "./ModalSharePost";
 
-const IteractionMenuPost = ({ currentPost }) => {
+const IteractionMenuPost = ({ currentPost, isCurrentPostSaved }) => {
 
     const currentUserInProfile = useSelector(state => state.currentProfileUserReducer.user)
     const userRedux = useSelector(state => state.userReducer.user)
+    const currentPostRedux = useSelector(state => state.currentPostReducer.post)
 
-    const { doc, db, updateDoc } = useContext(Context)
+    const { doc, db, updateDoc, getDoc } = useContext(Context)
 
     const [textComment, setTextComment] = useState('')
 
-    const isPostLiked = currentPost.likes.length > 0 && currentPost.likes.find(elem => elem.uid === userRedux.uid) ? true : false
+    const isPostLiked = currentPostRedux.likes && currentPostRedux.likes.find(elem => elem.uid === userRedux.uid) ? true : false
+    const isPostSaved = userRedux.savedPosts.length > 0 && userRedux.savedPosts.find(elem => elem.uid === currentPost.uid) ? true : false
+
     const [isLiked, setIsLiked] = useState(isPostLiked)
+    const [isSaved, setIsSaved] = useState(isPostSaved)
     const [likeAnimation, setLikeAnimation] = useState(false)
+    const [activeModal, setActiveModal] = useState(false)
+    const [activeSharePost, setActiveSharePost] = useState(false)
+
+    useEffect(() => {
+        setIsLiked(currentPostRedux.likes && currentPostRedux.likes.find(elem => elem.uid === userRedux.uid) ? true : false)
+    }, [currentPostRedux])
+
+    const navigate = useNavigate()
 
     const commentRef = useRef(null)
     let postTime = converUnixTime(currentPost.uid).split(' ')
-   
-    console.log(postTime[1])
-    console.log(postTime[1])
+
+
     if (Number(postTime[0]) == 1) {
         postTime[1] = postTime[1].split('').slice(0, -1).join('')
         postTime = postTime.join(' ')
@@ -30,21 +45,29 @@ const IteractionMenuPost = ({ currentPost }) => {
         postTime = postTime.join(' ')
     }
 
+    console.log(postTime)
+
     const dispatch = useDispatch()
 
 
     const likePost = async () => {
 
         const { imageUrl, displayName, uid } = userRedux
-        const userCurrentProfileDoc = doc(db, 'users', currentUserInProfile.uid)
+        const userCurrentProfileDoc = doc(db, 'users', currentPost.user.uid)
+        const userSnap = await getDoc(userCurrentProfileDoc);
+
+        const userToUpdate = userSnap.data()
+
         let newProfileUser;
 
         setIsLiked(prevIsLiked => !prevIsLiked)
         setLikeAnimation(true)
 
+        console.log(userToUpdate)
+
         if (isLiked) {
-            const filteredLikeArray = currentPost.likes.filter(elem => elem.uid !== uid)
-            const mapPostsArray = currentUserInProfile.posts.map(elem => {
+            const filteredLikeArray = currentPostRedux.likes.filter(elem => elem.uid !== uid)
+            const mapPostsArray = userToUpdate.posts.map(elem => {
                 if (elem.uid === currentPost.uid) {
                     return {
                         ...elem,
@@ -57,14 +80,16 @@ const IteractionMenuPost = ({ currentPost }) => {
                 "posts": mapPostsArray
             })
 
+            dispatch(setCurrentPost({ ...currentPostRedux, likes: filteredLikeArray }))
+
             newProfileUser = {
-                ...currentUserInProfile,
+                ...userToUpdate,
                 posts: mapPostsArray
             }
 
         } else {
-            const newArrayLikes = [{ imageUrl, displayName, uid }, ...currentPost.likes]
-            const mapPostsArray = currentUserInProfile.posts.map(elem => {
+            const newArrayLikes = [{ imageUrl, displayName, uid }, ...currentPostRedux.likes]
+            const mapPostsArray = userToUpdate.posts.map(elem => {
                 if (elem.uid === currentPost.uid) {
                     return {
                         ...elem,
@@ -77,15 +102,21 @@ const IteractionMenuPost = ({ currentPost }) => {
                 "posts": mapPostsArray
             })
 
+            dispatch(setCurrentPost({ ...currentPostRedux, likes: newArrayLikes }))
+
             newProfileUser = {
                 ...currentUserInProfile,
                 posts: mapPostsArray
             }
+
+
+        }
+        if (userToUpdate.uid === currentUserInProfile.uid) {
+            dispatch(setCurrentProfileUser(newProfileUser))
         }
 
-        dispatch(setCurrentProfileUser(newProfileUser))
 
-        if (currentUserInProfile.uid === userRedux.uid) {
+        if (userToUpdate.uid === userRedux.uid) {
             dispatch(setUser(newProfileUser))
         }
     }
@@ -93,7 +124,10 @@ const IteractionMenuPost = ({ currentPost }) => {
     const commentPost = async () => {
 
         const { imageUrl, displayName, uid } = userRedux
-        const userCurrentProfileDoc = doc(db, 'users', currentUserInProfile.uid)
+        const userCurrentProfileDoc = doc(db, 'users', currentPostRedux.user.uid)
+        const userSnap = await getDoc(userCurrentProfileDoc);
+
+        const userToUpdate = userSnap.data()
 
         const newComment = {
             imageUrl,
@@ -102,12 +136,12 @@ const IteractionMenuPost = ({ currentPost }) => {
             text: textComment,
             likes: [],
             createdAt: new Date().getTime().toString(),
-            parent: currentPost.uid
+            parent: currentPostRedux.uid
         }
 
-        const newArrayComments = [newComment, ...currentPost.comments,]
-        const mapPostsArray = currentUserInProfile.posts.map(elem => {
-            if (elem.uid === currentPost.uid) {
+        const newArrayComments = [newComment, ...currentPostRedux.comments,]
+        const mapPostsArray = userToUpdate.posts.map(elem => {
+            if (elem.uid === currentPostRedux.uid) {
                 return {
                     ...elem,
                     comments: newArrayComments
@@ -119,17 +153,68 @@ const IteractionMenuPost = ({ currentPost }) => {
             "posts": mapPostsArray
         })
 
-        dispatch(setCurrentProfileUser({ ...currentUserInProfile, posts: mapPostsArray }))
+        dispatch(setCurrentPost({ ...currentPostRedux, comments: newArrayComments }))
 
-        if (currentUserInProfile.uid === userRedux.uid) {
+
+        if (userToUpdate.uid === currentUserInProfile.uid) {
+            console.log(1)
+            dispatch(setCurrentProfileUser({ ...currentUserInProfile, posts: mapPostsArray }))
+        }
+
+
+        if (userToUpdate.uid === userRedux.uid) {
+            console.log(2)
             dispatch(setUser({ ...userRedux, posts: mapPostsArray }))
+        }
+
+        if (isCurrentPostSaved) {
+            console.log(1)
+            const mapSavedArrayPosts = userRedux.savedPosts.map(elem => {
+                if (elem.uid === currentPost.uid) {
+                    return {
+                        ...elem,
+                        comments: newArrayComments
+                    }
+                } else return elem
+            })
+            console.log(mapSavedArrayPosts)
+
+            dispatch(setUser({ ...userRedux, savedPosts: mapSavedArrayPosts }))
+
+            dispatch(setCurrentProfileUser({ ...currentUserInProfile, savedPosts: mapSavedArrayPosts }))
         }
 
         setTextComment('')
 
     }
 
-    console.log(postTime)
+    const savePost = async () => {
+        setIsSaved(prevIsSaved => !prevIsSaved)
+
+        const userCurrentProfileDoc = doc(db, 'users', userRedux.uid)
+
+        if (isSaved) {
+            const filteredPostsSavedArray = userRedux.savedPosts.filter(elem => elem.uid !== currentPost.uid)
+
+            await updateDoc(userCurrentProfileDoc, {
+                "savedPosts": filteredPostsSavedArray
+            })
+
+
+            dispatch(setUser({ ...userRedux, savedPosts: filteredPostsSavedArray }))
+        } else {
+            const newSavedPostsArray = [currentPost, ...userRedux.savedPosts]
+
+            await updateDoc(userCurrentProfileDoc, {
+                "savedPosts": newSavedPostsArray
+            })
+
+            dispatch(setUser({ ...userRedux, savedPosts: newSavedPostsArray }))
+        }
+    }
+
+    console.log(currentPostRedux)
+
 
 
     return (
@@ -146,16 +231,28 @@ const IteractionMenuPost = ({ currentPost }) => {
                         />
 
                         <img alt="comment" src="/images/comment-icon.png" className="h-[22px] w-[22px] mr-5 cursor-pointer hover:opacity-50" onClick={() => commentRef.current.focus()} />
-                        <img alt="send" src="/images/send-message-icon.png" className="h-[22px] w-[22px] cursor-pointer hover:opacity-50" />
+                        <img alt="send" src="/images/send-message-icon.png" className="h-[22px] w-[22px] cursor-pointer hover:opacity-50" onClick={() => setActiveSharePost(true)} />
+                        <ModalSharePost
+                            activeModal={activeSharePost}
+                            setActiveModal={setActiveSharePost}
+                        />
+
                     </div>
                     <div>
-                        <img alt="save" src="/images/save-icon.png" className="h-[22px] w-[22px] cursor-pointer hover:opacity-50" />
+                        <img alt="save" src={`${isSaved ? '/images/save-post-black-icon.png' : '/images/save-icon.png'}`} className={`${isSaved ? '' : 'hover:opacity-50'} h-[22px] w-[22px] cursor-pointer`} onClick={savePost} />
                     </div>
                 </div>
                 {
-                    currentPost.likes.length > 0 ?
+                    currentPostRedux.likes && currentPostRedux.likes.length > 0 ?
                         (
-                            <p className="font-semibold text-sm">{currentPost.likes.length} like</p>
+                            <>
+                                <p type="button" className="font-semibold text-sm border-none m-0 p-0 cursor-pointer" onClick={() => setActiveModal(true)}>{currentPostRedux.likes && currentPostRedux.likes.length} like</p>
+                                <LikesModal
+                                    activeModal={activeModal}
+                                    setActiveModal={setActiveModal}
+                                    likes={currentPostRedux.likes && currentPostRedux.likes}
+                                />
+                            </>
                         )
                         :
                         (

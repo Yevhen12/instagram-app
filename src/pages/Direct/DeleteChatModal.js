@@ -23,8 +23,6 @@ const DeleteChatModal = ({ activeModal, setActiveModal }) => {
         const chatRef = doc(db, 'chats', `${chat}`)
         await deleteDoc(chatRef)
 
-
-
         navigate(`/direct`)
 
     }

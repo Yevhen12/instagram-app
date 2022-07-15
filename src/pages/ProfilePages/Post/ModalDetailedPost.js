@@ -1,54 +1,70 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useParams, useNavigate, Link, useLocation, useOutletContext } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import ReusebleModal from "../../../components/ReusebleModal";
 import IteractionMenuPost from "./IteactionMenuPost";
 import Comment from "./Comment";
+import { setCurrentPost } from "../../../redux/actions/currentPostAction";
+
+
 
 const ModalDetailedPost = () => {
     const [activeModal, setActiveModal] = useState(false)
     const currenUserInProfile = useSelector(state => state.currentProfileUserReducer.user)
-    const { userPost, user } = useParams()
+    const currentPostRedux = useSelector(state => state.currentPostReducer.post)
+    const { userPost, user, savedPost } = useParams()
+    const dispatch = useDispatch()
+
+    const { posts, savedPosts } = useOutletContext()
 
     const navigate = useNavigate()
+    const location = useLocation()
+
+    const isSavedPostArray = location.pathname.split('/').includes('saved')
+
+    const postsToIterate = isSavedPostArray ? savedPosts : posts
+
+    const currentPost = postsToIterate.find(elem => isSavedPostArray ? elem.uid === savedPost : elem.uid === userPost)
 
     useEffect(() => {
         setActiveModal(true)
     }, [])
 
+    useEffect(() => {
+        dispatch(setCurrentPost(currentPost))
+    }, [userPost, savedPost])
+
 
     const closeModal = () => {
-        navigate(`/${currenUserInProfile.displayName}`)
-
+        navigate(-1)
     }
 
-    const currentPost = currenUserInProfile.posts.find(elem => elem.uid === userPost)
+    
 
 
-    const mapedArrayComments = currentPost.comments.length > 0 && currentPost.comments.map(elem => <Comment key={elem.createdAt} postComment={elem} />)
+    const mapedArrayComments = currentPostRedux && currentPostRedux.comments && currentPostRedux.comments.length > 0 && currentPostRedux.comments.map(elem => <Comment key={elem.createdAt} postComment={elem} />)
 
-    const isNextPostExist = currenUserInProfile.posts.find(elem=> {
+    const isNextPostExist = postsToIterate.find(elem => {
         if (Number(elem.uid) < Number(userPost)) return elem
 
         return false
     })
 
-   
 
-    const isPrevPostExist = currenUserInProfile.posts.find((elem, idx) => {
-        if (Number(elem.uid) > Number(userPost) && currenUserInProfile.posts[idx + 1].uid === userPost) return elem
-        
+
+    const isPrevPostExist = postsToIterate.find((elem, idx) => {
+        if (Number(elem.uid) > Number(userPost) && postsToIterate[idx + 1] && postsToIterate[idx + 1].uid === userPost) return elem
         return false
     })
 
     const nextPost = (e) => {
         e.stopPropagation()
-        navigate(`/${currenUserInProfile.displayName}/${isNextPostExist.uid}`)
+        navigate(`../${isNextPostExist.uid}`, { replace: true });
     }
 
     const prevPost = (e) => {
         e.stopPropagation()
-        navigate(`/${currenUserInProfile.displayName}/${isPrevPostExist.uid}`)
+        navigate(`../${isPrevPostExist.uid}`, { replace: true });
     }
 
 
@@ -68,13 +84,13 @@ const ModalDetailedPost = () => {
                 </div>
             }
 
-             {
+            {
                 isPrevPostExist &&
                 <div className="h-8 w-8 bg-white absolute top-[50%] left-[30px] rounded-full cursor-pointer" onClick={(e) => prevPost(e)}>
                     <img alt="next" src="/images/down-arrow.png" className="w-5 h-5 rotate-[90deg] mt-1.5 ml-1" />
                 </div>
             }
-            <div className={`max-w-[70%] w-full bg-white max-h-[85%] h-full my-5 flex items-center rounded-r-md ${activeModal ? 'scale-100' : 'scale-50'}`} onClick={(e) => e.stopPropagation()}>
+            <div className={`max-w-[70%] w-full bg-white max-h-[85%] h-full my-5 flex items-center rounded-r-md`} onClick={(e) => e.stopPropagation()}>
                 <div className="w-3/5 h-full">
                     <img
                         src={currentPost.image}
@@ -85,11 +101,11 @@ const ModalDetailedPost = () => {
                     <div className="flex flex-col h-full">
                         <div className="h-[60px] flex justify-between items-center border-b">
                             <div className="flex items-centerh-full">
-                                <Link to={`/${currenUserInProfile.displayName}`}>
-                                    <img className="w-8 h-8 rounded-full object-cover mx-5" src={`${currenUserInProfile.imageUrl ? currenUserInProfile.imageUrl : '/images/standart-profile.png'}`} />
+                                <Link to={`/${currentPost.user.displayName}`}>
+                                    <img className="w-8 h-8 rounded-full object-cover mx-5" src={`${currentPost.user.imageUrl ? currentPost.user.imageUrl : '/images/standart-profile.png'}`} />
                                 </Link>
-                                <Link to={`/${currenUserInProfile.displayName}`}>
-                                    <p className="font-semibold text-sm mt-1">{currenUserInProfile.displayName}</p>
+                                <Link to={`/${currentPost.user.displayName}`}>
+                                    <p className="font-semibold text-sm mt-1">{currentPost.user.displayName}</p>
                                 </Link>
                             </div>
                             <div>
@@ -113,7 +129,7 @@ const ModalDetailedPost = () => {
                                     )
                             }
                         </div>
-                        <IteractionMenuPost currentPost={currentPost} />
+                        <IteractionMenuPost currentPost={currentPost} isCurrentPostSaved = {isSavedPostArray ? true : false} />
                     </div>
                 </div>
             </div>
