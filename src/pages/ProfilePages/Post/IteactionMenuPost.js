@@ -8,6 +8,7 @@ import { setUser } from "../../../redux/actions/userActions";
 import LikesModal from "./LikesModal";
 import { useNavigate } from "react-router-dom";
 import ModalSharePost from "./ModalSharePost";
+import Picker from 'emoji-picker-react'
 
 const IteractionMenuPost = ({ currentPost, isCurrentPostSaved }) => {
 
@@ -27,6 +28,7 @@ const IteractionMenuPost = ({ currentPost, isCurrentPostSaved }) => {
     const [likeAnimation, setLikeAnimation] = useState(false)
     const [activeModal, setActiveModal] = useState(false)
     const [activeSharePost, setActiveSharePost] = useState(false)
+    const [showPicker, setShowPicker] = useState(false)
 
     useEffect(() => {
         setIsLiked(currentPostRedux.likes && currentPostRedux.likes.find(elem => elem.uid === userRedux.uid) ? true : false)
@@ -213,6 +215,12 @@ const IteractionMenuPost = ({ currentPost, isCurrentPostSaved }) => {
         }
     }
 
+
+    const onEmojiClick = (event, emojiObject) => {
+        setTextComment(prevText => prevText + emojiObject.emoji)
+        setShowPicker(false)
+    }
+
     console.log(currentPostRedux)
 
 
@@ -261,16 +269,49 @@ const IteractionMenuPost = ({ currentPost, isCurrentPostSaved }) => {
                 }
                 <p className="text-[10px] mt-2 text-black/60">{postTime.toUpperCase()} {postTime.toLowerCase() === ' now' ? '' : ' AGO'}</p>
             </div>
-            <div className="flex flex-row px-4 min-h-[50px] max-h-[100px] w-full items-center">
-                <img alt="smile" src="/images/smile-icon.png" className="w-5 h-5 cursor-pointer" />
+            <div className="flex flex-row px-4 min-h-[50px] max-h-[100px] w-full items-center relative">
+                <img alt="smile" src="/images/smile-icon.png" className="w-5 h-5 cursor-pointer" onClick={() => setShowPicker(prevShowPicker => !prevShowPicker)} />
                 <input
                     value={textComment}
                     onChange={(e) => setTextComment(e.target.value)}
                     ref={commentRef}
                     type='text'
                     placeholder="Add a comment..."
-                    className="placeholder:text-sm outline-none overflow h-[19px] w-full px-3 text-sm" />
-                <button type="button" className={` font-semibold text-sm ${textComment.length > 0 ? 'text-[#0195f6]' : 'text-[#0195f6]/40'}`} disabled={!textComment.length} onClick={() => commentPost()}>Post</button>
+                    className="placeholder:text-sm outline-none overflow h-[19px] w-full px-3 text-sm"
+                />
+                <button
+                    type="button"
+                    className={` font-semibold text-sm ${textComment.length > 0 ? 'text-[#0195f6]' : 'text-[#0195f6]/40'}`}
+                    disabled={!textComment.length}
+                    onClick={() => commentPost()}>
+                    Post
+                </button>
+                {
+                    showPicker &&
+                    (
+                        <>
+                            <div
+                                className={`w-full h-full fixed top-0 left-0 items-center z-10 ${showPicker ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                                onClick={() => setShowPicker(false)}
+                            >
+                            </div>
+                            <div onClick={(e) => e.stopPropagation()} className={`${showPicker ? 'block' : 'hidden'}`}>
+                                <Picker
+                                    onEmojiClick={onEmojiClick}
+                                    pickerStyle={
+                                        {
+                                            width: '310px',
+                                            position: "absolute",
+                                            top: '-330px',
+                                            left: '0px',
+                                            zIndex: '21'
+                                        }
+                                    }
+                                />
+                            </div>
+                        </>
+                    )
+                }
             </div>
         </div>
     )

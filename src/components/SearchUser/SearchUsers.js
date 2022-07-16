@@ -226,7 +226,7 @@ const SearchUsers = () => {
                                 styleForWindowBlock="w-full h-full fixed top-0 left-0 flex justify-center items-center z-10 cursor-default "
                                 dropMenuProfile={activeModal}
                                 setDropMenuProfile={setActiveModal}
-                                styleForContainerBlock={`fixed w-[23.4rem] h-[22.6rem] shadow-defaultModal rounded bg-white flex top-16 right-[48.5rem] p-0 m-0 z-20`}
+                                styleForContainerBlock={`absolute w-[23.4rem] h-[22.6rem] shadow-defaultModal rounded bg-white flex top-14 right-3 p-0 m-0 z-20`}
                                 styleForInnerBlock='flex flex-col w-full overflow-y-scroll'
                             >
                                 {
@@ -254,7 +254,7 @@ const SearchUsers = () => {
                                     styleForWindowBlock="w-full h-full fixed top-0 left-0 flex justify-center items-center z-10 cursor-default "
                                     dropMenuProfile={activeModal}
                                     setDropMenuProfile={setActiveModal}
-                                    styleForContainerBlock={`fixed w-[23.4rem] h-[22.6rem] shadow-defaultModal rounded bg-white flex top-16 right-[48.5rem] p-0 m-0 z-20`}
+                                    styleForContainerBlock={`absolute w-[23.4rem] h-[22.6rem] shadow-defaultModal rounded bg-white flex top-14 right-3 p-0 m-0 z-20`}
                                     styleForInnerBlock='flex flex-col w-full overflow-y-scroll'
                                 >
                                     <div className="flex justify-between pt-5 px-4">

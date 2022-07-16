@@ -5,6 +5,7 @@ import ReusebleModal from "../../../components/ReusebleModal";
 import IteractionMenuPost from "./IteactionMenuPost";
 import Comment from "./Comment";
 import { setCurrentPost } from "../../../redux/actions/currentPostAction";
+import convertUnixTime from "../../../helpers/converUnixTime";
 
 
 
@@ -22,7 +23,8 @@ const ModalDetailedPost = () => {
 
     const isSavedPostArray = location.pathname.split('/').includes('saved')
 
-    const postsToIterate = isSavedPostArray ? savedPosts : posts
+    const postsToIterate = (isSavedPostArray ? savedPosts : posts).sort((a, b) => b.uid - a.uid)
+
 
     const currentPost = postsToIterate.find(elem => isSavedPostArray ? elem.uid === savedPost : elem.uid === userPost)
 
@@ -38,9 +40,9 @@ const ModalDetailedPost = () => {
     const closeModal = () => {
         navigate(-1)
     }
-
     
-
+    let currentTimeString = convertUnixTime(currentPost.uid).split(' ')
+    currentTimeString = currentTimeString[1] === 'Now' ? 'Now' : currentTimeString[0] + currentTimeString[1][0]
 
     const mapedArrayComments = currentPostRedux && currentPostRedux.comments && currentPostRedux.comments.length > 0 && currentPostRedux.comments.map(elem => <Comment key={elem.createdAt} postComment={elem} />)
 
@@ -114,9 +116,28 @@ const ModalDetailedPost = () => {
                         </div>
                         <div className="h-[calc(100%-220px)] w-full border-b overflow-hidden">
                             {
-                                currentPost.comments.length > 0 ?
+                                currentPost.comments.length > 0 || currentPost.text.length > 0 ?
                                     (
                                         <div className="flex flex-col h-full overflow-y-scroll pt-6">
+                                            {currentPost.text.length > 0 &&
+                                                (
+                                                    <div className="flex justify-between px-5 mb-5">
+                                                        <div className="mr-5">
+                                                            <Link to={`/${currentPost.user.displayName}`}>
+                                                                <img alt="userPhoto" src={`${currentPost.user?.imageUrl || '/images/standart-profile.png'}`} className='w-8 h-8 object-cover rounded-full' />
+                                                            </Link>
+                                                        </div>
+                                                        <div style={{ wordWrap: "break-word" }} className="flex flex-col w-full max-w-[calc(100%-65px)] text-sm ">
+                                                            <Link to={`/${currentPost.user.displayName}`}>
+                                                                <p className="text-sm font-semibold">{currentPost.user.displayName}</p>
+                                                            </Link>
+                                                            <p className="text-sm mb-3">{currentPost.text}</p>
+                                                            <div className="flex justify-start">
+                                                                <p className="text-xs text-black/50 mr-4">{currentTimeString}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )}
                                             {mapedArrayComments}
                                         </div>
                                     )
@@ -129,7 +150,7 @@ const ModalDetailedPost = () => {
                                     )
                             }
                         </div>
-                        <IteractionMenuPost currentPost={currentPost} isCurrentPostSaved = {isSavedPostArray ? true : false} />
+                        <IteractionMenuPost currentPost={currentPost} isCurrentPostSaved={isSavedPostArray ? true : false} />
                     </div>
                 </div>
             </div>

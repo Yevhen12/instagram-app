@@ -4,11 +4,11 @@ import { useSelector } from "react-redux";
 import { nanoid } from 'nanoid'
 import UserInFollowersModal from "../../components/UserInFollowersModal";
 
-const Followers = () => {
+const Following = () => {
     const [activeModal, setActiveModal] = useState(false)
     const currentProfileUserRedux = useSelector((state) => state.currentProfileUserReducer.user)
     console.log(currentProfileUserRedux)
-    const mapFollowersArray = currentProfileUserRedux.followers.length > 0 ? currentProfileUserRedux.followers.map(elem => {
+    const mapFollowingArray = currentProfileUserRedux.following.length > 0 ? currentProfileUserRedux.following.map(elem => {
         return (
             <UserInFollowersModal
                 key={nanoid()}
@@ -19,32 +19,30 @@ const Followers = () => {
     (
         <div className="flex flex-col items-center justify-center h-[350px] w-full">
             <img alt="followers" src="/images/followers-profile-icon.png" className="w-24 h-24" />
-            <p className="text-2xl font-thin">Followers</p>
-            <p className="text-sm font-thin">You'll see all the people who follow you here.</p>
+            <p className="text-2xl font-thin">People you follow</p>
+            <p className="text-sm font-thin">Once you follow people, you'll see them here.</p>
         </div>
     )
-
 
     useEffect(() => {
         setActiveModal(true)
     }, [])
 
 
-
     return (
         <Modal
             activeModal={activeModal}
             setActiveModal={setActiveModal}
-            textTitle="Followers"
+            textTitle="Following"
             nav={-1}
             styleBlock='bg-white w-[25rem] rounded-xl duration-300 h-[25rem]'
         >
-            <ul key={nanoid()} className="flex flex-col max-h-[350px] overflow-y-auto">
-                {mapFollowersArray}
-            </ul>
+            <div key={nanoid()} className="flex flex-col max-h-[350px] overflow-y-auto">
+                {mapFollowingArray}
+            </div>
 
         </Modal>
     )
 }
 
-export default Followers
+export default Following

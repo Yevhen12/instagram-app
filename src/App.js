@@ -10,6 +10,7 @@ import Saved from './pages/ProfilePages/Saved';
 import * as directLinks from './constants/directLinks'
 import Chat from './pages/Direct/Chat';
 import ModalDetailedPost from './pages/ProfilePages/Post/ModalDetailedPost';
+import Following from './pages/ProfilePages/Following';
 
 const Home = lazy(() => import('./pages/Home'))
 const SignIn = lazy(() => import('./pages/SignIn'))
@@ -45,6 +46,7 @@ function App() {
               </Route>
               <Route path={ProfileRoutes.TAGGED} element={<Tagged />} />
               <Route path={ProfileRoutes.FOLLOWERS} element={<Followers />} />
+              <Route path={ProfileRoutes.FOLLOWING} element={<Following />} />
             </Route>
             <Route path={ROUTES.DIRECT} element={<Direct />}>
               <Route path={directLinks.CHAT} element={<Chat />} />

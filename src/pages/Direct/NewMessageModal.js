@@ -43,9 +43,11 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
         setText('')
     }
 
-    const addChat =  (usersArray) => {
+    const addChat = async (usersArray) => {
 
-        createChat(usersArray)
+        const key = await createChat(usersArray)
+
+        navigate(`/direct/${key}`)
 
         setActiveModal(false)
         setUsersFound([])

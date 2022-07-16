@@ -108,32 +108,34 @@ const PostModalTwo = ({ activeModal, setActiveModal, setPage, setPost, post }) =
                                 <p className="font-semibold mt-0.5">{userRedux.displayName}</p>
                             </div>
                             <textarea value={text} className="outline-none mt-5 resize-none h-[170px] px-5" placeholder="Write a caption..." onChange={(e) => changeText(e)}></textarea>
-                            <div className="h-[50px] flex justify-between items-center border-b">
+                            <div className="h-[50px] flex justify-between items-center border-b relative">
                                 <button className="pl-5" onClick={() => setShowPicker(prevShowPicker => !prevShowPicker)}>
                                     <img alt="emoji" src="/images/smile-icon.png" className="w-5 h-5 opacity-50" />
                                 </button>
                                 {
                                     showPicker &&
                                     (
-                                        <div
-                                            className={`w-full h-full fixed top-0 left-0 items-center z-20 ${showPicker ? 'pointer-events-auto' : 'pointer-events-none'}`}
-                                            onClick={() => setShowPicker(false)}
-                                        >
-                                            <div onClick={(e) => e.stopPropagation()}>
+                                        <>
+                                            <div
+                                                className={`w-full h-full fixed top-0 left-0 items-center z-10 ${showPicker ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                                                onClick={() => setShowPicker(false)}
+                                            >
+                                            </div>
+                                            <div onClick={(e) => e.stopPropagation()} className={`${showPicker ? 'block' : 'hidden'}`}>
                                                 <Picker
                                                     onEmojiClick={onEmojiClick}
                                                     pickerStyle={
                                                         {
-                                                            width: '280px',
+                                                            width: '250px',
                                                             position: "absolute",
-                                                            top: '335px',
-                                                            left: '700px',
-                                                            heigth: '100px'
+                                                            top: '50px',
+                                                            left: '0px',
+                                                            zIndex: '21'
                                                         }
                                                     }
                                                 />
                                             </div>
-                                        </div>
+                                        </>
                                     )
                                 }
                                 <p className="text-xs text-black/40 pr-5">{text.length} / 2,200</p>

@@ -47,8 +47,12 @@ const RealUser = () => {
                                 </div>
                                 <div className="flex items-center">
                                     <p className="mr-10"><span className="font-semibold">{userRedux.posts.length}</span> posts</p>
-                                    <p className="font-semibold mr-10">{userRedux.followers.length}<span className="font-normal"> followers</span></p>
-                                    <p className="font-semibold">{userRedux.following.length}<span className="font-normal"> following</span></p>
+                                    <Link to={`${ProfileRoutes.FOLLOWERS}`}>
+                                        <p className="font-semibold mr-10">{userRedux.followers.length}<span className="font-normal"> followers</span></p>
+                                    </Link>
+                                    <Link to={`${ProfileRoutes.FOLLOWING}`}>
+                                        <p className="font-semibold">{userRedux.following.length}<span className="font-normal"> following</span></p>
+                                    </Link>
                                 </div>
 
                             </div>
@@ -89,7 +93,7 @@ const RealUser = () => {
                                 </Link>
                             </div>
                         </div>
-                        <Outlet context={{posts: userRedux.posts, savedPosts: userRedux.savedPosts}}/>
+                        <Outlet context={{ posts: userRedux.posts, savedPosts: userRedux.savedPosts }} />
                     </div>
                 </section >
             }

@@ -4,10 +4,11 @@ import { Context } from "../context/firebaseContext";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../redux/actions/userActions";
 import * as ROUTES from '../constants/links'
+import * as ProfileLinks from '../constants/profileLinks'
 import ItemDropMenu from "../components/ItemDropMenu";
 import DropMenu from "../components/DropMenu";
 import { HeaderStyles } from "../styles/Header";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import SearchUsers from './SearchUser/SearchUsers'
 import PostModal from "./Post/PostModal";
 
@@ -56,6 +57,8 @@ const Header = () => {
             })
     }
 
+    const navigate = useNavigate()
+
 
     const openProfileUser = () => {
         setDropMenuProfile(false)
@@ -72,21 +75,28 @@ const Header = () => {
         setAddPostModal(prevAddPostModal => !prevAddPostModal)
     }
 
+    const redirectToSaved = () => {
+        navigate(`/${userRedux.displayName}/${ProfileLinks.SAVED}`)
+        setDropMenuProfile(false)
+    }
+
     const isActiveModals = dropMenuProfile || dropMenuHeart || addPostModal
+
+    console.log(1)
 
 
     return (
-        <header className="h-16 border-b flex justify-center bg-white">
-            <div className="container max-w-5xl mt-3 relative pl-5">
+        <header className="h-16 border-b flex justify-center bg-white sticky top-0 w-full z-10 ">
+            <div className="container max-w-5xl mt-3 relative pl-5 ">
                 <div className="flex justify-between items-center">
-                    <div className="w-1/3">
+                    <div className="max-w-[33%] w-full">
                         <div className="cursor-pointer">
                             <Link to={ROUTES.HOME}>
                                 <img src="/images/instagram.png" alt="instagram" className="h-10"></img>
                             </Link>
                         </div>
                     </div>
-                    <div className="w-1/3 h-9">
+                    <div className="max-w-[33%] w-full h-9">
                         <SearchUsers />
                     </div>
                     {auth.currentUser ?
@@ -107,7 +117,7 @@ const Header = () => {
                                     <Link to={`${ROUTES.DIRECT}`}>
                                         <img
                                             data-name="messenger"
-                                            src={`/images/messenger-${location.pathname === ROUTES.DIRECT && !isActiveModals ? '' : 'un'}colored.png`}
+                                            src={`/images/messenger-${location.pathname.includes(ROUTES.DIRECT) && !isActiveModals ? '' : 'un'}colored.png`}
                                             alt="messenger"
                                             className="h-6"
                                         >
@@ -137,7 +147,7 @@ const Header = () => {
                                         </img>
                                     </Link>
                                 </div>
-                                <div className="mr-6 cursor-pointer">
+                                <div className="mr-6 cursor-pointer relative">
                                     <img
                                         data-name="heart"
                                         src={`/images/heart-${dropMenuHeart ? '' : 'un'}colored.png`}
@@ -149,7 +159,7 @@ const Header = () => {
 
                                     <DropMenu
                                         styleForWindowBlock="w-full h-full fixed top-0 left-0 flex justify-center items-center z-20 cursor-default "
-                                        styleForContainerBlock={`absolute w-[32rem] h-[23rem] shadow-defaultModal rounded bg-white flex items-center top-14 right-[29.5rem] p-0 m-0 z-30 cursor-pointer`}
+                                        styleForContainerBlock={`absolute w-[32rem] h-[23rem] shadow-defaultModal rounded bg-white flex items-center top-10 -right-10 p-0 m-0 z-30 cursor-pointer`}
                                         styleForInnerBlock='flex items-center flex-col w-full'
                                         dropMenuProfile={dropMenuHeart}
                                         setDropMenuProfile={setDropMenuHeart}
@@ -167,7 +177,9 @@ const Header = () => {
                                 <div className="mr-6 cursor-pointer box-border relative">
 
                                     <button
-                                        className={`rounded-full overflow-hidden mt-1 border p-0.5 h-[1.9rem] w-[1.9rem] ${(location.pathname === '/' + userRedux.displayName || dropMenuProfile) && !dropMenuHeart && !addPostModal ? 'border-black' : 'border-transparent'}`}
+                                        className={`rounded-full overflow-hidden mt-1 border p-0.5 h-[1.9rem] w-[1.9rem] 
+                                        ${(location.pathname === '/' + userRedux.displayName || dropMenuProfile || location.pathname.includes('saved') 
+                                        || (location.pathname.includes('tagged') && location.pathname.includes(userRedux.displayName))) && !dropMenuHeart && !addPostModal ? 'border-black' : 'border-transparent'}`}
                                         data-name="profile"
                                         onClick={dropMenuHendler}
                                     >
@@ -183,7 +195,7 @@ const Header = () => {
 
                                     <DropMenu
                                         styleForWindowBlock="w-full h-full fixed top-0 left-0 flex justify-center items-center z-20 cursor-default "
-                                        styleForContainerBlock='absolute w-60 shadow-defaultModal rounded bg-white flex items-center top-14 right-[28rem] p-0 m-0 z-30'
+                                        styleForContainerBlock='absolute w-60 shadow-defaultModal rounded bg-white flex items-center top-12 right-0 p-0 m-0 z-30 '
                                         styleForInnerBlock='flex items-center flex-col w-full'
                                         dropMenuProfile={dropMenuProfile}
                                         setDropMenuProfile={setDropMenuProfile}
@@ -200,7 +212,7 @@ const Header = () => {
                                         <ItemDropMenu
                                             imageUrl='../images/save-icon.png'
                                             text='Saved'
-                                            action={userSignOut}
+                                            action={redirectToSaved}
                                             style={HeaderStyles.itemDropItem}
                                             link={`/${userRedux.displayName}`}
 

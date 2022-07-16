@@ -8,10 +8,12 @@ const useChat = (chatsArray) => {
 
     const { getDocs, db, collection, doc, setDoc } = useContext(Context)
     const userRedux = useSelector(state => state.userReducer.user)
+    const allChats = useSelector((state) => state.chatsReducer.chats)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const createChat = async (usersArray, setMessage) => {
+    const createChat = async (usersArray) => {
+
         const querySnapshot = await getDocs(collection(db, "chats"));
         const mapQuerySnapshot = querySnapshot.docs.map((doc) => {
             return doc.data()
@@ -24,7 +26,7 @@ const useChat = (chatsArray) => {
             return JSON.stringify(namesArrayUser.sort()) === JSON.stringify(namesArrayElem.sort())
         })
         if (isChatAlreadyExist) {
-            navigate(`/direct/${isChatAlreadyExist.uid}`)
+            return isChatAlreadyExist.uid
         } else {
             const uniqKey = new Date().getTime().toString();
             await setDoc(doc(db, "chats", `${uniqKey}`), {
@@ -34,8 +36,11 @@ const useChat = (chatsArray) => {
             });
             dispatch(setChats([{ messages: [], users: [...usersArray, userRedux], uid: uniqKey }, ...chatsArray]))
 
-            navigate(`/direct/${uniqKey}`)
+
+            return uniqKey
         }
+
+
     }
 
     return { createChat }

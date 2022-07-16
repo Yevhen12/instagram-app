@@ -14,7 +14,7 @@ const UserInFollowersModal = ({ currentUser }) => {
     const isUserReduxFollowing = userRedux.following && userRedux.following.find(elem => elem.displayName === currentUser.displayName)
 
     return (
-        <li className="pt-2.5 px-5">
+        <div className="pt-2.5 px-5">
             <div className="flex justify-between items-center">
                 <div className="flex items-center">
                     <div className="h-[2.1rem] w-[2.1rem] rounded-full border overflow-hidden mt-1">
@@ -61,7 +61,7 @@ const UserInFollowersModal = ({ currentUser }) => {
                     )
                 }
             </div>
-        </li>
+        </div>
     )
 }
 export default UserInFollowersModal

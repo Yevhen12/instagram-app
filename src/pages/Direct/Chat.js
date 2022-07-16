@@ -22,6 +22,8 @@ const Chat = () => {
     //     defaultHeigth: 50
     // }))
 
+    console.log(chatsRedux)
+
     const dispatch = useDispatch()
 
     const { chat } = useParams()
@@ -76,6 +78,7 @@ const Chat = () => {
 
 
     const sendMessage = async () => {
+        setText('')
         const uniqKey = new Date().getTime().toString();
         const chatRef = doc(db, "chats", `${chat}`);
 
@@ -93,7 +96,7 @@ const Chat = () => {
         })
 
         dispatch(setChats(mapChatsArray))
-        setText('')
+
     }
 
     const sendHeart = async () => {
@@ -211,12 +214,52 @@ const Chat = () => {
                         )
                         :
                         (
-                            <div style={{ wordWrap: "break-word" }} className={`py-2.5 px-4 mt-2 rounded-3xl max-w-[230px] 
+                            <>
+                                {
+                                    elem.post ?
+                                        (
+                                            <div style={{ wordWrap: "break-word" }} className={`bg-black/5 rounded-3xl border mt-2 w-[230px] 
+                                        ${elem.user.uid === userRedux.uid ? '' : (messages[idx + 1] ? messages[idx + 1].user.uid !== messages[idx].user.uid : true) ? '' : 'ml-9'}`}>
+                                                <div className="p-3 flex items-center">
+                                                    <Link to={`/${elem.post.currentPost.user.displayName}`}>
+                                                        <img
+                                                            alt="userPhoto"
+                                                            src={`${elem.post.currentPost.user.imageUrl ? elem.post.currentPost.user.imageUrl : '/images/standart-profile.png'}`}
+                                                            className='w-8 h-8 object-cover mr-3 rounded-full'
+                                                        />
+                                                    </Link>
+                                                    <Link to={`/${elem.post.currentPost.user.displayName}`}>
+                                                        <p className="text-sm">{elem.post.currentPost.user.displayName}</p>
+                                                    </Link>
+                                                </div>
+                                                <Link to={`/${elem.post.currentPost.user.displayName}/${elem.post.currentPost.uid}`}>
+                                                    <div className={`h-[230px] flex justify-center bg-white ${elem.post.text.length > 0 ? '' : 'rounded-b-3xl'}`}>
+                                                        <img alt="somePhoto" src={elem.post.currentPost.image} className={`object-cover ${elem.post.text.length > 0 ? '' : 'rounded-b-3xl'}`} />
+                                                    </div>
+                                                </Link>
+                                                {
+                                                    elem.post.text.length > 0 &&
+                                                    (
+                                                        <div className="flex flex-col px-3 py-2">
+                                                            <p className="text-sm font-semibold">{elem.post.currentPost.user.displayName}</p>
+                                                            <p className="text-sm">{elem.post.text}</p>
+                                                        </div>
+                                                    )
+                                                }
+                                            </div>
+
+                                        )
+                                        :
+                                        (
+                                            <div style={{ wordWrap: "break-word" }} className={`py-2.5 px-4 mt-2 rounded-3xl max-w-[230px] 
                             ${elem.user.uid === userRedux.uid ? 'bg-black/5' : (messages[idx + 1] ? messages[idx + 1].user.uid !== messages[idx].user.uid : true) ? 'border' : 'border ml-9'}`}>
-                                <span className="max-w-[230px] text-sm text-ellipsis">
-                                    {elem.text}
-                                </span>
-                            </div>
+                                                <span className="max-w-[230px] text-sm text-ellipsis">
+                                                    {elem.text}
+                                                </span>
+                                            </div>
+                                        )
+                                }
+                            </>
                         )
                 }
 
@@ -329,24 +372,27 @@ const Chat = () => {
                             {
                                 showPicker &&
                                 (
-                                    <div
-                                        className={`w-full h-full fixed top-0 left-0 items-center z-20 ${showPicker ? 'pointer-events-auto' : 'pointer-events-none'}`}
-                                        onClick={() => setShowPicker(false)}
-                                    >
-                                        <div onClick={(e) => e.stopPropagation()}>
+                                    <>
+                                        <div
+                                            className={`w-full h-full fixed top-0 left-0 items-center z-10 ${showPicker ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                                            onClick={() => setShowPicker(false)}
+                                        >
+                                        </div>
+                                        <div onClick={(e) => e.stopPropagation()} className = {`${showPicker ? 'block' : 'hidden'}`}>
                                             <Picker
                                                 onEmojiClick={onEmojiClick}
                                                 pickerStyle={
                                                     {
                                                         width: '310px',
                                                         position: "absolute",
-                                                        top: '500px',
-                                                        left: '840px'
+                                                        top: '-330px',
+                                                        left: '0px',
+                                                        zindex: '21'
                                                     }
                                                 }
                                             />
                                         </div>
-                                    </div>
+                                    </>
                                 )
                             }
                             {text.length > 0 ?

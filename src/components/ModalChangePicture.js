@@ -69,7 +69,7 @@ const ModalChangePicture = ({ activeModal, setActiveModal }) => {
         >
             <div
                 onClick={(e) => e.stopPropagation()}
-                className={`bg-white w-1/5 rounded-xl duration-300  ${activeModal ? 'scale-100' : 'scale-50'}`}
+                className={`bg-white w-[400px]  rounded-xl duration-300  ${activeModal ? 'scale-100' : 'scale-50'}`}
             >
                 <div className="pt-7 pb-7 border-b">
                     <p className="text-lg font-semibold text-center">Change profile photo</p>

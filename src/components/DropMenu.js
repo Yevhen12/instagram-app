@@ -6,17 +6,19 @@ const DropMenu = ({ children, styleForContainerBlock, styleForInnerBlock, dropMe
         setDropMenuProfile(false)
     }
     return (
-        <div onClick={() => hendleMenu()} className={`${styleForWindowBlock}
+        <>
+            <div onClick={() => hendleMenu()} className={`${styleForWindowBlock}
         ${dropMenuProfile ? 'block pointer-events-auto' : 'hidden pointer-events-none'}`}>
+            </div>
             <div
-                className={styleForContainerBlock}
-                onClick = {(e) => e.stopPropagation()}
+                className={`${styleForContainerBlock} ${dropMenuProfile ? 'block' : 'hidden'}`}
+                onClick={(e) => e.stopPropagation()}
             >
                 <div className={styleForInnerBlock}>
                     {children}
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 export default DropMenu

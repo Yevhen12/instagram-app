@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useChat from "../../../hooks/useChat";
 import ReusebleModal from "../../../components/ReusebleModal";
+import { setChats } from "../../../redux/actions/chatsAction";
 
 const ModalSharePost = ({ activeModal, setActiveModal }) => {
     const [text, setText] = useState('')
@@ -12,9 +13,12 @@ const ModalSharePost = ({ activeModal, setActiveModal }) => {
     const [usersFound, setUsersFound] = useState([])
     const [selectedUsers, setSelectedUsers] = useState([])
     const { searchUsers } = useSearch()
-    const { setDoc, doc, db, collection, getDocs } = useContext(Context)
+
+    const { doc, db, updateDoc, getDoc } = useContext(Context)
+
     const chatsArray = useSelector((state) => state.chatsReducer.chats)
     const userRedux = useSelector((state) => state.userReducer.user)
+    const currentPostRedux = useSelector(state => state.currentPostReducer.post)
 
     const { createChat } = useChat(chatsArray)
 
@@ -44,28 +48,41 @@ const ModalSharePost = ({ activeModal, setActiveModal }) => {
     }
 
 
-    const addChat = async (usersArray) => {
+    const sendPost = async (usersArray) => {
 
-        createChat(usersArray)
+        const key = await createChat(usersArray)
+        
+        const chatRef = doc(db, "chats", `${key}`);
+        const docSnap = await getDoc(chatRef);
 
-        const chatToUpdate = chatsArray.find(elem => elem.users.every(user => user.displayName === usersArray[0].displayName || user.displayName === userRedux.displayName))
+        const chatToUpdate = docSnap.data()
 
-        // const chatRef = doc(db, "chats", `${chat}`);
+        const uniqKey = new Date().getTime().toString();
 
-        // await updateDoc(chatRef, {
-        //     "messages": [...messages, { uniqKey_time: uniqKey, images: { heart: '', userImage: '' }, text: text, user: { uid: userRedux.uid, displayName: userRedux.displayName, imageUrl: userRedux.imageUrl } }]
-        // });
+        const newMessage = {
+            uniqKey_time: uniqKey,
+            images: { heart: '', userImage: '' },
+            text: '',
+            user: { uid: userRedux.uid, displayName: userRedux.displayName, imageUrl: userRedux.imageUrl },
+            post: {text: messageToPost, currentPost: currentPostRedux}
 
-        // const mapChatsArray = chatsRedux.map(elem => {
-        //     if (elem.uid === currentChat.uid) {
-        //         return {
-        //             ...currentChat,
-        //             messages: [...messages, { uniqKey_time: uniqKey, text: text, user: { uid: userRedux.uid, displayName: userRedux.displayName, images: { heart: '', userImage: '' } } }]
-        //         }
-        //     } else return elem
-        // })
+        }
 
-        // dispatch(setChats(mapChatsArray))
+        await updateDoc(chatRef, {
+            "messages": [...chatToUpdate.messages, newMessage]
+        });
+
+        const mapChatsArray = chatsArray.map(elem => {
+            if (elem.uid === chatToUpdate.uid) {
+                return {
+                    ...chatToUpdate,
+                    messages: [...chatToUpdate.messages, newMessage]
+                }
+            } else return elem
+        })
+
+        dispatch(setChats(mapChatsArray))
+
 
 
         setActiveModal(false)
@@ -232,7 +249,7 @@ const ModalSharePost = ({ activeModal, setActiveModal }) => {
                             disabled={!selectedUsers.length}
                             type="button"
                             className={`${!selectedUsers.length ? ' bg-[#0195f6]/40' : 'bg-[#0195f6]'} w-full py-1.5 text-white  rounded font-semibold`}
-                            onClick={() => addChat(selectedUsers)}
+                            onClick={() => sendPost(selectedUsers)}
                         >
                             Send
                         </button>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Link, Outlet } from "react-router-dom";
 import * as ProfileRoutes from '../../constants/profileLinks'
 import NotFound from "../NotFound";
@@ -16,7 +16,8 @@ const StrangeProfileUser = () => {
 
     const [activeModal, setActiveModal] = useState(false)
 
-    const {createChat} = useChat(chatsArray)
+    const { createChat } = useChat(chatsArray)
+    const navigate = useNavigate()
 
 
     //console.log(currentProfileUserRedux)
@@ -31,10 +32,11 @@ const StrangeProfileUser = () => {
 
     const isUserReduxFollowing = currentProfileUserRedux.followers && currentProfileUserRedux.followers.find(elem => elem.uid === userRedux.uid)
 
-    const startChat = () => {
-        console.log(1)
-        createChat([currentProfileUserRedux])
+    const startChat = async () => {
 
+        const key = await createChat([currentProfileUserRedux])
+
+        navigate(`/direct/${key}`)
     }
 
 
@@ -67,7 +69,7 @@ const StrangeProfileUser = () => {
                                                             <button
                                                                 className="active:opacity-60 border rounded rounded-[0.15] px-2.5 py-1.5 text-sm font-semibold mr-2 bg-transparent text-black "
                                                                 type="button"
-                                                                onClick = {startChat}
+                                                                onClick={startChat}
                                                             >
                                                                 Message
                                                             </button>
@@ -106,7 +108,7 @@ const StrangeProfileUser = () => {
                                                             <button
                                                                 className="active:opacity-60 border rounded rounded-[0.15] px-2.5 py-1.5 text-sm font-semibold mr-2 bg-transparent text-black "
                                                                 type="button"
-                                                                onClick = {startChat}
+                                                                onClick={startChat}
                                                             >
                                                                 Message
                                                             </button>
@@ -137,7 +139,9 @@ const StrangeProfileUser = () => {
                                                 </Link>
                                             </div>
                                             <div className="mr-10">
-                                                <p className="cursor-pointer"><span className="font-semibold">{currentProfileUserRedux.following.length}</span> following</p>
+                                                <Link to={`${ProfileRoutes.FOLLOWING}`}>
+                                                    <p className="cursor-pointer"><span className="font-semibold">{currentProfileUserRedux.following.length}</span> following</p>
+                                                </Link>
                                             </div>
                                         </div>
 
@@ -168,7 +172,7 @@ const StrangeProfileUser = () => {
                                         </Link>
                                     </div>
                                 </div>
-                                <Outlet context={{posts: currentProfileUserRedux.posts}}/>
+                                <Outlet context={{ posts: currentProfileUserRedux.posts }} />
                             </div>
                         </section >
                     )
