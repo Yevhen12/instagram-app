@@ -1,26 +1,25 @@
 import './App.css';
 import React, { Suspense, lazy } from 'react';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom'
-import * as ROUTES from './constants/links'
-import { useSelector } from 'react-redux';
+import * as ROUTES from './constants/pagesLinks'
 import * as ProfileRoutes from './constants/profileLinks'
-import Posts from './pages/ProfilePages/Posts';
-import Tagged from './pages/ProfilePages/Tagged';
-import Saved from './pages/ProfilePages/Saved';
+import Posts from './pages/Profile/ProfilePages/PostsPages/Posts';
+import Tagged from './pages/Profile/ProfilePages/PostsPages/Tagged';
+import Saved from './pages/Profile/ProfilePages/PostsPages/Saved';
 import * as directLinks from './constants/directLinks'
-import Chat from './pages/Direct/Chat';
-import ModalDetailedPost from './pages/ProfilePages/Post/ModalDetailedPost';
-import Following from './pages/ProfilePages/Following';
+import Chat from './pages/Direct/Chat/Chat';
+import ModalDetailedPost from './pages/Profile/ProfilePages/Post/ModalDetailedPost';
+import Following from './pages/Profile/ProfilePages/Modals/Following';
 
-const Home = lazy(() => import('./pages/Home'))
-const SignIn = lazy(() => import('./pages/SignIn'))
-const SignUp = lazy(() => import('./pages/SignUp'))
-const ForgotPassword = lazy(() => import('./pages/ForgotPassword'))
-const NotFound = lazy(() => import('./pages/NotFound'))
-const Profile = lazy(() => import('./pages/Profile'))
+const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'))
+const SignIn = lazy(() => import('./pages/SignIn/SignIn'))
+const SignUp = lazy(() => import('./pages/SignUp/SignUp'))
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword/ForgotPassword'))
+const NotFound = lazy(() => import('./pages/NotFound/NotFound'))
+const Profile = lazy(() => import('./pages/Profile/Profile'))
 const Direct = lazy(() => import('./pages/Direct/Direct'))
-const Explore = lazy(() => import('./pages/Explore'))
-const Followers = lazy(() => import('./pages/ProfilePages/Followers'))
+const Explore = lazy(() => import('./pages/Explore/Explore'))
+const Followers = lazy(() => import('./pages/Profile/ProfilePages/Modals/Followers'))
 // const Saved = lazy(() => import('./pages/ProfilePages/Saved'))
 // const Tagged = lazy(() => import('./pages/ProfilePages/Tagged'))
 // const Posts = lazy(() => import('./pages/ProfilePages/Posts'))
@@ -33,7 +32,7 @@ function App() {
       <Suspense fallback={"Loading..."}>
         <Router>
           <Routes>
-            <Route path={ROUTES.HOME} element={<Home />} />
+            <Route path={ROUTES.HOME} element={<Dashboard />} />
             <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
             <Route path={ROUTES.SIGN_IN} element={<SignIn />} />
             <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
@@ -52,8 +51,6 @@ function App() {
               <Route path={directLinks.CHAT} element={<Chat />} />
             </Route>
             <Route path={ROUTES.EXPLORE} element={<Explore />} />
-
-
           </Routes>
         </Router>
       </Suspense>

@@ -8,9 +8,8 @@ const useChat = (chatsArray) => {
 
     const { getDocs, db, collection, doc, setDoc } = useContext(Context)
     const userRedux = useSelector(state => state.userReducer.user)
-    const allChats = useSelector((state) => state.chatsReducer.chats)
     const dispatch = useDispatch()
-    const navigate = useNavigate()
+
 
     const createChat = async (usersArray) => {
 

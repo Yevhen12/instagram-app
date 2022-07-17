@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import Header from "../../components/Header";
+import Header from "../../components/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
-import NewMessageModal from "./NewMessageModal";
+import NewMessageModal from "./Modals/NewMessageModal";
 import { Context } from "../../context/firebaseContext";
 import { setChats } from "../../redux/actions/chatsAction";
 import { Outlet, Link, useLocation, useParams } from "react-router-dom";
-import NotFound from "../NotFound";
-import convertUnixTime from "../../helpers/converUnixTime";
+import NotFound from "../NotFound/NotFound";
+import UserItem from "./Items/UserItem";
 
 const Direct = () => {
     const [activeModal, setActiveModal] = useState(false)
@@ -42,53 +42,17 @@ const Direct = () => {
 
     })
 
+    const isCorrect = !isChat && location.pathname !== '/direct'
 
-    const mapChatsArray = sortChatsArray.map((elem, idx) => {
-        const strangeUser = elem.users.find(elem => elem.uid !== userRedux.uid)
-        let currentTimeString = 'Now';
-        if (elem.messages.length > 0) {
-            currentTimeString = convertUnixTime(elem.messages[elem.messages.length - 1].uniqKey_time).split(' ')
-            console.log(currentTimeString[1])
-            if(currentTimeString[1] === 'Now') {
-                currentTimeString = 'Now'
-            } else {
-                currentTimeString = currentTimeString[0] + currentTimeString[1][0]
-            }
-            
-        }
 
-        return (
-            <li key={idx} className={`py-1.5 pl-4 hover:bg-gray-100/50 cursor-pointer ${location.pathname === `/direct/${elem.uid}` && 'bg-black/5 hover:bg-black/5 cursor-default'}`}>
-                <Link to={elem.uid} className={`${location.pathname === `/direct/${elem.uid}` && 'cursor-default'}`}>
-                    <div className="flex justify-left items-center">
-                        <div className="w-[3.5rem] h-[3.5rem] rounded-full overflow-hidden mt-1 mr-3">
-                            <img
-                                className="w-full h-full object-cover"
-                                src={`${strangeUser.imageUrl ? strangeUser.imageUrl : '/images/standart-profile.png'}`}
-                                alt="UserPhoto"
-                            />
-                        </div>
-                        <div className="w-[15.5rem] pr-5">
-                            <p className="text-sm">
-                                {strangeUser.displayName}
-                            </p>
-                            <div className="flex">
-                                <p className="text-sm text-black/40 max-w-[115px] overflow-hidden mr-1">{elem.messages.length > 0 && elem.messages[elem.messages.length - 1].text} </p>
-                                <p className="text-sm text-black/40 min-w-[30px]"> · {currentTimeString}</p>
-                            </div>
-                        </div>
-                    </div>
-                </Link>
-            </li>
-        )
-    })
+    const mapChatsArray = sortChatsArray.map((elem, idx) => <UserItem key={idx} chat={elem}/>)
 
 
 
     return (
         <div>
             <Header />
-            {(!isChat && location.pathname !== '/direct') ?
+            {isCorrect ?
                 (
                     <NotFound />
                 )
