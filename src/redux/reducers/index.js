@@ -3,6 +3,7 @@ import { userReducer } from './userReducer'
 import { currentProfileUserReducer } from './currentProfileUserRuducer'
 import { chatsReducer } from './chatsReducer'
 import { currentPostReducer } from './currentPostReducer'
+import { isLoadingReducer } from './isLoadingReducer'
 
 export const reducers = combineReducers(
     {
@@ -10,5 +11,6 @@ export const reducers = combineReducers(
         currentProfileUserReducer,
         chatsReducer,
         currentPostReducer,
+        isLoadingReducer
     }
 )

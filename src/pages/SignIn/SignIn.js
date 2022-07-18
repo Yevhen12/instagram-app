@@ -2,6 +2,9 @@ import React, { useState, useContext } from "react";
 import * as ROUTES from '../../constants/pagesLinks'
 import { Link, useNavigate } from 'react-router-dom'
 import { Context } from "../../context/firebaseContext";
+import { setUser } from "../../redux/actions/userActions";
+import { useDispatch } from "react-redux";
+import { getDoc } from "firebase/firestore";
 
 
 const SignIn = () => {
@@ -13,10 +16,12 @@ const SignIn = () => {
         }
     )
 
+    const dispatch = useDispatch()
+
 
     const [error, setError] = useState()
     const navigate = useNavigate()
-    const { signInWithEmailAndPassword, auth } = useContext(Context)
+    const { signInWithEmailAndPassword, auth, doc, db, getDoc } = useContext(Context)
 
 
     const changetextForm = (e) => {
@@ -31,23 +36,15 @@ const SignIn = () => {
         })
     }
 
-    const signIn = (e) => {
+    const signIn = async (e) => {
         e.preventDefault()
         const { email, password } = textForm
-        signInWithEmailAndPassword(auth, email, password)
-            .then(data => {
-                console.log(data)
-                navigate('/')
-            })
-            .catch(someError => {
-                setTextForm(
-                    {
-                        email: '',
-                        password: ''
-                    }
-                )
-                setError(someError)
-            })
+        const loggedUser = await signInWithEmailAndPassword(auth, email, password)
+        const docUser = await getDoc(doc(db, 'users', loggedUser.user.uid))
+
+        dispatch(setUser(docUser.data()))
+
+        navigate('/')
 
     }
     return (

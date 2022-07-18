@@ -1,14 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import ModalChangePicture from "../../../components/Modals/ModalChangePicture";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { Link, Outlet } from "react-router-dom";
 import * as ProfileRoutes from '../../../constants/profileLinks'
+import { Context } from "../../../context/firebaseContext";
+import { setUser } from "../../../redux/actions/userActions";
+import { useParams } from "react-router-dom";
 
 const RealUser = () => {
     const [activeModal, setActiveModal] = useState(false)
+    const {user} = useParams()
     const userRedux = useSelector((state) => state.userReducer.user)
     const location = useLocation()
+    const { doc, db, getDoc } = useContext(Context)
+    const dispatch = useDispatch()
+
+
+    // useEffect(() => {
+    //     const getUser = async () => {
+    //         const userRef = doc(db, 'users', userRedux.uid)
+    //         const userSnap = await getDoc(userRef)
+
+    //         dispatch(setUser(userSnap.data()))
+    //     }
+
+    //     getUser()
+
+    // }, [user])
 
     console.log(location)
 

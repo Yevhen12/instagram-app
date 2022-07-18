@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import useFollow from "../hooks/useFollow";
-import ReusebleModal from "./Modals/ReusebleModal";
-import UnfollowModal from "./Modals/UnfollowModal";
+import useFollow from "../../../../../hooks/useFollow";
+import ReusebleModal from "../../../../../components/Modals/ReusebleModal";
+import UnfollowModal from "../../../../../components/Modals/UnfollowModal";
 
 const UserInFollowersModal = ({ currentUser }) => {
 

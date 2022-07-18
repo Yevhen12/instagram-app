@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import Modal from "../../../../components/Modals/Modal";
 import { useSelector } from "react-redux";
 import { nanoid } from 'nanoid'
-import UserInFollowersModal from "../../../../components/UserInFollowersModal";
+import UserInFollowersModal from "./ItemUser/UserInFollowersModal";
 
 const Following = () => {
     const [activeModal, setActiveModal] = useState(false)
