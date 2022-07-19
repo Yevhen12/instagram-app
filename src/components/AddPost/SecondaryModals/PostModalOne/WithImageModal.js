@@ -19,7 +19,7 @@ const WithImageModal = ({post, setPost}) => {
         {
             post.images[0] ?
                 (
-                    <img alt='postphoto' src={URL.createObjectURL(post.images[0])} className="w-full h-full object-cover rounded-b-xl" />
+                    <img alt='postphoto' src={URL.createObjectURL(post.images[0])} className="w-full h-full object-contain rounded-b-xl bg-black" />
                 )
                 :
                 (

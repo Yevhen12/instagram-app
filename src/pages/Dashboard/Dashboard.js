@@ -3,8 +3,9 @@ import Header from "../../components/Header/Header";
 import { Context } from "../../context/firebaseContext";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Suggestions from "../../components/Suggestions/Suggestions";
+import Suggestion from './DashboardTypes/Suggestion/Suggestion'
 import * as ROUTES from '../../constants/pagesLinks'
+import Main from "./DashboardTypes/Main/Main";
 
 const Dashboard = () => {
 
@@ -27,6 +28,8 @@ const Dashboard = () => {
 
     }, [])
 
+    const isSuggestions = allPosts.length === 0
+
 
     console.log(allPosts)
 
@@ -34,7 +37,19 @@ const Dashboard = () => {
         <div className="bg-[#fafafa]">
             {!auth.currentUser && <Navigate to={ROUTES.SIGN_IN} />}
             <Header />
-            <Suggestions />
+            {
+            isSuggestions ? 
+            (
+                <Suggestion />
+            )
+            :
+            (
+                <main role="main">
+                    <Main />
+                </main>
+            )
+            
+}
         </div>
     )
 }

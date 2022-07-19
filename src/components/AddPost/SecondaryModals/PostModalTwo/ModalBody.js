@@ -22,7 +22,7 @@ const ModalBody = ({post, setText, text}) => {
     return (
         <div className="flex h-[calc(100%-50px)]">
             <div className="w-[700px] h-full">
-                <img alt='postphoto' src={URL.createObjectURL(post.images[0])} className="w-full h-full object-cover rounded-bl-xl" />
+                <img alt='postphoto' src={URL.createObjectURL(post.images[0])} className="w-full h-full object-contain bg-black rounded-bl-xl" />
             </div>
             <div className="w-[calc(100%-700px)] py-5">
                 <div className="flex flex-col">

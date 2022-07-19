@@ -35,7 +35,7 @@ const ModalDetailedPost = () => {
     useEffect(() => {
         dispatch(setCurrentPost(currentPost))
     }, [userPost, savedPost])
-
+    
 
     const closeModal = () => {
         navigate(-1)
@@ -93,10 +93,10 @@ const ModalDetailedPost = () => {
                 </div>
             }
             <div className={`max-w-[70%] w-full bg-white max-h-[85%] h-full my-5 flex items-center rounded-r-md`} onClick={(e) => e.stopPropagation()}>
-                <div className="w-3/5 h-full">
+                <div className="w-3/5 h-full bg-black">
                     <img
                         src={currentPost.image}
-                        className="h-full w-full object-cover"
+                        className="h-full w-full object-contain"
                     />
                 </div>
                 <div className="w-2/5 h-full">

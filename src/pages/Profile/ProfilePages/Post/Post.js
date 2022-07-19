@@ -7,7 +7,7 @@ const Post = ({ post }) => {
         <>
             <Link to={post.uid}>
                 <div
-                    className="w-[300px] h-[300px] border mx-3.5 mb-7 relative cursor-pointer"
+                    className="w-[300px] h-[300px] border mx-3.5 mb-7 relative cursor-pointer bg-black"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                 >
@@ -29,7 +29,7 @@ const Post = ({ post }) => {
                         )
                     }
 
-                    <img alt="userPhoto" src={post.image} className="w-full h-full object-cover" />
+                    <img alt="userPhoto" src={post.image} className="w-full h-full object-contain" />
                 </div>
             </Link>
         </>
