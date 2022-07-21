@@ -4,6 +4,8 @@ import { nanoid } from 'nanoid'
 import UserInFollowersModal from "../../Modals/ItemUser/UserInFollowersModal";
 
 const LikesModal = ({ likes, activeModal, setActiveModal }) => {
+
+    
     const mapLikesArray= likes.map(elem => {
         return (
             <UserInFollowersModal

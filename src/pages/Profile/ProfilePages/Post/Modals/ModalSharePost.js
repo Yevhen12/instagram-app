@@ -7,7 +7,7 @@ import useChat from "../../../../../hooks/useChat";
 import ReusebleModal from "../../../../../components/Modals/ReusebleModal";
 import { setChats } from "../../../../../redux/actions/chatsAction";
 
-const ModalSharePost = ({ activeModal, setActiveModal }) => {
+const ModalSharePost = ({ activeModal, setActiveModal, updatedCurrentPost }) => {
     const [text, setText] = useState('')
     const [messageToPost, setMessageToPost] = useState('')
     const [usersFound, setUsersFound] = useState([])
@@ -18,12 +18,10 @@ const ModalSharePost = ({ activeModal, setActiveModal }) => {
 
     const chatsArray = useSelector((state) => state.chatsReducer.chats)
     const userRedux = useSelector((state) => state.userReducer.user)
-    const currentPostRedux = useSelector(state => state.currentPostReducer.post)
 
     const { createChat } = useChat(chatsArray)
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
 
     const changeText = async (e) => {
         const { value } = e.target
@@ -65,7 +63,7 @@ const ModalSharePost = ({ activeModal, setActiveModal }) => {
             images: { heart: '', userImage: '' },
             text: '',
             user: { uid: userRedux.uid, displayName: userRedux.displayName, imageUrl: userRedux.imageUrl },
-            post: {text: messageToPost, currentPost: currentPostRedux}
+            post: {text: messageToPost, currentPost: updatedCurrentPost}
         }
 
         await updateDoc(chatRef, {
@@ -91,7 +89,6 @@ const ModalSharePost = ({ activeModal, setActiveModal }) => {
         setText('')
     }
 
-    console.log(chatsArray)
 
     const mapUsersFound = usersFound.length > 0 ?
         usersFound.map((elem) => {
@@ -166,7 +163,6 @@ const ModalSharePost = ({ activeModal, setActiveModal }) => {
     ) : false
 
 
-    console.log(messageToPost)
     return (
         <ReusebleModal
             activeModal={activeModal}

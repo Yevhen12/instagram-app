@@ -25,11 +25,11 @@ const Sidebar = () => {
 
 
     return (
-        <aside className='max-w-[330px] w-full'>
+        <aside className='max-w-[330px] w-full mt-5'>
             <div className='w-full'>
                 <div className='w-full flex justify-between items-center'>
-                    <div className='rounded-full min-w-[56px] mr-4'>
-                        <img alt='userPhoto' src='/images/standart-profile.png' className='h-[56px] w-[56px] object-cover' />
+                    <div className='rounded-full min-w-[56px] mr-4 overflow-hidden'>
+                        <img alt='userPhoto' src={`${userRedux.imageUrl ? userRedux.imageUrl : '/images/standart-profile.png'}`} className='h-[56px] w-[56px] object-cover' />
                     </div>
                     <div className='flex flex-col w-full'>
                         <p className='font-semibold text-sm'>{userRedux.displayName}</p>

@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate, Link, useLocation, useOutletContext } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import ReusebleModal from "../../../../components/Modals/ReusebleModal";
 import IteractionMenuPost from './IteactionMenuPost';
 import Comment from "./Comment/Comment";
-import { setCurrentPost } from "../../../../redux/actions/currentPostAction";
 import convertUnixTime from "../../../../helpers/converUnixTime";
+import { Context } from "../../../../context/firebaseContext";
 
 
 
 const ModalDetailedPost = () => {
     const [activeModal, setActiveModal] = useState(false)
-    const currenUserInProfile = useSelector(state => state.currentProfileUserReducer.user)
-    const currentPostRedux = useSelector(state => state.currentPostReducer.post)
-    const { userPost, user, savedPost } = useParams()
-    const dispatch = useDispatch()
+    const [updatedCurrentPost, setUpdatedCurrentPost] = useState({})
+    const { userPost, savedPost } = useParams()
 
     const { posts, savedPosts } = useOutletContext()
+    const { doc, db, getDoc } = useContext(Context)
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -25,32 +23,52 @@ const ModalDetailedPost = () => {
 
     const postsToIterate = (isSavedPostArray ? savedPosts : posts).sort((a, b) => b.uid - a.uid)
 
-
     const currentPost = postsToIterate.find(elem => isSavedPostArray ? elem.uid === savedPost : elem.uid === userPost)
+
+
+
+    useEffect(() => {
+        const getPost = async () => {
+            const userRef = doc(db, 'users', currentPost.user.uid)
+            const userSnap = await getDoc(userRef)
+
+            const userData = userSnap.data()
+
+            const postInUser = userData.posts.find(elem => elem.uid === currentPost.uid)
+
+            setUpdatedCurrentPost(postInUser)
+        }
+
+        getPost()
+    }, [])
 
     useEffect(() => {
         setActiveModal(true)
     }, [])
 
-    useEffect(() => {
-        dispatch(setCurrentPost(currentPost))
-    }, [userPost, savedPost])
-    
-
     const closeModal = () => {
         navigate(-1)
     }
-    
+
     let currentTimeString = convertUnixTime(currentPost.uid).split(' ')
     currentTimeString = currentTimeString[1] === 'Now' ? 'Now' : currentTimeString[0] + currentTimeString[1][0]
 
-    const mapedArrayComments = currentPostRedux && currentPostRedux.comments && currentPostRedux.comments.length > 0 && currentPostRedux.comments.map(elem => <Comment key={elem.createdAt} postComment={elem} />)
+    const mapedArrayComments = updatedCurrentPost && updatedCurrentPost.comments && updatedCurrentPost.comments.length > 0 && updatedCurrentPost.comments.map(elem => (
+        <Comment
+            key={elem.createdAt}
+            updatedCurrentPost={updatedCurrentPost}
+            setUpdatedCurrentPost={setUpdatedCurrentPost}
+            postComment={elem}
+        />
+    ))
 
     const isNextPostExist = postsToIterate.find(elem => {
         if (Number(elem.uid) < Number(userPost)) return elem
 
         return false
     })
+
+    console.log(mapedArrayComments)
 
 
 
@@ -70,7 +88,7 @@ const ModalDetailedPost = () => {
     }
 
 
-
+console.log(updatedCurrentPost)
     return (
         <ReusebleModal
             activeModal={activeModal}
@@ -104,7 +122,7 @@ const ModalDetailedPost = () => {
                         <div className="h-[60px] flex justify-between items-center border-b">
                             <div className="flex items-centerh-full">
                                 <Link to={`/${currentPost.user.displayName}`}>
-                                    <img className="w-8 h-8 rounded-full object-cover mx-5" src={`${currentPost.user.imageUrl ? currentPost.user.imageUrl : '/images/standart-profile.png'}`} />
+                                    <img className="w-8 h-8 rounded-full object-cover mx-5" src={updatedCurrentPost && updatedCurrentPost.user && updatedCurrentPost.user.imageUrl ? updatedCurrentPost.imageUrl : '/images/standart-profile.png'} />
                                 </Link>
                                 <Link to={`/${currentPost.user.displayName}`}>
                                     <p className="font-semibold text-sm mt-1">{currentPost.user.displayName}</p>
@@ -150,7 +168,7 @@ const ModalDetailedPost = () => {
                                     )
                             }
                         </div>
-                        <IteractionMenuPost currentPost={currentPost} isCurrentPostSaved={isSavedPostArray ? true : false} />
+                        <IteractionMenuPost currentPost={currentPost} updatedCurrentPost={updatedCurrentPost} setUpdatedCurrentPost={setUpdatedCurrentPost} isCurrentPostSaved={isSavedPostArray ? true : false} />
                     </div>
                 </div>
             </div>

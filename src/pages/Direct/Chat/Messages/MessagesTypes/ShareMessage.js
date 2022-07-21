@@ -21,7 +21,7 @@ const ShareMessage = ({message, messages, idx}) => {
             </div>
             <Link to={`/${message.post.currentPost.user.displayName}/${message.post.currentPost.uid}`}>
                 <div className={`h-[230px] flex justify-center bg-white ${message.post.text.length > 0 ? '' : 'rounded-b-3xl'}`}>
-                    <img alt="somePhoto" src={message.post.currentPost.image} className={`object-cover ${message.post.text.length > 0 ? '' : 'rounded-b-3xl'}`} />
+                    <img alt="somePhoto" src={message.post.currentPost.image} className={`object-cover w-full h-full ${message.post.text.length > 0 ? '' : 'rounded-b-3xl'}`} />
                 </div>
             </Link>
             {

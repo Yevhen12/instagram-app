@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Post from "../Post/Post";
 import { Outlet, useLocation } from "react-router-dom";
 import { Context } from "../../../../context/firebaseContext";
+import { setUser } from "../../../../redux/actions/userActions";
 
 const Saved = () => {
 
@@ -10,20 +11,36 @@ const Saved = () => {
     const { doc, db, getDoc } = useContext(Context)
 
     const userRedux = useSelector(state => state.userReducer.user)
+    const dispatch = useDispatch()
 
-    const postsToUpdate = userRedux.savedPosts
 
     useEffect(() => {
-        postsToUpdate.forEach(async (elem) => {
-            const userCurrentProfileDoc = doc(db, 'users', elem.user.uid)
-            const userSnap = await getDoc(userCurrentProfileDoc);
-            const userToUpdate = userSnap.data()
+        setOldSavedPost([])
 
-            const postUpdate = userToUpdate.posts.find(elemPost => elemPost.uid === elem.uid)
+        const getPosts = async () => {
+            const refUser = doc(db, 'users', userRedux.uid)
+            const docUser = await getDoc(refUser)
 
-            setOldSavedPost(prevPost => [...prevPost, postUpdate])
-        })
+            const userData = docUser.data()
+
+            dispatch(setUser(userData))
+
+            userData.savedPosts.forEach(async (elem) => {
+                const userCurrentProfileDoc = doc(db, 'users', elem.user.uid)
+                const userSnap = await getDoc(userCurrentProfileDoc);
+                const userToUpdate = userSnap.data()
+    
+                const postUpdate = userToUpdate.posts.find(elemPost => elemPost.uid === elem.uid)
+    
+                setOldSavedPost(prevPost => [...prevPost, postUpdate])
+                console.log(1)
+            })
+        }
+
+        getPosts()
+      
     }, [])
+
 
 const mapSavedPosts = oldSavedPost.length > 0 && oldSavedPost.map(elem => <Post key={elem.uid} post={elem} />)
 

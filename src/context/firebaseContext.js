@@ -42,7 +42,6 @@ const FirebaseContextProvider = ({ children }) => {
         func()
     }, [])
 
-    console.log(isLoading)
 
 
     const isNameAvailable = async (name) => {

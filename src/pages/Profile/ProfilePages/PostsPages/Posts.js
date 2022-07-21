@@ -1,23 +1,40 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Post from "../Post/Post";
+import { Context } from "../../../../context/firebaseContext";
+import { setCurrentProfileUser } from "../../../../redux/actions/currentProfileUser";
+import { useLocation } from "react-router-dom";
 
 const Posts = () => {
     const [posts, setPosts] = useState([])
     const userRedux = useSelector((state) => state.userReducer.user)
     const currentProfileUserRedux = useSelector((state) => state.currentProfileUserReducer.user)
     const isUserOnStrangeProfile = userRedux.uid !== currentProfileUserRedux.uid
+    const { db, doc, getDoc } = useContext(Context)
+    const dispatch = useDispatch()
+    const location = useLocation()
 
     useEffect(() => {
-        setPosts(currentProfileUserRedux.posts)
-    }, [currentProfileUserRedux.posts, userRedux.posts])
+        const getPosts = async () => {
+            const userRef = doc(db, 'users', currentProfileUserRedux.uid)
+            const userDoc = await getDoc(userRef)
+
+            dispatch(setCurrentProfileUser(userDoc.data()))
 
 
-    const mapPosts = posts.sort((a, b) => {
-        if(b.uid && a.uid) return b.uid - a.uid
+            setPosts(userDoc.data().posts)
+        }
+
+        getPosts()
+
+    }, [location.pathname])
+
+
+    const mapPosts = posts.length > 0 && posts.sort((a, b) => {
+        if (b.uid && a.uid) return b.uid - a.uid
 
         return a || b
-        
+
     }).map(elem => <Post key={elem.uid} post={elem} />)
 
     return (

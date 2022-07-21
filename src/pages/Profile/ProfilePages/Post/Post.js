@@ -29,7 +29,7 @@ const Post = ({ post }) => {
                         )
                     }
 
-                    <img alt="userPhoto" src={post.image} className="w-full h-full object-contain" />
+                    <img alt="userPhoto" src={post.image} className="w-full h-full object-cover" />
                 </div>
             </Link>
         </>

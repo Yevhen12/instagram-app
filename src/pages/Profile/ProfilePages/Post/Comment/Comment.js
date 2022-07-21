@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Context } from "../../../../../context/firebaseContext";
@@ -8,13 +8,12 @@ import { setUser } from "../../../../../redux/actions/userActions";
 import LikesModal from "../Modals/LikesModal";
 import { setCurrentPost } from "../../../../../redux/actions/currentPostAction";
 
-const Comment = ({ postComment }) => {
+const Comment = ({ postComment, updatedCurrentPost, setUpdatedCurrentPost }) => {
 
     const dispatch = useDispatch()
 
     const currentUserInProfile = useSelector(state => state.currentProfileUserReducer.user)
     const userRedux = useSelector(state => state.userReducer.user)
-    const currentPostRedux = useSelector(state => state.currentPostReducer.post)
 
     const { db, doc, updateDoc, getDoc } = useContext(Context)
 
@@ -23,7 +22,20 @@ const Comment = ({ postComment }) => {
     const [isLiked, setIsLiked] = useState(isCommentLiked)
     const [likeAnimation, setLikeAnimation] = useState(false)
     const [activeModal, setActiveModal] = useState(false)
+    const [newUser, setNewUser] = useState()
 
+    useEffect(() => {
+
+        const getUser = async () => {
+            const newCommentUser = doc(db, 'users', postComment.userUid)
+            const newUserSnap = await getDoc(newCommentUser);
+
+            setNewUser(newUserSnap.data())
+        }
+
+        getUser()
+
+    }, [])
 
     let currentTimeString = convertUnixTime(postComment.createdAt).split(' ')
     currentTimeString = currentTimeString[1] === 'Now' ? 'Now' : currentTimeString[0] + currentTimeString[1][0]
@@ -32,10 +44,12 @@ const Comment = ({ postComment }) => {
 
         const { imageUrl, displayName, uid } = userRedux
 
-        const userCurrentProfileDoc = doc(db, 'users', currentPostRedux.user.uid)
+        const userCurrentProfileDoc = doc(db, 'users', updatedCurrentPost.user.uid)
         const userSnap = await getDoc(userCurrentProfileDoc);
 
         const userToUpdate = userSnap.data()
+
+
 
         let newProfileUser;
 
@@ -55,7 +69,7 @@ const Comment = ({ postComment }) => {
                         } else return elemComment
                     })
 
-                    dispatch(setCurrentPost({...currentPostRedux, comments: mapedComments}))
+                    setUpdatedCurrentPost(prevPost => ({ ...prevPost, comments: mapedComments }))
 
                     return {
                         ...elem,
@@ -88,10 +102,10 @@ const Comment = ({ postComment }) => {
                         } else return elemComment
                     })
 
-                    dispatch(setCurrentPost({...currentPostRedux, comments: mapedComments}))
+                    setUpdatedCurrentPost(prevPost => ({ ...prevPost, comments: mapedComments }))
 
                     return {
-                        ...elem, 
+                        ...elem,
                         comments: mapedComments,
                     }
                 } else return elem
@@ -108,7 +122,7 @@ const Comment = ({ postComment }) => {
             }
         }
 
-        if(userToUpdate.uid === currentUserInProfile.uid) {
+        if (userToUpdate.uid === currentUserInProfile.uid) {
             dispatch(setCurrentProfileUser(newProfileUser))
         }
 
@@ -122,7 +136,7 @@ const Comment = ({ postComment }) => {
         <div className="flex justify-between px-5 mb-5">
             <div className="mr-5">
                 <Link to={`/${postComment.userUid}`}>
-                    <img alt="userPhoto" src={`${postComment?.imageUrl || '/images/standart-profile.png'}`} className='w-8 h-8 object-cover rounded-full' />
+                    <img alt="userPhoto" src={`${newUser && newUser.imageUrl ? newUser.imageUrl : '/images/standart-profile.png'}`} className='w-8 h-8 object-cover rounded-full' />
                 </Link>
             </div>
             <div style={{ wordWrap: "break-word" }} className="flex flex-col w-full max-w-[calc(100%-90px)] text-sm ">
