@@ -31,8 +31,6 @@ const Dashboard = () => {
     const isSuggestions = allPosts.length === 0
 
 
-    console.log(allPosts)
-
     return (
         <div className="bg-[#fafafa]">
             {!auth.currentUser && <Navigate to={ROUTES.SIGN_IN} />}

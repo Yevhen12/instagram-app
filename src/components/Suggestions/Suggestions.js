@@ -22,7 +22,6 @@ const Suggestions = () => {
 
     const mapedSuggestions = suggestions.map(elem => <UserSuggest key={elem.uid} {...elem} />)
 
-    console.log(suggestions)
     return (
         <div className="max-w-[600px] w-full bg-whiteflex flex-col items-center border mt-3 py-3 rounded">
             {mapedSuggestions}

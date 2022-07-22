@@ -21,7 +21,6 @@ const Sidebar = () => {
     }, [])
 
     const mappedSuggestions = suggestions.map(elem => <UserSuggestion key={elem.uid} {...elem} />)
-    console.log(suggestions)
 
 
     return (
@@ -46,6 +45,7 @@ const Sidebar = () => {
                 <div className='flex flex-col mt-3'>
                     {mappedSuggestions}
                 </div>
+                <p className='text-gray-500/70 text-xs mt-5'>© 2022 INSTAGRAN FROM META</p>
             </div>
         </aside>
     )

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { Context } from '../../../../../context/firebaseContext'
 import Post from './Posts/Post'
@@ -7,12 +7,24 @@ import { useLocation } from 'react-router-dom'
 const Timeline = () => {
 
     const userRedux = useSelector(state => state.userReducer.user)
-    const {doc, db, getDoc} = useContext(Context)
+    const { doc, db, getDoc } = useContext(Context)
     const [allPosts, setAllPosts] = useState([])
+    const [lastLocation, setLastLocation] = useState(0)
 
     const location = useLocation()
-    
+    const scroll = useRef(null)
+
+    const executeScroll = () => {
+        allPosts.forEach(elem => {
+            if (elem.uid === lastLocation) {
+                scroll.current.scrollIntoView()
+            }
+        })
+    }
+
+
     useEffect(() => {
+
 
         const getAllPosts = async () => {
             const refUser = doc(db, 'users', userRedux.uid)
@@ -23,18 +35,26 @@ const Timeline = () => {
                 const docUserFollowing = doc(db, "users", user.uid);
                 const docSnap = await getDoc(docUserFollowing);
                 const followingUser = docSnap.data()
-                
+
                 setAllPosts(prevAllPosts => [...prevAllPosts, ...followingUser.posts])
             });
         }
 
-        console.log(1)
-
         getAllPosts()
+
 
     }, [location.pathname])
 
-    const mapedAllPosts = allPosts.map(elem => <Post key={elem.uid} post={elem} />)
+    useEffect(() => {
+        if (lastLocation.length > 0) {
+            executeScroll()
+            console.log(lastLocation, 'd')
+        }
+    }, [allPosts])
+
+
+
+    const mapedAllPosts = allPosts.sort((a, b) => b.uid - a.uid).map(elem => <Post key={elem.uid} post={elem} scroll={scroll} setLastLocation={setLastLocation} />)
 
 
     return (

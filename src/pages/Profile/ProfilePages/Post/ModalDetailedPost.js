@@ -11,35 +11,57 @@ import { Context } from "../../../../context/firebaseContext";
 const ModalDetailedPost = () => {
     const [activeModal, setActiveModal] = useState(false)
     const [updatedCurrentPost, setUpdatedCurrentPost] = useState({})
-    const { userPost, savedPost } = useParams()
+    const { userPost, savedPost, user } = useParams()
 
     const { posts, savedPosts } = useOutletContext()
-    const { doc, db, getDoc } = useContext(Context)
+    const { doc, db, getDoc, collection, where, getDocs, query } = useContext(Context)
 
     const navigate = useNavigate()
     const location = useLocation()
 
     const isSavedPostArray = location.pathname.split('/').includes('saved')
 
+    console.log(savedPosts, 'dfsdfsdf', posts)
+
     const postsToIterate = (isSavedPostArray ? savedPosts : posts).sort((a, b) => b.uid - a.uid)
+    console.log(postsToIterate)
 
     const currentPost = postsToIterate.find(elem => isSavedPostArray ? elem.uid === savedPost : elem.uid === userPost)
+
+    const postToShow = currentPost ? currentPost : updatedCurrentPost
 
 
 
     useEffect(() => {
-        const getPost = async () => {
-            const userRef = doc(db, 'users', currentPost.user.uid)
-            const userSnap = await getDoc(userRef)
+        if (!currentPost) {
 
-            const userData = userSnap.data()
+            const getPost = async () => {
+                const usersRef = collection(db, "users");
+                const q = query(usersRef, where("displayName", "==", `${user}`))
+                console.log(user)
+                const docSnap = await getDocs(q)
+                let userData
+                docSnap.forEach((doc) => {
+                    userData = doc.data()
+                })
+                const postInUser = userData.posts.find(elem => elem.uid === userPost)
 
-            const postInUser = userData.posts.find(elem => elem.uid === currentPost.uid)
+                setUpdatedCurrentPost(postInUser)
+            }
+            getPost()
+        } else {
+            const getPost = async () => {
+                const userRef = doc(db, 'users', currentPost.user.uid)
+                const userSnap = await getDoc(userRef)
 
-            setUpdatedCurrentPost(postInUser)
+                const userData = userSnap.data()
+
+                const postInUser = userData.posts.find(elem => elem.uid === currentPost.uid)
+
+                setUpdatedCurrentPost(postInUser)
+            }
+            getPost()
         }
-
-        getPost()
     }, [])
 
     useEffect(() => {
@@ -50,7 +72,7 @@ const ModalDetailedPost = () => {
         navigate(-1)
     }
 
-    let currentTimeString = convertUnixTime(currentPost.uid).split(' ')
+    let currentTimeString = updatedCurrentPost && convertUnixTime(updatedCurrentPost.uid).split(' ')
     currentTimeString = currentTimeString[1] === 'Now' ? 'Now' : currentTimeString[0] + currentTimeString[1][0]
 
     const mapedArrayComments = updatedCurrentPost && updatedCurrentPost.comments && updatedCurrentPost.comments.length > 0 && updatedCurrentPost.comments.map(elem => (
@@ -88,7 +110,7 @@ const ModalDetailedPost = () => {
     }
 
 
-console.log(updatedCurrentPost)
+    console.log(updatedCurrentPost)
     return (
         <ReusebleModal
             activeModal={activeModal}
@@ -113,7 +135,7 @@ console.log(updatedCurrentPost)
             <div className={`max-w-[70%] w-full bg-white max-h-[85%] h-full my-5 flex items-center rounded-r-md`} onClick={(e) => e.stopPropagation()}>
                 <div className="w-3/5 h-full bg-black">
                     <img
-                        src={currentPost.image}
+                        src={postToShow?.image}
                         className="h-full w-full object-contain"
                     />
                 </div>
@@ -121,11 +143,11 @@ console.log(updatedCurrentPost)
                     <div className="flex flex-col h-full">
                         <div className="h-[60px] flex justify-between items-center border-b">
                             <div className="flex items-centerh-full">
-                                <Link to={`/${currentPost.user.displayName}`}>
+                                <Link to={`/${postToShow?.user?.displayName}`}>
                                     <img className="w-8 h-8 rounded-full object-cover mx-5" src={updatedCurrentPost && updatedCurrentPost.user && updatedCurrentPost.user.imageUrl ? updatedCurrentPost.imageUrl : '/images/standart-profile.png'} />
                                 </Link>
-                                <Link to={`/${currentPost.user.displayName}`}>
-                                    <p className="font-semibold text-sm mt-1">{currentPost.user.displayName}</p>
+                                <Link to={`/${postToShow?.user?.displayName}`}>
+                                    <p className="font-semibold text-sm mt-1">{postToShow?.user?.displayName}</p>
                                 </Link>
                             </div>
                             <div>
@@ -134,22 +156,22 @@ console.log(updatedCurrentPost)
                         </div>
                         <div className="h-[calc(100%-220px)] w-full border-b overflow-hidden">
                             {
-                                currentPost.comments.length > 0 || currentPost.text.length > 0 ?
+                                postToShow && postToShow.comments && postToShow.comments.length > 0 || postToShow && postToShow.text && postToShow.text.length > 0 ?
                                     (
                                         <div className="flex flex-col h-full overflow-y-scroll pt-6">
-                                            {currentPost.text.length > 0 &&
+                                            {postToShow?.text.length > 0 &&
                                                 (
                                                     <div className="flex justify-between px-5 mb-5">
                                                         <div className="mr-5">
-                                                            <Link to={`/${currentPost.user.displayName}`}>
-                                                                <img alt="userPhoto" src={`${currentPost.user?.imageUrl || '/images/standart-profile.png'}`} className='w-8 h-8 object-cover rounded-full' />
+                                                            <Link to={`/${postToShow?.user.displayName}`}>
+                                                                <img alt="userPhoto" src={`${postToShow?.user?.imageUrl || '/images/standart-profile.png'}`} className='w-8 h-8 object-cover rounded-full' />
                                                             </Link>
                                                         </div>
                                                         <div style={{ wordWrap: "break-word" }} className="flex flex-col w-full max-w-[calc(100%-65px)] text-sm ">
-                                                            <Link to={`/${currentPost.user.displayName}`}>
-                                                                <p className="text-sm font-semibold">{currentPost.user.displayName}</p>
+                                                            <Link to={`/${postToShow?.user?.displayName}`}>
+                                                                <p className="text-sm font-semibold">{postToShow?.user?.displayName}</p>
                                                             </Link>
-                                                            <p className="text-sm mb-3">{currentPost.text}</p>
+                                                            <p className="text-sm mb-3">{postToShow?.text}</p>
                                                             <div className="flex justify-start">
                                                                 <p className="text-xs text-black/50 mr-4">{currentTimeString}</p>
                                                             </div>
@@ -168,7 +190,7 @@ console.log(updatedCurrentPost)
                                     )
                             }
                         </div>
-                        <IteractionMenuPost currentPost={currentPost} updatedCurrentPost={updatedCurrentPost} setUpdatedCurrentPost={setUpdatedCurrentPost} isCurrentPostSaved={isSavedPostArray ? true : false} />
+                        <IteractionMenuPost currentPost={currentPost ? currentPost : postToShow} updatedCurrentPost={updatedCurrentPost} setUpdatedCurrentPost={setUpdatedCurrentPost} isCurrentPostSaved={isSavedPostArray ? true : false} />
                     </div>
                 </div>
             </div>

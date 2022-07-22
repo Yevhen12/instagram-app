@@ -56,7 +56,7 @@ const Chat = () => {
     }, [chat])
 
     const scrollToBottom = () => {
-        scroll.current.scrollIntoView({ behavior: "smooth" })
+        scroll.current.scrollIntoView({ block: "end" })
     }
 
     useEffect(() => {

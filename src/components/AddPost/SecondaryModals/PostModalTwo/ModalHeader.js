@@ -44,7 +44,7 @@ const HeaderModal = ({setPage, post, text, setActiveModal, setPost}) => {
 
         dispatch(setUser({ ...userRedux, posts: [newPost, ...userRedux.posts] }))
         setFirestoreCurrentUser({ ...userRedux, posts: [newPost, ...userRedux.posts] })
-        if (!user || user === userRedux.displayName) {
+        if ((!user || user === userRedux.displayName) && currentProfileUser.posts) {
             dispatch(setCurrentProfileUser({ ...currentProfileUser, posts: [newPost, ...currentProfileUser.posts] }))
         }
 

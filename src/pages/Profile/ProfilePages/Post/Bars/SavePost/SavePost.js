@@ -15,7 +15,6 @@ const SavePost = ({updatedCurrentPost, currentPost}) => {
     const {doc, db, updateDoc, getDoc} = useContext(Context)
     const [isSaved, setIsSaved] = useState()
 
-    console.log(isSaved)
 
     useEffect(() => {
         const getUser = async () => {
