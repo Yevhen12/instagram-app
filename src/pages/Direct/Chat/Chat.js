@@ -180,6 +180,7 @@ const Chat = () => {
     }
 
     const allMessages = messages.length > 0 && messages.map((elem, idx) => <Message key={idx} messages = {messages} message={elem} idx={idx} />)
+  //  const shareMessage = messages.filter(elem => )
 
     const strangeChatUser = currentChat.users.find(elem => elem.uid !== userRedux.uid)
 

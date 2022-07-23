@@ -6,7 +6,7 @@ import useSuggestions from "../../hooks/useSuggestions";
 
 const Suggestions = () => {
     const [suggestions, setSuggestions] = useState([])
-    const {fetchUsers} = useSuggestions()
+    const { fetchUsers } = useSuggestions()
 
     const USERS_TO_FETCH = 35
 

@@ -2,26 +2,15 @@ import React, { useState, useEffect, useContext, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { Context } from '../../../../../context/firebaseContext'
 import Post from './Posts/Post'
-import { useLocation } from 'react-router-dom'
+import { useLocation, Outlet } from 'react-router-dom'
 
 const Timeline = () => {
 
     const userRedux = useSelector(state => state.userReducer.user)
     const { doc, db, getDoc } = useContext(Context)
     const [allPosts, setAllPosts] = useState([])
-    const [lastLocation, setLastLocation] = useState(0)
 
     const location = useLocation()
-    const scroll = useRef(null)
-
-    const executeScroll = () => {
-        allPosts.forEach(elem => {
-            if (elem.uid === lastLocation) {
-                scroll.current.scrollIntoView()
-            }
-        })
-    }
-
 
     useEffect(() => {
 
@@ -43,18 +32,9 @@ const Timeline = () => {
         getAllPosts()
 
 
-    }, [location.pathname])
+    }, [])
 
-    useEffect(() => {
-        if (lastLocation.length > 0) {
-            executeScroll()
-            console.log(lastLocation, 'd')
-        }
-    }, [allPosts])
-
-
-
-    const mapedAllPosts = allPosts.sort((a, b) => b.uid - a.uid).map(elem => <Post key={elem.uid} post={elem} scroll={scroll} setLastLocation={setLastLocation} />)
+    const mapedAllPosts = allPosts.sort((a, b) => b.uid - a.uid).map(elem => <Post key={elem.uid} post={elem} />)
 
 
     return (
@@ -62,6 +42,7 @@ const Timeline = () => {
             <div className='w-full'>
                 <ul className='flex flex-col'>
                     {mapedAllPosts}
+                    <Outlet context={{posts: allPosts}} />
                 </ul>
             </div>
         </section>

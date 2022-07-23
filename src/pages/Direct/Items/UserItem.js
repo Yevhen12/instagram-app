@@ -18,7 +18,6 @@ const UserItem = ({chat, idx}) => {
         } else {
             currentTimeString = currentTimeString[0] + currentTimeString[1][0]
         }
-        
     }
 
     return (

@@ -113,7 +113,7 @@ const RealUser = () => {
                                 </Link>
                             </div>
                         </div>
-                        <Outlet context={{ posts: userRedux.posts, savedPosts: userRedux.savedPosts }} />
+                        <Outlet context={{ posts: userRedux.posts.sort((a, b) => b.uid - a.uid), savedPosts: userRedux.savedPosts.sort((a, b) => b.uid - a.uid) }} />
                     </div>
                 </section>
             }

@@ -20,10 +20,13 @@ const ModalDetailedPost = () => {
     const location = useLocation()
 
     const isSavedPostArray = location.pathname.split('/').includes('saved')
+    const isDashboard = location.pathname.split('/').includes('dashboard')
+    const isExplore = location.pathname.split('/').includes('explore')
+    const isDirect = location.pathname.split('/').includes('direct')
 
     console.log(savedPosts, 'dfsdfsdf', posts)
 
-    const postsToIterate = (isSavedPostArray ? savedPosts : posts).sort((a, b) => b.uid - a.uid)
+    const postsToIterate = (isSavedPostArray ? savedPosts : posts)
     console.log(postsToIterate)
 
     const currentPost = postsToIterate.find(elem => isSavedPostArray ? elem.uid === savedPost : elem.uid === userPost)
@@ -62,7 +65,7 @@ const ModalDetailedPost = () => {
             }
             getPost()
         }
-    }, [])
+    }, [userPost])
 
     useEffect(() => {
         setActiveModal(true)
@@ -74,6 +77,7 @@ const ModalDetailedPost = () => {
 
     let currentTimeString = updatedCurrentPost && convertUnixTime(updatedCurrentPost.uid).split(' ')
     currentTimeString = currentTimeString[1] === 'Now' ? 'Now' : currentTimeString[0] + currentTimeString[1][0]
+
 
     const mapedArrayComments = updatedCurrentPost && updatedCurrentPost.comments && updatedCurrentPost.comments.length > 0 && updatedCurrentPost.comments.map(elem => (
         <Comment
@@ -89,10 +93,6 @@ const ModalDetailedPost = () => {
 
         return false
     })
-
-    console.log(mapedArrayComments)
-
-
 
     const isPrevPostExist = postsToIterate.find((elem, idx) => {
         if (Number(elem.uid) > Number(userPost) && postsToIterate[idx + 1] && postsToIterate[idx + 1].uid === userPost) return elem
@@ -120,14 +120,14 @@ const ModalDetailedPost = () => {
         >
 
             {
-                isNextPostExist &&
+                isNextPostExist && !isSavedPostArray && !isDashboard && !isExplore && !isDirect &&
                 <div className="h-8 w-8 bg-white absolute top-[50%] right-[30px] rounded-full cursor-pointer" onClick={(e) => nextPost(e)}>
                     <img alt="next" src="/images/down-arrow.png" className="w-5 h-5 rotate-[270deg] mt-1.5 ml-1.5" />
                 </div>
             }
 
             {
-                isPrevPostExist &&
+                isPrevPostExist && !isSavedPostArray && !isDashboard && !isExplore && !isDirect &&
                 <div className="h-8 w-8 bg-white absolute top-[50%] left-[30px] rounded-full cursor-pointer" onClick={(e) => prevPost(e)}>
                     <img alt="next" src="/images/down-arrow.png" className="w-5 h-5 rotate-[90deg] mt-1.5 ml-1" />
                 </div>

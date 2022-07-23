@@ -3,6 +3,7 @@ import { Context } from "../context/firebaseContext";
 import { setUser } from "../redux/actions/userActions";
 import { setCurrentProfileUser } from "../redux/actions/currentProfileUser";
 import { useDispatch, useSelector } from "react-redux";
+import { createUnixTime } from "../helpers/createUnixTime";
 
 
 const useFollow = (currentProfileUser) => {
@@ -30,6 +31,7 @@ const useFollow = (currentProfileUser) => {
                                 imageUrl: userRedux.imageUrl,
                                 name: userRedux.name,
                                 uid: userRedux.uid,
+                                createdAt: createUnixTime()
                             }
                             ]
                         }
@@ -39,7 +41,7 @@ const useFollow = (currentProfileUser) => {
                     setUser(
                         {
                             ...userRedux,
-                            following: [...userRedux.following, { displayName, imageUrl, name, uid }]
+                            following: [...userRedux.following, { displayName, imageUrl, name, uid, createdAt: createUnixTime() }]
                         }
                     )
                 )
@@ -51,11 +53,12 @@ const useFollow = (currentProfileUser) => {
                         imageUrl: userRedux.imageUrl,
                         name: userRedux.name,
                         uid: userRedux.uid,
+                        createdAt: createUnixTime()
                     }]
                 });
 
                 await updateDoc(ReduxUserRef, {
-                    "following": [...userRedux.following, { displayName, imageUrl, name, uid }]
+                    "following": [...userRedux.following, { displayName, imageUrl, name, uid, createdAt: createUnixTime() }]
                 });
 
             } else {
@@ -98,7 +101,7 @@ const useFollow = (currentProfileUser) => {
                     setUser(
                         {
                             ...userRedux,
-                            following: [...userRedux.following, { displayName, imageUrl, name, uid }]
+                            following: [...userRedux.following, { displayName, imageUrl, name, uid, createdAt: createUnixTime() }]
                         }
                     )
                 )
@@ -110,11 +113,12 @@ const useFollow = (currentProfileUser) => {
                         imageUrl: userRedux.imageUrl,
                         name: userRedux.name,
                         uid: userRedux.uid,
+                        createdAt: createUnixTime()
                     }]
                 });
 
                 await updateDoc(ReduxUserRef, {
-                    "following": [...userRedux.following, { displayName, imageUrl, name, uid }]
+                    "following": [...userRedux.following, { displayName, imageUrl, name, uid, createdAt: createUnixTime() }]
                 });
 
             } else {

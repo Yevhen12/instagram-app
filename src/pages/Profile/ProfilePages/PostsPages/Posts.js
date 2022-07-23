@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import Post from "../Post/Post";
 import { Context } from "../../../../context/firebaseContext";
 import { setCurrentProfileUser } from "../../../../redux/actions/currentProfileUser";
-import { useLocation } from "react-router-dom";
+import { useLocation, Outlet } from "react-router-dom";
+
 
 const Posts = () => {
     const [posts, setPosts] = useState([])
@@ -41,11 +42,12 @@ const Posts = () => {
         <>
             {isUserOnStrangeProfile ?
                 (
-                    currentProfileUserRedux.posts.length > 0 ?
+                    posts.length > 0 ?
                         (
                             <>
                                 <div className="flex flex-wrap">
                                     {mapPosts}
+                                    <Outlet context={{posts: posts.sort((a, b) => b.uid - a.uid)}} />
                                 </div>
                             </>
                         )
@@ -71,6 +73,7 @@ const Posts = () => {
                             <>
                                 <div className="flex flex-wrap">
                                     {mapPosts}
+                                    <Outlet context={{posts: posts.sort((a, b) => b.uid - a.uid)}} />
                                 </div>
                             </>
                         )

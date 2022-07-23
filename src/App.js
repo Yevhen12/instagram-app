@@ -42,14 +42,17 @@ function App() {
             <Suspense fallback={<Loading />}>
               <Router>
                 <Routes>
-                  <Route path={ROUTES.HOME} element={<Dashboard />} />
+                  <Route path={ROUTES.HOME} element={<Dashboard />}>
+                    <Route path={ROUTES.DASHBOARD_POST} element={<ModalDetailedPost />} />
+                  </Route>
                   <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
                   <Route path={ROUTES.SIGN_IN} element={<SignIn />} />
                   <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
                   <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
                   <Route path={ROUTES.PROFILE} element={<Profile />}>
-                    <Route path={ProfileRoutes.POSTS} element={<Posts />} />
-                    <Route path={ProfileRoutes.POST} element={<ModalDetailedPost />} />
+                    <Route path={ProfileRoutes.POSTS} element={<Posts />}>
+                      <Route path={ProfileRoutes.POST} element={<ModalDetailedPost />} />
+                    </Route>
                     <Route path={ProfileRoutes.SAVED} element={<Saved />}>
                       <Route path={ProfileRoutes.SAVED_POSTS} element={<ModalDetailedPost />} />
                     </Route>
@@ -58,9 +61,13 @@ function App() {
                     <Route path={ProfileRoutes.FOLLOWING} element={<Following />} />
                   </Route>
                   <Route path={ROUTES.DIRECT} element={<Direct />}>
-                    <Route path={directLinks.CHAT} element={<Chat />} />
+                    <Route path={directLinks.CHAT} element={<Chat />}>
+                      <Route path={directLinks.CHAT_POST} element={<ModalDetailedPost />} />
+                    </Route>
                   </Route>
-                  <Route path={ROUTES.EXPLORE} element={<Explore />} />
+                  <Route path={ROUTES.EXPLORE} element={<Explore />}>
+                    <Route path={ROUTES.EXPLORE_POST} element={<ModalDetailedPost />} />
+                  </Route>
                 </Routes>
               </Router>
             </Suspense>

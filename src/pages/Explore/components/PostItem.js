@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { gridCounter } from '../../../helpers/gridCounter'
 
-const Post = ({ post }) => {
+const PostItem = ({ post, idx }) => {
     const [isHovered, setIsHovered] = useState(false)
+
+    const isBigPost = gridCounter(idx + 1)
     return (
         <>
-            <Link to={`${post.uid}`}>
-                <div
-                    className="w-[300px] h-[300px] border mx-3.5 mb-7 relative cursor-pointer bg-black"
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
-                >
+
+            <div
+                className={` border relative cursor-pointer bg-black ${isBigPost ? 'row-span-2 col-span-2' : 'row-span-1 col-span-1'}`}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
+                <Link to={`${post.user.displayName}/${post.uid}`}>
                     {
                         isHovered &&
                         (
@@ -30,10 +34,10 @@ const Post = ({ post }) => {
                     }
 
                     <img alt="userPhoto" src={post.image} className="w-full h-full object-cover" />
-                </div>
-            </Link>
+                </Link>
+            </div>
         </>
     )
 }
 
-export default Post
+export default PostItem

@@ -5,4 +5,6 @@ export const FORGOT_PASSWORD = '/forgot-password'
 export const PROFILE = `/:user`
 export const DIRECT = `/direct`
 export const EXPLORE = '/explore'
+export const EXPLORE_POST = ':user/:userPost'
 export const NOT_FOUND = '/*'
+export const DASHBOARD_POST = 'dashboard/:user/:userPost'

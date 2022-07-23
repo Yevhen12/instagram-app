@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Context } from "../../../../../context/firebaseContext";
 import { setUser } from "../../../../../redux/actions/userActions";
 import { setCurrentProfileUser } from "../../../../../redux/actions/currentProfileUser";
+import { createUnixTime } from "../../../../../helpers/createUnixTime";
 
 const WriteComment = ({ textComment, setTextComment, commentRef, setShowPicker, showPicker, updatedCurrentPost, setUpdatedCurrentPost, isCurrentPostSaved, pickerStyle }) => {
 

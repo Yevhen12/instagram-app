@@ -1,0 +1,1 @@
+export const createUnixTime = () => new Date().getTime().toString()

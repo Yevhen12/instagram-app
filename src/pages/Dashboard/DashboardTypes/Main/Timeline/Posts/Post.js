@@ -9,7 +9,7 @@ import WriteComment from "../../../../../Profile/ProfilePages/Post/Comment/Write
 import convertUnixTime from "../../../../../../helpers/converUnixTime";
 import OneComment from "./OneComment";
 
-const Post = ({ post, scroll, setLastLocation }) => {
+const Post = ({ post  }) => {
     const [updatedCurrentPost, setUpdatedCurrentPost] = useState(post)
     const [activeModal, setActiveModal] = useState(false)
     const [showPicker, setShowPicker] = useState(false)
@@ -45,12 +45,12 @@ const Post = ({ post, scroll, setLastLocation }) => {
     }, [updatedCurrentPost])
 
     const navigateToPost = () => {
-        navigate(`/${updatedCurrentPost.user.displayName}/${updatedCurrentPost.uid}`)
+        navigate(`dashboard/${updatedCurrentPost.user.displayName}/${updatedCurrentPost.uid}`)
     }
 
 
     return (
-        <div className="flex flex-col max-w-[470px] w-full rounded-md bg-white my-2 border" ref={scroll}>
+        <div className="flex flex-col max-w-[470px] w-full rounded-md bg-white my-2 border">
             <div className="w-full flex justify-between p-3 items-center">
                 <Link to={ROUTES.HOME + post.user.displayName}>
                     <div className="rounded-full h-[32px] w-[32px] mr-3 overflow-hidden">

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Context } from "../../../../../../context/firebaseContext";
 import { setUser } from "../../../../../../redux/actions/userActions";
 import { setCurrentProfileUser } from "../../../../../../redux/actions/currentProfileUser";
+import { createUnixTime } from "../../../../../../helpers/createUnixTime";
 
 const LikePost = ({ updatedCurrentPost, setUpdatedCurrentPost }) => {
 
@@ -59,7 +60,7 @@ const LikePost = ({ updatedCurrentPost, setUpdatedCurrentPost }) => {
             }
 
         } else {
-            const newArrayLikes = [{ imageUrl, displayName, uid }, ...updatedCurrentPost.likes]
+            const newArrayLikes = [{ imageUrl, displayName, uid, createdAt: createUnixTime() }, ...updatedCurrentPost.likes]
             const mapPostsArray = userToUpdate.posts.map(elem => {
                 if (elem.uid === updatedCurrentPost.uid) {
                     return {

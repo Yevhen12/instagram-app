@@ -170,7 +170,7 @@ const StrangeProfileUser = () => {
                                         </Link>
                                     </div>
                                 </div>
-                                <Outlet context={{ posts: currentProfileUserRedux.posts }} />
+                                <Outlet context={{ posts: currentProfileUserRedux.posts.sort((a, b) => b.uid - a.uid) }} />
                             </div>
                         </section >
                     )
