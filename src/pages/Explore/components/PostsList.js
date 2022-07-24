@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import useSuggestions from "../../../hooks/useSuggestions";
+import React from "react";
 import PostItem from "./PostItem";
 import { Outlet } from "react-router-dom";
 

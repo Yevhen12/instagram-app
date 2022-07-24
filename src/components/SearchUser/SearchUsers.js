@@ -18,6 +18,7 @@ const SearchUsers = () => {
     const [searchText, setSearchText] = useState('')
     const [activeModal, setActiveModal] = useState(false)
     const [usersSuggestions, setUsersSuggestions] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -30,7 +31,9 @@ const SearchUsers = () => {
 
     const hendleChange = async (e) => {
         setSearchText(e.target.value)
+        setIsLoading(true)
         setUsersSuggestions(await searchUsers(e.target.value))
+        setIsLoading(false)
     }
 
     const clearInput = (e) => {
@@ -84,7 +87,7 @@ const SearchUsers = () => {
                             >
                                 <img src="/images/close-for-search.png" />
                             </div>
-                            <ModalSuggestions usersSuggestions={usersSuggestions} activeModal={activeModal} setActiveModal={setActiveModal} redirectToAnotherUser={redirectToAnotherUser} />
+                            <ModalSuggestions isLoading = {isLoading} usersSuggestions={usersSuggestions} activeModal={activeModal} setActiveModal={setActiveModal} redirectToAnotherUser={redirectToAnotherUser} />
                         </>
                     )
                     :

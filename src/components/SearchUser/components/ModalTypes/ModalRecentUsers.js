@@ -1,16 +1,19 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Context } from "../../../../context/firebaseContext";
 import { setUser } from "../../../../redux/actions/userActions";
 import UserVisitedItem from "../UserVisitedItem";
 import DropMenu from "../../../DropMenu/DropMenu";
+import Loading from "../../../Loaders/Loaging";
 
 const ModalRecentUsers = ({ activeModal, setActiveModal, redirectToAnotherUser }) => {
 
     const userRedux = useSelector(state => state.userReducer.user)
+    const [recentUsers, setRecentUsers] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     const dispatch = useDispatch()
 
-    const {db, doc, updateDoc} = useContext(Context)
+    const {db, doc, updateDoc, getDoc} = useContext(Context)
 
     const clearAllVisitedUsers = async () => {
         const ReduxUserRef = doc(db, "users", `${userRedux.uid}`);
@@ -20,15 +23,28 @@ const ModalRecentUsers = ({ activeModal, setActiveModal, redirectToAnotherUser }
                 recentVisitedUsers: []
             }
         ))
+        setRecentUsers([])
 
         await updateDoc(ReduxUserRef, {
             "recentVisitedUsers": []
         });
     }
 
+    useEffect(() => {
+        setIsLoading(true)
+        const getRecentUsers = async () => {
+            const userRef = doc(db, 'users', userRedux.uid)
+            const userDoc = await getDoc(userRef)
+
+            setRecentUsers(userDoc.data().recentVisitedUsers)
+            setIsLoading(false)
+        }
+
+        getRecentUsers()
+    }, [])
+
     
-    const mapRecentVisitedUsers = userRedux.recentVisitedUsers &&
-        userRedux.recentVisitedUsers.map(elem => <UserVisitedItem key={elem.uid} user={elem} redirectToAnotherUser={redirectToAnotherUser} />)
+    const mapRecentVisitedUsers = recentUsers.map(elem => <UserVisitedItem key={elem.uid} user={elem} recentUsers={recentUsers} setRecentUsers={setRecentUsers} redirectToAnotherUser={redirectToAnotherUser} />)
 
     return (
         <DropMenu
@@ -43,7 +59,8 @@ const ModalRecentUsers = ({ activeModal, setActiveModal, redirectToAnotherUser }
                 <button type="button" className="text-sm font-semibold text-[#0195f6]" onClick={() => clearAllVisitedUsers()}>Clear all</button>
             </div>
             <ul className="pt-2">
-                {mapRecentVisitedUsers}
+                {isLoading ? <div className="h-[270px]"><Loading height={30} width={30} /></div>: mapRecentVisitedUsers}
+                {recentUsers.length === 0 && !isLoading && <p className="text-sm p-4 font-semibold">No recent searches.</p>}
             </ul>
         </DropMenu>
     )

@@ -23,7 +23,7 @@ const Comment = ({ postComment, updatedCurrentPost, setUpdatedCurrentPost }) => 
 
         getUser()
 
-    }, [])
+    }, [updatedCurrentPost])
 
     let currentTimeString = convertUnixTime(postComment.createdAt).split(' ')
     currentTimeString = currentTimeString[1] === 'Now' ? 'Now' : currentTimeString[0] + currentTimeString[1][0]

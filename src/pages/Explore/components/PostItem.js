@@ -5,6 +5,8 @@ import { gridCounter } from '../../../helpers/gridCounter'
 const PostItem = ({ post, idx }) => {
     const [isHovered, setIsHovered] = useState(false)
 
+    console.log(post.image)
+
     const isBigPost = gridCounter(idx + 1)
     return (
         <>
@@ -32,8 +34,8 @@ const PostItem = ({ post, idx }) => {
 
                         )
                     }
-
                     <img alt="userPhoto" src={post.image} className="w-full h-full object-cover" />
+                    
                 </Link>
             </div>
         </>

@@ -6,14 +6,17 @@ import { useSelector } from "react-redux";
 import Suggestion from './DashboardTypes/Suggestion/Suggestion'
 import * as ROUTES from '../../constants/pagesLinks'
 import Main from "./DashboardTypes/Main/Main";
+import Loading from "../../components/Loaders/Loaging";
 
 const Dashboard = () => {
 
     const [allPosts, setAllPosts] = useState([])
     const { auth, db, doc, getDoc } = useContext(Context)
     const userRedux = useSelector(state => state.userReducer.user)
+    const [isSuggestions, setIsSuggestions] = useState(false)
 
     useEffect(() => {
+
         setAllPosts([])
         const getAllPosts = () => {
             userRedux.following.forEach(async (user) => {
@@ -22,32 +25,30 @@ const Dashboard = () => {
                 const followingUser = docSnap.data()
                 setAllPosts(prevAllPosts => [...prevAllPosts, ...followingUser.posts])
             });
+            if (!userRedux.following.length) setIsSuggestions(true)
         }
 
         getAllPosts()
-
     }, [])
-
-    const isSuggestions = allPosts.length === 0
 
 
     return (
         <div className="bg-[#fafafa]">
             {!auth.currentUser && <Navigate to={ROUTES.SIGN_IN} />}
             <Header />
-            {
-            isSuggestions ? 
-            (
-                <Suggestion />
-            )
-            :
-            (
-                <main role="main">
-                    <Main />
-                </main>
-            )
-            
-}
+
+            {isSuggestions ?
+                (
+                    <Suggestion />
+                )
+                :
+                (
+                    <main role="main">
+                        <Main />
+                    </main>
+                )
+            }
+
         </div>
     )
 }

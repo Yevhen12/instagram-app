@@ -7,9 +7,13 @@ import { setChats } from "../../redux/actions/chatsAction";
 import { Outlet, Link, useLocation, useParams } from "react-router-dom";
 import NotFound from "../NotFound/NotFound";
 import UserItem from "./Items/UserItem";
+import SkeletonItem from "./Items/SkeletonItem";
+import 'react-loading-skeleton/dist/skeleton.css'
+import Loading from "../../components/Loaders/Loaging";
 
 const Direct = () => {
     const [activeModal, setActiveModal] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const userRedux = useSelector((state) => state.userReducer.user)
     const chatsArray = useSelector((state) => state.chatsReducer.chats)
     const { db, collection, getDocs } = useContext(Context)
@@ -20,6 +24,7 @@ const Direct = () => {
     const isChat = chatsArray.find(elem => chat === elem.uid)
 
     useEffect(() => {
+        setIsLoading(true)
         const getChats = async () => {
             const querySnapshot = await getDocs(collection(db, "chats"));
             const mapQuerySnapshot = querySnapshot.docs.map((doc) => {
@@ -30,11 +35,10 @@ const Direct = () => {
                 return mapUidUsers.includes(userRedux.uid)
             })
             dispatch(setChats(filteredArray))
+            setIsLoading(false)
         }
         getChats()
     }, [userRedux.uid])
-
-
 
     const sortChatsArray = chatsArray.sort((a, b) => {
         if (!b.messages.length || !a.messages.length) return b.uid - a.uid
@@ -44,10 +48,10 @@ const Direct = () => {
 
     const isCorrect = !isChat && location.pathname !== '/direct'
 
+    const mapChatsArray = sortChatsArray.map((elem, idx) => <UserItem key={idx} chat={elem} />)
+    const skeletonItems = Array(3).fill(0).map((_, idx) => <SkeletonItem key={idx} />)
 
-    const mapChatsArray = sortChatsArray.map((elem, idx) => <UserItem key={idx} chat={elem}/>)
-
-
+    const isSkeletonShowing = chatsArray.length === 0 || isLoading
 
     return (
         <div>
@@ -82,23 +86,22 @@ const Direct = () => {
                                         </div>
                                     </div>
                                     <div className="h-[calc(100%-60px)] border-r overflow-y-auto">
-                                        {
-                                            chatsArray.length > 0 ?
-                                                (
-                                                    <div>
-                                                        <p className="font-semibold p-3">Messages</p>
-                                                        <ul className="flex flex-col">
-                                                            {mapChatsArray}
-                                                        </ul>
-                                                    </div>
-                                                )
-                                                :
-                                                (
-                                                    <div>
-
-                                                    </div>
-                                                )
-                                        }
+                                        <div>
+                                            <p className="font-semibold p-3">Messages</p>
+                                            <ul className="flex flex-col">
+                                                {
+                                                    isSkeletonShowing ?
+                                                        <>
+                                                            {skeletonItems}
+                                                            <div className="h-full justify-center flex items-center mt-8">
+                                                                <Loading height={30} width={30} />
+                                                            </div>
+                                                        </>
+                                                        :
+                                                        mapChatsArray
+                                                }
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                                 {location.pathname === '/direct' ?

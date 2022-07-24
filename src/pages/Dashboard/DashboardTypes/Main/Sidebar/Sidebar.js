@@ -2,23 +2,31 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import useSuggestions from '../../../../../hooks/useSuggestions'
 import UserSuggestion from './UserSuggestion'
+import UserSkeleton from './UserSkeleton'
+import { SkeletonTheme } from 'react-loading-skeleton'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const Sidebar = () => {
     const { fetchUsers } = useSuggestions()
     const [suggestions, setSuggestions] = useState([])
     const userRedux = useSelector(state => state.userReducer.user)
+    const [isLoading, setIsLoading] = useState(false)
 
     const USERS_TO_FETCH = 5
 
     useEffect(() => {
-
+        setIsLoading(true)
         const getSuggestions = async () => {
             const users = await fetchUsers(USERS_TO_FETCH)
             setSuggestions(users)
+            setIsLoading(false)
         }
 
         getSuggestions()
     }, [])
+
+    const skeletonUsers = Array(USERS_TO_FETCH).fill(0).map((_, idx) => <UserSkeleton key={idx} />)
 
     const mappedSuggestions = suggestions.map(elem => <UserSuggestion key={elem.uid} {...elem} />)
 
@@ -43,7 +51,7 @@ const Sidebar = () => {
                     <button className='text-xs' type='button'>See All</button>
                 </div>
                 <div className='flex flex-col mt-3'>
-                    {mappedSuggestions}
+                    {isLoading ? skeletonUsers : mappedSuggestions}
                 </div>
                 <p className='text-gray-500/70 text-xs mt-5'>© 2022 INSTAGRAN FROM META</p>
             </div>

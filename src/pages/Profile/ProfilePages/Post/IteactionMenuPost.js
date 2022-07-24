@@ -1,14 +1,10 @@
-import React, { useState, useRef, useContext, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import converUnixTime from '../../../../helpers/converUnixTime'
-import { Context } from "../../../../context/firebaseContext";
-import { useSelector, useDispatch } from "react-redux";
 import LikesModal from "./Modals/LikesModal";
-import ModalSharePost from './Modals/ModalSharePost'
 import WriteComment from "./Comment/WriteComment";
 import LikePost from "./Bars/LikePost/LikePost";
 import SavePost from "./Bars/SavePost/SavePost";
 import SharePost from "./Bars/SharePost/SharePost";
-import { setUser } from "../../../../redux/actions/userActions";
 
 const IteractionMenuPost = ({ currentPost, isCurrentPostSaved, updatedCurrentPost, setUpdatedCurrentPost }) => {
 

@@ -3,15 +3,18 @@ import DropMenu from "../../../../DropMenu/DropMenu";
 import { useSelector } from "react-redux";
 import { Context } from "../../../../../context/firebaseContext";
 import Activity from "./HeartModalComponents/Activity";
+import Loading from "../../../../Loaders/Loaging";
 
 const HeartDropMenu = ({ dropMenuHeart, setDropMenuHeart }) => {
 
     const [allActivities, setAllActivities] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     const { doc, db, getDoc } = useContext(Context)
     const userRedux = useSelector(state => state.userReducer.user)
 
-    useEffect(() => {
 
+    useEffect(() => {
+        setIsLoading(true)
         const getActivities = async () => {
 
             const userRef = doc(db, 'users', userRedux.uid)
@@ -32,6 +35,7 @@ const HeartDropMenu = ({ dropMenuHeart, setDropMenuHeart }) => {
 
             const activities = [...postsAllLikes, ...allFollowers, ...postsAllComments].sort((a, b) => b.createdAt - a.createdAt)
             setAllActivities(activities)
+            setIsLoading(false)
         }
 
         getActivities()
@@ -42,7 +46,7 @@ const HeartDropMenu = ({ dropMenuHeart, setDropMenuHeart }) => {
     return (
         <DropMenu
             styleForWindowBlock="w-full h-full fixed top-0 left-0 flex justify-center items-center z-20 cursor-default "
-            styleForContainerBlock={`absolute w-[32rem] h-[18rem] shadow-defaultModal rounded bg-white flex items-center top-10 -right-10 p-0 m-0 z-30 cursor-pointer`}
+            styleForContainerBlock={`absolute w-[32rem] ${isLoading ? 'h-[9rem]' : 'h-[18rem]'} shadow-defaultModal rounded bg-white flex items-center top-10 -right-10 p-0 m-0 z-30 cursor-pointer`}
             styleForInnerBlock='flex items-center flex-col w-full h-full'
             dropMenuProfile={dropMenuHeart}
             setDropMenuProfile={setDropMenuHeart}
@@ -53,7 +57,7 @@ const HeartDropMenu = ({ dropMenuHeart, setDropMenuHeart }) => {
                         <>
                             <ul className="flex flex-col p-4 overflow-y-auto w-full">
                                 <p className="font-semibold w-full text-sm">Your activities</p>
-                                {mappedActivities}
+                                {isLoading ? <div className="mt-3"><Loading height={30} width={30} /></div>: mappedActivities}
                             </ul>
                         </>
                     )

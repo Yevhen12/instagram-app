@@ -4,10 +4,12 @@ import Post from "../Post/Post";
 import { Outlet, useLocation } from "react-router-dom";
 import { Context } from "../../../../context/firebaseContext";
 import { setUser } from "../../../../redux/actions/userActions";
+import Loading from "../../../../components/Loaders/Loaging";
 
 const Saved = () => {
 
     const [oldSavedPost, setOldSavedPost] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     const { doc, db, getDoc } = useContext(Context)
 
     const userRedux = useSelector(state => state.userReducer.user)
@@ -16,6 +18,7 @@ const Saved = () => {
 
     useEffect(() => {
         setOldSavedPost([])
+        setIsLoading(true)
 
         const getPosts = async () => {
             const refUser = doc(db, 'users', userRedux.uid)
@@ -35,11 +38,14 @@ const Saved = () => {
                 setOldSavedPost(prevPost => [...prevPost, postUpdate])
                 console.log(1)
             })
+            setIsLoading(false)
         }
 
         getPosts()
       
     }, [])
+
+    console.log(isLoading)
 
 
 const mapSavedPosts = oldSavedPost.length > 0 && oldSavedPost.map(elem => <Post key={elem.uid} post={elem} />)
@@ -47,11 +53,11 @@ const mapSavedPosts = oldSavedPost.length > 0 && oldSavedPost.map(elem => <Post 
 return (
     <>
         {
-            oldSavedPost.length > 0 ?
+            isLoading ?
                 (
                     <>
                         <div className="flex flex-wrap">
-                            {mapSavedPosts}
+                            {isLoading ? <div><Loading height={40} width={40} /></div> : mapSavedPosts}
                         </div>
                         <Outlet context={{ savedPosts: oldSavedPost }} />
                     </>

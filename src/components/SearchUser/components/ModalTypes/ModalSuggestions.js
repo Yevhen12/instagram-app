@@ -1,8 +1,9 @@
 import React from "react";
 import DropMenu from "../../../DropMenu/DropMenu";
+import Loading from "../../../Loaders/Loaging";
 import UserSuggestItem from "../UserSuggestItem";
 
-const ModalSuggestions = ({ usersSuggestions, setActiveModal, activeModal, redirectToAnotherUser }) => {
+const ModalSuggestions = ({ usersSuggestions, setActiveModal, activeModal, redirectToAnotherUser, isLoading }) => {
 
     const mapUsersSuggestions = usersSuggestions.map((elem) => <UserSuggestItem key={elem.uid} user={elem} redirectToAnotherUser={redirectToAnotherUser} />)
 
@@ -19,7 +20,7 @@ const ModalSuggestions = ({ usersSuggestions, setActiveModal, activeModal, redir
                     mapUsersSuggestions.length > 0 ?
                         (
                             <ul className="pt-3">
-                                {mapUsersSuggestions}
+                                {isLoading ? <div className="h-[340px]"><Loading height={30} width={30} /></div> : mapUsersSuggestions}
                             </ul>
                         )
                         :
