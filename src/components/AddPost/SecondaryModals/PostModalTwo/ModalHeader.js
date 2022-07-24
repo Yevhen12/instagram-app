@@ -1,14 +1,16 @@
-import React, {useContext} from "react";
+import React, { useContext, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Context } from "../../../../context/firebaseContext";
 import { setUser } from "../../../../redux/actions/userActions";
 import { useParams } from "react-router-dom";
 import { setCurrentProfileUser } from "../../../../redux/actions/currentProfileUser";
+import Loading from "../../../Loaders/Loaging";
 
-const HeaderModal = ({setPage, post, text, setActiveModal, setPost}) => {
+const HeaderModal = ({ setPage, post, text, setActiveModal, setPost }) => {
 
     const userRedux = useSelector(state => state.userReducer.user)
     const currentProfileUser = useSelector(state => state.currentProfileUserReducer.user)
+    const [isLoading, setIsLoading] = useState(false)
     const { storage, db, updateDoc, ref, doc, uploadBytes, getDownloadURL, setFirestoreCurrentUser } = useContext(Context)
 
     const dispatch = useDispatch()
@@ -20,6 +22,8 @@ const HeaderModal = ({setPage, post, text, setActiveModal, setPost}) => {
     }
 
     const createPost = async () => {
+
+        setIsLoading(true)
 
         const { displayName, uid, imageUrl } = userRedux
         const pathName = `/images/${userRedux.uid}/posts/${post.images[0].name}`
@@ -52,6 +56,7 @@ const HeaderModal = ({setPage, post, text, setActiveModal, setPost}) => {
         setPost({
             images: []
         })
+        setIsLoading(false)
         setActiveModal(false)
 
     }
@@ -65,7 +70,12 @@ const HeaderModal = ({setPage, post, text, setActiveModal, setPost}) => {
                         <img src="/images/left-arrow-icon.png" className="w-7 h-7" alt="back" />
                     </button>
                     <p className="font-semibold">Create new post</p>
-                    <button onClick={() => createPost()} className="text-sm font-semibold text-[#0195f6]">Share</button>
+                    <button onClick={() => createPost()} type='button'>
+                        <div className="flex items-center">
+                            <p className="text-sm font-semibold text-[#0195f6] mr-1">Share</p>
+                            {isLoading && <Loading width={15} height={15} />}
+                        </div>
+                    </button>
                 </div>
             </div>
         </>

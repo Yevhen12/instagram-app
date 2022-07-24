@@ -7,7 +7,7 @@ const ImageMessage = ({ message, messages, idx }) => {
         <div style={{ wordWrap: "break-word" }} className={`mt-2 rounded-3xl max-w-[230px] ${message.images.userImage && 'w-full object-cover'} 
                             ${message.user.uid === userRedux.uid ? '' : (messages[idx + 1] ? messages[idx + 1].user.uid !== messages[idx].user.uid : true) ? '' : 'ml-9'}`}>
             <div className="rounded-3xl border">
-                <img alt="somePhoto" src={message.images.userImage} className="rounded-3xl" />
+                <img alt="somePhoto" src={message.images.userImage} className="rounded-3xl w-full" />
             </div>
         </div>
     )
