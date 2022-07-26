@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Post from "../Post/Post";
 import { Outlet, useLocation } from "react-router-dom";
@@ -47,7 +47,7 @@ const Saved = () => {
     console.log()
 
 
-    const mapSavedPosts = oldSavedPost.length > 0 && oldSavedPost.map(elem => <Post key={elem.uid} post={elem} />)
+    const mapSavedPosts = useMemo(() => oldSavedPost.map(elem => <Post key={elem.uid} post={elem} />), [oldSavedPost])
 
     return (
         <>

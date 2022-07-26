@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useMemo } from "react";
 import useSearch from "../../../../../hooks/useSearch";
 import { Context } from "../../../../../context/firebaseContext";
 import { useDispatch, useSelector } from "react-redux";
@@ -90,8 +90,7 @@ const ModalSharePost = ({ activeModal, setActiveModal, updatedCurrentPost }) => 
     }
 
 
-    const mapUsersFound = usersFound.length > 0 ?
-        usersFound.map((elem) => {
+    const mapUsersFound = useMemo(() => usersFound.map((elem) => {
             const findUser = selectedUsers.length > 0 ? selectedUsers.find(user => user.uid === elem.uid) : false
             return (
                 <li key={elem.uid} className="py-1.5 pl-4 hover:bg-gray-100/50 cursor-pointer" onClick={() => findUser ? deleteSelectedUser(elem) : addToSelectedUsers(elem)}>
@@ -117,9 +116,7 @@ const ModalSharePost = ({ activeModal, setActiveModal, updatedCurrentPost }) => 
                     </div>
                 </li>
             )
-        })
-        : false
-
+        }), [usersFound])
     // const mapSuggestedUsers = chatsArray.map((elem) => {
     //     const strangeUser = chatsArray.users && chatsArray.users.find(user => user.uid === userRedux.uid)
     //     const findUser = selectedUsers.length > 0 ? selectedUsers.find(user => user.uid === elem.uid) : false
@@ -149,7 +146,7 @@ const ModalSharePost = ({ activeModal, setActiveModal, updatedCurrentPost }) => 
     //     )
     // })
 
-    const mapSelectedUsers = selectedUsers.length > 0 ? (
+    const mapSelectedUsers = useMemo(() => (
         selectedUsers.map(elem => {
             return (
                 <div key={elem.uid} className="bg-[#0195f6]/10 flex items-center px-2 py-1 mt-2 mr-2 rounded cursor-pointer" onClick={() => deleteSelectedUser(elem)}>
@@ -160,7 +157,7 @@ const ModalSharePost = ({ activeModal, setActiveModal, updatedCurrentPost }) => 
                 </div>
             )
         })
-    ) : false
+    ), [selectedUsers])
 
 
     return (

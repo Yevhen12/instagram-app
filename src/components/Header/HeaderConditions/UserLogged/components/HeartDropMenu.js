@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useMemo } from "react";
 import DropMenu from "../../../../DropMenu/DropMenu";
 import { useSelector } from "react-redux";
 import { Context } from "../../../../../context/firebaseContext";
@@ -41,7 +41,9 @@ const HeartDropMenu = ({ dropMenuHeart, setDropMenuHeart }) => {
         getActivities()
     }, [dropMenuHeart])
 
-    const mappedActivities = allActivities.map((elem, idx) => <Activity key={idx} activity={elem} />)
+    console.log(1)
+
+    const mappedActivities = useMemo(() => allActivities.map((elem, idx) => <Activity key={idx} activity={elem} />), [allActivities])
 
     return (
         <DropMenu

@@ -51,7 +51,7 @@ const Direct = () => {
 
     const isCorrect = !isChat && location.pathname !== '/direct'
 
-    const mapChatsArray = sortChatsArray.map((elem, idx) => <UserItem key={idx} chat={elem} />)
+    const mapChatsArray = useMemo(() => sortChatsArray.map((elem, idx) => <UserItem key={idx} chat={elem} />), [sortChatsArray])
     const skeletonItems = Array(3).fill(0).map((_, idx) => <SkeletonItem key={idx} />)
 
     const isSkeletonShowing = chatsArray.length === 0 || isLoading

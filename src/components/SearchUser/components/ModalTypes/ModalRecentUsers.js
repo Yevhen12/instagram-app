@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Context } from "../../../../context/firebaseContext";
 import { setUser } from "../../../../redux/actions/userActions";
@@ -13,7 +13,7 @@ const ModalRecentUsers = ({ activeModal, setActiveModal, redirectToAnotherUser }
     const [isLoading, setIsLoading] = useState(false)
     const dispatch = useDispatch()
 
-    const {db, doc, updateDoc, getDoc} = useContext(Context)
+    const { db, doc, updateDoc, getDoc } = useContext(Context)
 
     const clearAllVisitedUsers = async () => {
         const ReduxUserRef = doc(db, "users", `${userRedux.uid}`);
@@ -43,8 +43,16 @@ const ModalRecentUsers = ({ activeModal, setActiveModal, redirectToAnotherUser }
         getRecentUsers()
     }, [])
 
-    
-    const mapRecentVisitedUsers = recentUsers.map(elem => <UserVisitedItem key={elem.uid} user={elem} recentUsers={recentUsers} setRecentUsers={setRecentUsers} redirectToAnotherUser={redirectToAnotherUser} />)
+
+    const mapRecentVisitedUsers = useMemo(() => recentUsers.map(elem => (
+        <UserVisitedItem
+            key={elem.uid}
+            user={elem}
+            recentUsers={recentUsers}
+            setRecentUsers={setRecentUsers}
+            redirectToAnotherUser={redirectToAnotherUser}
+        />
+    ), [recentUsers]))
 
     return (
         <DropMenu
@@ -59,7 +67,7 @@ const ModalRecentUsers = ({ activeModal, setActiveModal, redirectToAnotherUser }
                 <button type="button" className="text-sm font-semibold text-[#0195f6]" onClick={() => clearAllVisitedUsers()}>Clear all</button>
             </div>
             <ul className="pt-2">
-                {isLoading ? <div className="h-[270px]"><Loading height={30} width={30} /></div>: mapRecentVisitedUsers}
+                {isLoading ? <div className="h-[270px]"><Loading height={30} width={30} /></div> : mapRecentVisitedUsers}
                 {recentUsers.length === 0 && !isLoading && <p className="text-sm p-4 font-semibold">No recent searches.</p>}
             </ul>
         </DropMenu>

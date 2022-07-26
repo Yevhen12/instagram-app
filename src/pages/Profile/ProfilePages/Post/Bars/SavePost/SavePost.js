@@ -3,8 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../../../../../redux/actions/userActions";
 import { Context } from "../../../../../../context/firebaseContext";
 
-
-
 const SavePost = ({updatedCurrentPost, currentPost}) => {
 
     const userRedux = useSelector(state => state.userReducer.user)

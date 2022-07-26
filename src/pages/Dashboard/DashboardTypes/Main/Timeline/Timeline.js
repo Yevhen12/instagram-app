@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react'
+import React, { useState, useEffect, useContext, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { Context } from '../../../../../context/firebaseContext'
 import Post from './Posts/Post'
@@ -39,7 +39,7 @@ const Timeline = () => {
 
     }, [])
 
-    const mapedAllPosts = allPosts.sort((a, b) => b.uid - a.uid).map(elem => <Post key={elem.uid} post={elem} />)
+    const mapedAllPosts = useMemo(() => allPosts.sort((a, b) => b.uid - a.uid).map(elem => <Post key={elem.uid} post={elem} />), [allPosts])
 
 
     return (

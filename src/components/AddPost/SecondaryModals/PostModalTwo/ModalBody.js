@@ -14,11 +14,11 @@ const ModalBody = ({ post, setText, text }) => {
         zIndex: '21'
     }
 
-    const changeText = useMemo(() => (e) => {
+    const changeText = (e) => {
         console.log(text)
         const { value } = e.target
         setText(value)
-    }, [text])
+    }
 
     return (
         <div className="flex h-[calc(100%-50px)]">

@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useMemo} from "react";
 import PostItem from "./PostItem";
 import { Outlet } from "react-router-dom";
 
 const PostsList = ({allPosts}) => {
 
-    const mapedPosts = allPosts.map((elem, idx) => <PostItem key={elem.uid} idx={idx} post={elem} />)
+    const mapedPosts = useMemo(() => allPosts.map((elem, idx) => <PostItem key={elem.uid} idx={idx} post={elem} />), [allPosts])
 
     return (
         <>

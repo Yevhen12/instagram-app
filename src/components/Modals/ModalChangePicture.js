@@ -65,7 +65,7 @@ const ModalChangePicture = ({ activeModal, setActiveModal, setIsLoading  }) => {
 
     return (
         <div
-            onClick={() => closeModal()}
+            onClick={closeModal}
             className={`w-full h-full bg-black/60 fixed top-0 left-0 flex justify-center items-center z-20 duration-300 ${activeModal ? 'opacity-1 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         >
             <div

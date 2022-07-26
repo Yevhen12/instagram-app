@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import useSuggestions from '../../../../../hooks/useSuggestions'
 import UserSuggestion from './UserSuggestion'
@@ -28,7 +28,7 @@ const Sidebar = () => {
 
     const skeletonUsers = Array(USERS_TO_FETCH).fill(0).map((_, idx) => <UserSkeleton key={idx} />)
 
-    const mappedSuggestions = suggestions.map(elem => <UserSuggestion key={elem.uid} {...elem} />)
+    const mappedSuggestions = useMemo(() => suggestions.map(elem => <UserSuggestion key={elem.uid} {...elem} />), [])
 
 
     return (

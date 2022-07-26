@@ -1,11 +1,11 @@
-import React from "react";
+import React, {useMemo} from "react";
 import DropMenu from "../../../DropMenu/DropMenu";
 import Loading from "../../../Loaders/Loaging";
 import UserSuggestItem from "../UserSuggestItem";
 
 const ModalSuggestions = ({ usersSuggestions, setActiveModal, activeModal, redirectToAnotherUser, isLoading }) => {
 
-    const mapUsersSuggestions = usersSuggestions.map((elem) => <UserSuggestItem key={elem.uid} user={elem} redirectToAnotherUser={redirectToAnotherUser} />)
+    const mapUsersSuggestions = useMemo(() => usersSuggestions.map((elem) => <UserSuggestItem key={elem.uid} user={elem} redirectToAnotherUser={redirectToAnotherUser} />), [usersSuggestions])
 
     return (
         (

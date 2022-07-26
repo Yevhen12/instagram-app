@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from "react";
+import React, { useState, useContext, useCallback, useMemo } from "react";
 import { Link, useNavigate } from 'react-router-dom'
 import * as ROUTES from '../../../constants/pagesLinks'
 import { nanoid } from 'nanoid'
@@ -14,7 +14,6 @@ const SignUpSecond = ({ setUserData, setPage, userData }) => {
         }
     )
     const [activeModal, setActiveModal] = useState(false)
-    const { createUserWithEmailAndPassword, auth, doc, db, setDoc } = useContext(Context)
     const isInvalid = birthday.year && (birthday.year < 2016)
 
 
@@ -87,9 +86,9 @@ const SignUpSecond = ({ setUserData, setPage, userData }) => {
 
 
     //Розглянути випадок високосного року
-    const mapArrayMonths = arrayMonths.map(elem => <option key={nanoid()} className='bg-white m-0 p-0' value={elem} required title={elem}>{elem}</option>)
-    const mapArrayDays = arrayDaysDependOnMonth.map(elem => <option key={nanoid()} className='bg-white m-0 p-0' required value={elem} title={elem}>{elem}</option>)
-    const mapArrayYears = arrayOfYears.map(elem => <option key={nanoid()} className='bg-white m-0 p-0' required value={elem} title={elem}>{elem}</option>)
+    const mapArrayMonths = useMemo(() => arrayMonths.map(elem => <option key={nanoid()} className='bg-white m-0 p-0' value={elem} required title={elem}>{elem}</option>), [arrayMonths])
+    const mapArrayDays = useMemo(() => arrayDaysDependOnMonth.map(elem => <option key={nanoid()} className='bg-white m-0 p-0' required value={elem} title={elem}>{elem}</option>), [arrayDaysDependOnMonth])
+    const mapArrayYears = useMemo(() => arrayOfYears.map(elem => <option key={nanoid()} className='bg-white m-0 p-0' required value={elem} title={elem}>{elem}</option>), [arrayOfYears])
     return (
         <div className="flex items-center mx-auto h-screen max-w-xs">
             <div className="flex flex-col">

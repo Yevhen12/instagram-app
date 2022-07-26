@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Context } from "../../context/firebaseContext";
 import { useSelector } from "react-redux";
 import UserSuggest from "./UserSuggest";
@@ -20,7 +20,7 @@ const Suggestions = () => {
         getSuggestions()
     }, [])
 
-    const mapedSuggestions = suggestions.map(elem => <UserSuggest key={elem.uid} {...elem} />)
+    const mapedSuggestions = useMemo(() => suggestions.map(elem => <UserSuggest key={elem.uid} {...elem} />), [suggestions])
 
     return (
         <div className="max-w-[600px] w-full bg-whiteflex flex-col items-center border mt-3 py-3 rounded">

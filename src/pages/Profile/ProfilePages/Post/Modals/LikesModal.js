@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import Modal from "../../../../../components/Modals/Modal";
 import { nanoid } from 'nanoid'
 import UserInFollowersModal from "../../Modals/ItemUser/UserInFollowersModal";
@@ -6,14 +6,14 @@ import UserInFollowersModal from "../../Modals/ItemUser/UserInFollowersModal";
 const LikesModal = ({ likes, activeModal, setActiveModal }) => {
 
     
-    const mapLikesArray= likes.map(elem => {
+    const mapLikesArray= useMemo(() => likes.map(elem => {
         return (
             <UserInFollowersModal
                 key={nanoid()}
                 currentUser={elem}
             />
         )
-    })
+    }), [likes])
 
 
     return (
