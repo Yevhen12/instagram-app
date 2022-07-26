@@ -67,4 +67,4 @@ const FollowerItem = ({ activity }) => {
     )
 }
 
-export default FollowerItem
+export default React.memo(FollowerItem)

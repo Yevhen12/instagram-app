@@ -26,4 +26,4 @@ const ItemDropMenu = ({ text, style, imageUrl, action, link }) => {
 
 }
 
-export default ItemDropMenu
+export default React.memo(ItemDropMenu)

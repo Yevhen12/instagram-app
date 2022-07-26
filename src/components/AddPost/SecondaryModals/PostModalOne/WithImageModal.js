@@ -46,4 +46,4 @@ const WithImageModal = ({post, setPost}) => {
     )
 }
 
-export default WithImageModal
+export default React.memo(WithImageModal)

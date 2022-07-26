@@ -12,4 +12,4 @@ const AreUSureModal = ({ activeModal, setActiveModal }) => {
     )
 }
 
-export default AreUSureModal
+export default React.memo(AreUSureModal)

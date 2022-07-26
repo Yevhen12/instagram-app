@@ -17,4 +17,4 @@ const UserSkeleton = () => {
     )
 }
 
-export default UserSkeleton
+export default React.memo(UserSkeleton)

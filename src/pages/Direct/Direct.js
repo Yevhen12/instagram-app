@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback, useMemo } from "react";
 import Header from "../../components/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
 import NewMessageModal from "./Modals/NewMessageModal";
@@ -43,8 +43,11 @@ const Direct = () => {
     const sortChatsArray = chatsArray.sort((a, b) => {
         if (!b.messages.length || !a.messages.length) return b.uid - a.uid
         else return b.messages[b.messages.length - 1].uniqKey_time - a.messages[a.messages.length - 1].uniqKey_time
-
     })
+
+    const openModal = useCallback(() => {
+        setActiveModal(true)
+    }, [])
 
     const isCorrect = !isChat && location.pathname !== '/direct'
 
@@ -80,7 +83,7 @@ const Direct = () => {
                                             </button>
                                             <div className="mt-1.5 absolute top-3.5 right-3.5">
                                                 <button type="button">
-                                                    <img src="/images/new-message-icon.png" className="w-5 h-5" onClick={() => setActiveModal(true)} />
+                                                    <img src="/images/new-message-icon.png" className="w-5 h-5" onClick={openModal} />
                                                 </button>
                                             </div>
                                         </div>
@@ -117,7 +120,7 @@ const Direct = () => {
                                                 <div className="mt-2">
                                                     <p className="font-light text-sm text-gray-500">Send private photos and messages to a friend or group.</p>
                                                 </div>
-                                                <button type="button" className="rounded bg-[#0195f6] px-2.5 py-1.5 text-sm text-white font-semibold mt-5" onClick={() => setActiveModal(true)}>
+                                                <button type="button" className="rounded bg-[#0195f6] px-2.5 py-1.5 text-sm text-white font-semibold mt-5" onClick={openModal}>
                                                     Send Message
                                                 </button>
                                             </div>
@@ -144,4 +147,4 @@ const Direct = () => {
     )
 }
 
-export default Direct
+export default React.memo(Direct)

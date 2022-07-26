@@ -4,14 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { Context } from "../../context/firebaseContext";
 import { setUser } from "../../redux/actions/userActions";
 
-const ModalChangePicture = ({ activeModal, setActiveModal }) => {
+const ModalChangePicture = ({ activeModal, setActiveModal, setIsLoading  }) => {
 
     const { ref, storage, uploadBytes, auth, getDownloadURL, doc, db, updateDoc, getDoc, deleteObject, setFirestoreCurrentUser } = useContext(Context)
     const userRedux = useSelector((state) => state.userReducer.user)
     const dispatch = useDispatch()
 
     const hendleChange = async (e) => {
-
+        setIsLoading(true)
         setActiveModal(false)
 
         const currentUser = auth.currentUser
@@ -36,6 +36,7 @@ const ModalChangePicture = ({ activeModal, setActiveModal }) => {
 
         setFirestoreCurrentUser({ ...userRedux, imageUrl: imageUrl })
         dispatch(setUser({ ...userRedux, imageUrl: imageUrl }))
+        setIsLoading(false)
 
     }
 
@@ -100,4 +101,4 @@ const ModalChangePicture = ({ activeModal, setActiveModal }) => {
     )
 }
 
-export default ModalChangePicture
+export default React.memo(ModalChangePicture)

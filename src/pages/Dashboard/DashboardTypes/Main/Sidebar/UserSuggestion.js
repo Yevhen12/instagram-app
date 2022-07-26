@@ -61,4 +61,4 @@ const UserSuggestion = ({ displayName, name, uid, imageUrl }) => {
     )
 }
 
-export default UserSuggestion
+export default React.memo(UserSuggestion)

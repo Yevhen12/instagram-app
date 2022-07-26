@@ -36,4 +36,4 @@ const ModalHeader = ({setPage, post, setPost}) => {
     )
 }
 
-export default ModalHeader
+export default React.memo(ModalHeader)

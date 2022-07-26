@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, { useCallback, useState, useMemo } from "react";
 import EmojiModal from "../../../EmojiModal/EmojiModal";
 import { useSelector } from "react-redux";
 
-const ModalBody = ({post, setText, text}) => {
+const ModalBody = ({ post, setText, text }) => {
     const userRedux = useSelector(state => state.userReducer.user)
     const [showPicker, setShowPicker] = useState(false)
 
@@ -14,10 +14,11 @@ const ModalBody = ({post, setText, text}) => {
         zIndex: '21'
     }
 
-    const changeText = (e) => {
+    const changeText = useMemo(() => (e) => {
+        console.log(text)
         const { value } = e.target
         setText(value)
-    }
+    }, [text])
 
     return (
         <div className="flex h-[calc(100%-50px)]">
@@ -51,4 +52,4 @@ const ModalBody = ({post, setText, text}) => {
     )
 }
 
-export default ModalBody
+export default React.memo(ModalBody)

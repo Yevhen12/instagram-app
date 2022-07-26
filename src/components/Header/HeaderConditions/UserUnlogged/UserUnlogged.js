@@ -15,4 +15,4 @@ const UserUnlogged = () => {
     )
 }
 
-export default UserUnlogged
+export default React.memo(UserUnlogged)

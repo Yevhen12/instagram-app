@@ -8,6 +8,7 @@ import { useLocation, Outlet } from "react-router-dom";
 
 const Posts = () => {
     const [posts, setPosts] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     const userRedux = useSelector((state) => state.userReducer.user)
     const currentProfileUserRedux = useSelector((state) => state.currentProfileUserReducer.user)
     const isUserOnStrangeProfile = userRedux.uid !== currentProfileUserRedux.uid
@@ -16,6 +17,7 @@ const Posts = () => {
     const location = useLocation()
 
     useEffect(() => {
+        setIsLoading(true)
         const getPosts = async () => {
             const userRef = doc(db, 'users', currentProfileUserRedux.uid)
             const userDoc = await getDoc(userRef)
@@ -24,6 +26,7 @@ const Posts = () => {
 
 
             setPosts(userDoc.data().posts)
+            setIsLoading(false)
         }
 
         getPosts()
@@ -103,4 +106,4 @@ const Posts = () => {
     )
 }
 
-export default Posts
+export default React.memo(Posts)

@@ -21,4 +21,4 @@ const UserSuggestItem = ({user, redirectToAnotherUser}) => {
     )
 }
 
-export default UserSuggestItem
+export default React.memo(UserSuggestItem)

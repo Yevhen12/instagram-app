@@ -7,6 +7,7 @@ import * as ProfileRoutes from '../../../constants/profileLinks'
 import { Context } from "../../../context/firebaseContext";
 import { setUser } from "../../../redux/actions/userActions";
 import { useParams } from "react-router-dom";
+import Loading from "../../../components/Loaders/Loaging";
 
 const RealUser = () => {
     const [activeModal, setActiveModal] = useState(false)
@@ -15,6 +16,7 @@ const RealUser = () => {
     const location = useLocation()
     const { doc, db, getDoc } = useContext(Context)
     const dispatch = useDispatch()
+    const [isLoading, setIsLoading] = useState(false)
 
 
     // useEffect(() => {
@@ -47,15 +49,17 @@ const RealUser = () => {
                                     className="rounded-full border overflow-hidden"
                                     onClick={hendleActiveModal}
                                 >
-                                    <div className="w-36 h-36">
-                                        <img className="w-full h-full object-cover " src={`${userRedux.imageUrl ? userRedux.imageUrl : '/images/standart-profile.png'}`}></img>
+                                    <div className="w-36 h-36 relative">
+                                        <img className={`w-full h-full object-cover ${isLoading && 'opacity-45'}`}src={`${userRedux.imageUrl ? userRedux.imageUrl : '/images/standart-profile.png'}`} />
+                                        {isLoading && <div className="absolute top-16 left-16" ><Loading height={23} width={23} /></div>}
                                     </div>
                                 </button>
                                 <ModalChangePicture
                                     activeModal={activeModal}
                                     setActiveModal={setActiveModal}
-                                />
+                                    setIsLoading={setIsLoading}
 
+                                />
                             </div>
                             <div className="w-full">
                                 <div className="flex items-center mb-8">
@@ -121,4 +125,4 @@ const RealUser = () => {
     )
 }
 
-export default RealUser
+export default React.memo(RealUser)

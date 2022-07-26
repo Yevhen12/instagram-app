@@ -13,4 +13,4 @@ const TypicalMessage = ({message, messages, idx}) => {
     )
 }
 
-export default TypicalMessage
+export default React.memo(TypicalMessage)

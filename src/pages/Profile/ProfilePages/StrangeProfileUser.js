@@ -181,4 +181,4 @@ const StrangeProfileUser = () => {
     )
 }
 
-export default StrangeProfileUser
+export default React.memo(StrangeProfileUser)

@@ -34,4 +34,4 @@ const UnfollowModal = ({ imageUrl, displayName, activeModal, setActiveModal, nam
     )
 }
 
-export default UnfollowModal
+export default React.memo(UnfollowModal)

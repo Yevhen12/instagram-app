@@ -17,4 +17,4 @@ const SharePost = ({updatedCurrentPost}) => {
     )
 }
 
-export default SharePost
+export default React.memo(SharePost)

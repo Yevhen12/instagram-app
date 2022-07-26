@@ -109,4 +109,4 @@ const SearchUsers = () => {
     )
 }
 
-export default SearchUsers
+export default React.memo(SearchUsers)

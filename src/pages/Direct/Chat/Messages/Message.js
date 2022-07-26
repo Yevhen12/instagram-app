@@ -32,4 +32,4 @@ const Message = ({ message, messages, idx }) => {
     )
 }
 
-export default Message
+export default React.memo(Message)

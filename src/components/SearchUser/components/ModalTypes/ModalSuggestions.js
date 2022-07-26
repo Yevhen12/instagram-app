@@ -35,4 +35,4 @@ const ModalSuggestions = ({ usersSuggestions, setActiveModal, activeModal, redir
     )
 }
 
-export default ModalSuggestions
+export default React.memo(ModalSuggestions)

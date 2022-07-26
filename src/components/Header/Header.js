@@ -7,6 +7,7 @@ import UserUnlogged from "./HeaderConditions/UserUnlogged/UserUnlogged"
 import UserLogged from "./HeaderConditions/UserLogged/UserLogged"
 import { useSelector } from "react-redux"
 import Loading from "../../pages/Loading/Loading"
+console.log(1)
 
 const Header = () => {
 
@@ -34,4 +35,4 @@ const Header = () => {
     )
 }
 
-export default Header
+export default React.memo(Header)

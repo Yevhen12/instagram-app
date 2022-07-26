@@ -21,4 +21,4 @@ const DropMenu = ({ children, styleForContainerBlock, styleForInnerBlock, dropMe
         </>
     )
 }
-export default DropMenu
+export default React.memo(DropMenu)

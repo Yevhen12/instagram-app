@@ -88,4 +88,4 @@ const Saved = () => {
     )
 }
 
-export default Saved
+export default React.memo(Saved)

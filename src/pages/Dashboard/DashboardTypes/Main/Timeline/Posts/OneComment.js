@@ -31,4 +31,4 @@ const OneComment = ({ post, updatedCurrentPost, setUpdatedCurrentPost }) => {
     )
 }
 
-export default OneComment
+export default React.memo(OneComment)

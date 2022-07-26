@@ -46,4 +46,4 @@ const UserItem = ({chat, idx}) => {
     )
 }
 
-export default UserItem
+export default React.memo(UserItem)

@@ -13,4 +13,4 @@ const Suggestion = () => {
     )
 }
 
-export default Suggestion
+export default React.memo(Suggestion)

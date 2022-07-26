@@ -61,4 +61,4 @@ const Explore = () => {
     )
 }
 
-export default Explore
+export default React.memo(Explore)

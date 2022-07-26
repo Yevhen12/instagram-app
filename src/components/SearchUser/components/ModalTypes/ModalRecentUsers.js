@@ -66,4 +66,4 @@ const ModalRecentUsers = ({ activeModal, setActiveModal, redirectToAnotherUser }
     )
 }
 
-export default ModalRecentUsers
+export default React.memo(ModalRecentUsers)

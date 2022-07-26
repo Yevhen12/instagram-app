@@ -198,4 +198,4 @@ const ModalDetailedPost = () => {
     )
 }
 
-export default ModalDetailedPost
+export default React.memo(ModalDetailedPost)

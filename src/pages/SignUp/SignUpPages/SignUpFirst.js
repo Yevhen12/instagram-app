@@ -2,6 +2,9 @@ import React, { useState, useContext } from "react";
 import { Link } from 'react-router-dom'
 import * as ROUTES from '../../../constants/pagesLinks'
 import { Context } from "../../../context/firebaseContext";
+import { useNavigate } from "react-router-dom";
+
+
 const SignUpFirst = ({ setUserData, setPage }) => {
 
 
@@ -15,6 +18,7 @@ const SignUpFirst = ({ setUserData, setPage }) => {
         }
     )
     const [error, setError] = useState(false)
+    const navigate = useNavigate()
 
 
     const changeText = (e) => {
@@ -131,12 +135,10 @@ const SignUpFirst = ({ setUserData, setPage }) => {
                     </form>
                 </div>
                 <div className="w-full border flex items-center justify-center p-5">
-                    <p>
-                        Already have an account?{'  '}
-                        <Link to={ROUTES.SIGN_IN} className="font-bold">
-                            Log in
-                        </Link>
+                    <p className="mr-1">
+                        Already have an account?
                     </p>
+                    <button className="font-bold" type="button" onClick={() => navigate(ROUTES.SIGN_IN)}> Log In</button>
                 </div>
             </div>
         </div>
@@ -145,4 +147,4 @@ const SignUpFirst = ({ setUserData, setPage }) => {
 }
 
 
-export default SignUpFirst
+export default React.memo(SignUpFirst)

@@ -32,4 +32,4 @@ const PostModalOne = ({ activeModal, setActiveModal, setPage, setPost, post }) =
     )
 }
 
-export default PostModalOne
+export default React.memo(PostModalOne)

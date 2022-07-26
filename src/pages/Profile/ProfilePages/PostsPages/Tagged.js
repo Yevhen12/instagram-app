@@ -46,4 +46,4 @@ const Tagged = () => {
     )
 }
 
-export default Tagged
+export default React.memo(Tagged)

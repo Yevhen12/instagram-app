@@ -107,4 +107,4 @@ const WriteComment = ({ textComment, setTextComment, commentRef, setShowPicker, 
     )
 }
 
-export default WriteComment
+export default React.memo(WriteComment)

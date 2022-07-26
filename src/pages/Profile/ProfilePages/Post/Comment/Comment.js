@@ -31,12 +31,12 @@ const Comment = ({ postComment, updatedCurrentPost, setUpdatedCurrentPost }) => 
     return (
         <div className="flex justify-between px-5 mb-5">
             <div className="mr-5">
-                <Link to={`/${postComment.userUid}`}>
+                <Link to={`/${postComment.displayName}`}>
                     <img alt="userPhoto" src={`${newUser && newUser.imageUrl ? newUser.imageUrl : '/images/standart-profile.png'}`} className='w-8 h-8 object-cover rounded-full' />
                 </Link>
             </div>
             <div style={{ wordWrap: "break-word" }} className="flex flex-col w-full max-w-[calc(100%-90px)] text-sm ">
-                <Link to={`/${postComment.userUid}`}>
+                <Link to={`/${postComment.displayName}`}>
                     <p className="text-sm font-semibold">{postComment.displayName}</p>
                 </Link>
                 <p className="text-sm mb-3">{postComment.text}</p>
@@ -67,4 +67,4 @@ const Comment = ({ postComment, updatedCurrentPost, setUpdatedCurrentPost }) => 
     )
 }
 
-export default Comment
+export default React.memo(Comment)

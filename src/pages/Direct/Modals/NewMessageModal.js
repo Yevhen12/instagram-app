@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import ReusebleModal from "../../../components/Modals/ReusebleModal";
 import useSearch from "../../../hooks/useSearch";
 import { useSelector } from "react-redux";
@@ -12,31 +12,33 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
     const { searchUsers } = useSearch()
     const chatsArray = useSelector((state) => state.chatsReducer.chats)
 
+    console.log('New')
+
     const {createChat} = useChat(chatsArray)
 
     const navigate = useNavigate()
 
-    const changeText = async (e) => {
+    const changeText = useCallback(async (e) => {
         const { value } = e.target
         setText(value)
         setUsersFound(await searchUsers(value))
-    }
+    }, [])
 
-    const addToSelectedUsers = (user) => {
+    const addToSelectedUsers = useCallback((user) => {
         setSelectedUsers(prevSelectedUsers => [...prevSelectedUsers, user])
         setText('')
-    }
-    const deleteSelectedUser = (user) => {
+    }, [])
+    const deleteSelectedUser = useCallback((user) => {
         const filteredArray = selectedUsers.filter(elem => elem.uid !== user.uid)
         setSelectedUsers([...filteredArray])
-    }
+    }, [])
 
-    const closeModal = () => {
+    const closeModal = useCallback(() => {
         setActiveModal(false)
         setUsersFound([])
         setSelectedUsers([])
         setText('')
-    }
+    }, [])
 
     const addChat = async (usersArray) => {
 
@@ -50,8 +52,7 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
         setText('')
     }
 
-    const mapUsersFound = usersFound.length > 0 ?
-        usersFound.map((elem) => {
+    const mapUsersFound = useMemo(() => usersFound.map((elem) => {
             const findUser = selectedUsers.length > 0 ? selectedUsers.find(user => user.uid === elem.uid) : false
             return (
                 <li key={elem.uid} className="py-1.5 pl-4 hover:bg-gray-100/50 cursor-pointer" onClick={() => findUser ? deleteSelectedUser(elem) : addToSelectedUsers(elem)}>
@@ -77,10 +78,9 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
                     </div>
                 </li>
             )
-        })
-        : false
+        }), [usersFound])
 
-    const mapSelectedUsers = selectedUsers.length > 0 ? (
+    const mapSelectedUsers = useMemo(() => (
         selectedUsers.map(elem => {
             return (
                 <div key={elem.uid} className="bg-[#0195f6]/10 flex items-center px-2 py-1 mt-2 mr-2 rounded cursor-pointer" onClick={() => deleteSelectedUser(elem)}>
@@ -91,7 +91,7 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
                 </div>
             )
         })
-    ) : false
+    ), [selectedUsers]) 
 
     return (
         <ReusebleModal
@@ -158,4 +158,4 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
     )
 }
 
-export default NewMessageModal
+export default React.memo(NewMessageModal)

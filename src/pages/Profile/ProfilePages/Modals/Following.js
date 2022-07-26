@@ -45,4 +45,4 @@ const Following = () => {
     )
 }
 
-export default Following
+export default React.memo(Following)

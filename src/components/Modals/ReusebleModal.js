@@ -1,14 +1,13 @@
-import React, { useState } from "react";
-import AreUSureModal from "../AddPost/SecondaryModals/AreUSureModal";
+import React, { useCallback, useState } from "react";
 
 const ReusebleModal = ({ children, activeModal, setActiveModal, styleForContainerBlock, closeModal }) => {
 
-    const hendleMenu = (e) => {
+    const hendleMenu = useCallback((e) => {
         setActiveModal && setActiveModal(false)
         closeModal && closeModal()
         e.stopPropagation()
 
-    }
+    }, [])
 
     return (
         <div onClick={(e) => hendleMenu(e)} className={`${styleForContainerBlock} 
@@ -17,4 +16,4 @@ const ReusebleModal = ({ children, activeModal, setActiveModal, styleForContaine
         </div>
     )
 }
-export default ReusebleModal
+export default React.memo(ReusebleModal)

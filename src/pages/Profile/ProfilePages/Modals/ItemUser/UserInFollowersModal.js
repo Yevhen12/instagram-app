@@ -63,4 +63,4 @@ const UserInFollowersModal = ({ currentUser }) => {
         </div>
     )
 }
-export default UserInFollowersModal
+export default React.memo(UserInFollowersModal)

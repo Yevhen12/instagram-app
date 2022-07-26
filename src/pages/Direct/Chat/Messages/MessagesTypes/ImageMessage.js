@@ -13,4 +13,4 @@ const ImageMessage = ({ message, messages, idx }) => {
     )
 }
 
-export default ImageMessage
+export default React.memo(ImageMessage)

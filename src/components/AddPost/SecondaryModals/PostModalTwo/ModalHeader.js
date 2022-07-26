@@ -82,4 +82,4 @@ const HeaderModal = ({ setPage, post, text, setActiveModal, setPost }) => {
     )
 }
 
-export default HeaderModal
+export default React.memo(HeaderModal)

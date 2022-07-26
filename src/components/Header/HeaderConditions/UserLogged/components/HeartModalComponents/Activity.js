@@ -14,4 +14,4 @@ const Activity = ({ activity }) => {
     )
 }
 
-export default Activity
+export default React.memo(Activity)

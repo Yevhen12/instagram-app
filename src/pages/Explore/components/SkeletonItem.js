@@ -18,4 +18,4 @@ const SkeletonItem = ({idx}) => {
     )
 }
 
-export default SkeletonItem
+export default React.memo(SkeletonItem)

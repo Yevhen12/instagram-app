@@ -119,4 +119,4 @@ const UserLogged = () => {
     )
 }
 
-export default UserLogged
+export default React.memo(UserLogged)

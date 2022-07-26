@@ -37,4 +37,4 @@ const CommentItem = ({ activity }) => {
     )
 }
 
-export default CommentItem
+export default React.memo(CommentItem)

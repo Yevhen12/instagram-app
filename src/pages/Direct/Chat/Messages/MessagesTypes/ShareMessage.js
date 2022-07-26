@@ -42,4 +42,4 @@ const ShareMessage = ({ message, messages, idx }) => {
     )
 }
 
-export default ShareMessage
+export default React.memo(ShareMessage)

@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Context } from "../../context/firebaseContext";
 import { setUser } from "../../redux/actions/userActions";
 import { useDispatch } from "react-redux";
-import { getDoc } from "firebase/firestore";
 
 
 const SignIn = () => {
@@ -34,6 +33,11 @@ const SignIn = () => {
                 }
             )
         })
+    }
+
+    const navigateToSignUp = () => {
+        console.log(1)
+        navigate(ROUTES.SIGN_UP)
     }
 
     const signIn = async (e) => {
@@ -87,16 +91,14 @@ const SignIn = () => {
                     </form>
                 </div>
                 <div className="w-full border flex items-center justify-center p-5">
-                    <p>
-                        Don't have an account?{'  '}
-                        <Link to={ROUTES.SIGN_UP} className="font-bold">
-                            Sign up
-                        </Link>
+                    <p className="mr-1">
+                        Don't have an account?
                     </p>
+                    <button className="font-bold" type="button" onClick={navigateToSignUp}>Sign up</button>
                 </div>
             </div>
         </div>
     )
 }
 
-export default SignIn
+export default React.memo(SignIn)

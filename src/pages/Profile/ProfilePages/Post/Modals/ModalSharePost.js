@@ -256,4 +256,4 @@ const ModalSharePost = ({ activeModal, setActiveModal, updatedCurrentPost }) => 
     )
 }
 
-export default ModalSharePost
+export default React.memo(ModalSharePost)

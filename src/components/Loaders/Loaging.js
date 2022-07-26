@@ -10,4 +10,4 @@ const Loading = ({height, width}) => {
     )
 }
 
-export default Loading
+export default React.memo(Loading)

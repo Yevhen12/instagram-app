@@ -48,4 +48,4 @@ const UserVisitedItem = ({ user, redirectToAnotherUser, recentUsers, setRecentUs
     )
 }
 
-export default UserVisitedItem
+export default React.memo(UserVisitedItem)

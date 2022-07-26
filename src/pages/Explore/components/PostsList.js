@@ -24,4 +24,4 @@ const PostsList = ({allPosts}) => {
     )
 }
 
-export default PostsList
+export default React.memo(PostsList)

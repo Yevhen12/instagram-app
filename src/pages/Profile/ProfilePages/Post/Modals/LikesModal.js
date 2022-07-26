@@ -31,4 +31,4 @@ const LikesModal = ({ likes, activeModal, setActiveModal }) => {
     )
 }
 
-export default LikesModal
+export default React.memo(LikesModal)

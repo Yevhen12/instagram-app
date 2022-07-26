@@ -102,4 +102,4 @@ const ProfileDropMenu = ({dropMenuProfile, setDropMenuProfile}) => {
     )
 }
 
-export default ProfileDropMenu
+export default React.memo(ProfileDropMenu)

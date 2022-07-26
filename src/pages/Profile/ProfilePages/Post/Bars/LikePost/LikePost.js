@@ -106,4 +106,4 @@ const LikePost = ({ updatedCurrentPost, setUpdatedCurrentPost }) => {
     )
 }
 
-export default LikePost
+export default React.memo(LikePost)

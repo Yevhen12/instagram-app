@@ -36,4 +36,4 @@ const LikeItem = ({ activity }) => {
     )
 }
 
-export default LikeItem
+export default React.memo(LikeItem)

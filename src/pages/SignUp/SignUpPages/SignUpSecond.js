@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useCallback } from "react";
 import { Link, useNavigate } from 'react-router-dom'
 import * as ROUTES from '../../../constants/pagesLinks'
 import { nanoid } from 'nanoid'
@@ -57,12 +57,13 @@ const SignUpSecond = ({ setUserData, setPage, userData }) => {
 
     const prevPage = (e) => {
         e.preventDefault()
+        console.log(1)
         setPage(prevPage => prevPage - 1)
     }
 
-    const openModal = () => {
+    const openModal = useCallback(() => {
         setActiveModal(true)
-    }
+    }, [])
 
 
     const classNameSection = 'rounded px-2 py-1 w-full border mb-5 outline-none bg-transparent cursor-pointer border-slate-400 h-10 text-slate-600 focus:border-transparent focus:text-black'
@@ -119,9 +120,9 @@ const SignUpSecond = ({ setUserData, setPage, userData }) => {
                         </p>
 
                         <div className={`w-full border-t relative`}>
-                            <Link to={ROUTES.NOT_FOUND}>
-                                <p className="text-center font-semibold p-2 text-blue-500 cursor-pointer text-sm">Details</p>
-                            </Link>
+                            <button className="w-full" type="button" onClick={() => navigate(ROUTES.NOT_FOUND)}>
+                                <p className="text-center font-semibold p-2 text-blue-500 cursor-pointer text-sm w-full">Details</p>
+                            </button>
                         </div>
 
                     </Modal>
@@ -162,12 +163,10 @@ const SignUpSecond = ({ setUserData, setPage, userData }) => {
                     </form>
                 </div>
                 <div className="w-full border flex items-center justify-center p-5">
-                    <p>
-                        Already have an account?{'  '}
-                        <Link to={ROUTES.SIGN_IN} className="font-bold">
-                            Log in
-                        </Link>
+                    <p className="mr-1">
+                        Already have an account?
                     </p>
+                    <button className="font-bold" type="button" onClick={() => navigate(ROUTES.SIGN_IN)}>Log In</button>
                 </div>
             </div>
         </div>
@@ -176,4 +175,4 @@ const SignUpSecond = ({ setUserData, setPage, userData }) => {
 }
 
 
-export default SignUpSecond
+export default React.memo(SignUpSecond)

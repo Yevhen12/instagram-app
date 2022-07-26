@@ -44,4 +44,4 @@ const Followers = () => {
     )
 }
 
-export default Followers
+export default React.memo(Followers)

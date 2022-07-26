@@ -44,4 +44,4 @@ const PostModalTwo = ({ activeModal, setActiveModal, setPage, setPost, post }) =
     )
 }
 
-export default PostModalTwo
+export default React.memo(PostModalTwo)

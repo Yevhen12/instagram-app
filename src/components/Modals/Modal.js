@@ -36,4 +36,4 @@ const Modal = ({ children, activeModal, setActiveModal, textTitle, nav, styleBlo
     )
 }
 
-export default Modal
+export default React.memo(Modal)

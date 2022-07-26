@@ -78,4 +78,4 @@ const HeartDropMenu = ({ dropMenuHeart, setDropMenuHeart }) => {
     )
 }
 
-export default HeartDropMenu
+export default React.memo(HeartDropMenu)

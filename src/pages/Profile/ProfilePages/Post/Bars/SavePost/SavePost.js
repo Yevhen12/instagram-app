@@ -68,4 +68,4 @@ const SavePost = ({updatedCurrentPost, currentPost}) => {
     )
 }
 
-export default SavePost
+export default React.memo(SavePost)

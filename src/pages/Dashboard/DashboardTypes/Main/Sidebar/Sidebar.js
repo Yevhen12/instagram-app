@@ -3,8 +3,7 @@ import { useSelector } from 'react-redux'
 import useSuggestions from '../../../../../hooks/useSuggestions'
 import UserSuggestion from './UserSuggestion'
 import UserSkeleton from './UserSkeleton'
-import { SkeletonTheme } from 'react-loading-skeleton'
-import Skeleton from 'react-loading-skeleton'
+import { useNavigate } from 'react-router-dom'
 import 'react-loading-skeleton/dist/skeleton.css'
 
 const Sidebar = () => {
@@ -12,6 +11,7 @@ const Sidebar = () => {
     const [suggestions, setSuggestions] = useState([])
     const userRedux = useSelector(state => state.userReducer.user)
     const [isLoading, setIsLoading] = useState(false)
+    const navigate = useNavigate()
 
     const USERS_TO_FETCH = 5
 
@@ -48,7 +48,7 @@ const Sidebar = () => {
                 </div>
                 <div className='flex justify-between mt-4'>
                     <p className='text-gray-500 font-semibold text-sm '>Suggestions For You</p>
-                    <button className='text-xs' type='button'>See All</button>
+                    <button className='text-xs' type='button' onClick={() => navigate('/people')}>See All</button>
                 </div>
                 <div className='flex flex-col mt-3'>
                     {isLoading ? skeletonUsers : mappedSuggestions}
@@ -59,4 +59,4 @@ const Sidebar = () => {
     )
 }
 
-export default Sidebar
+export default React.memo(Sidebar)

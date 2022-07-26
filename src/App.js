@@ -22,6 +22,7 @@ const Profile = lazy(() => import('./pages/Profile/Profile'))
 const Direct = lazy(() => import('./pages/Direct/Direct'))
 const Explore = lazy(() => import('./pages/Explore/Explore'))
 const Followers = lazy(() => import('./pages/Profile/ProfilePages/Modals/Followers'))
+const People = lazy(() => import('./pages/People/People'))
 // const Saved = lazy(() => import('./pages/ProfilePages/Saved'))
 // const Tagged = lazy(() => import('./pages/ProfilePages/Tagged'))
 // const Posts = lazy(() => import('./pages/ProfilePages/Posts'))
@@ -47,6 +48,7 @@ function App() {
                     </Route>
                     <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
                     <Route path={ROUTES.SIGN_IN} element={<SignIn />} />
+                    <Route path={ROUTES.PEOPLE} element={<People />} />
                     <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
                     <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
                     <Route path={ROUTES.PROFILE} element={<Profile />}>

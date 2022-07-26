@@ -11,4 +11,4 @@ const HeartMessage = ({message, messages, idx}) => {
     )
 }
 
-export default HeartMessage
+export default React.memo(HeartMessage)

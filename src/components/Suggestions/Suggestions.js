@@ -29,4 +29,4 @@ const Suggestions = () => {
     )
 }
 
-export default Suggestions
+export default React.memo(Suggestions)

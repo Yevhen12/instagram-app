@@ -44,4 +44,4 @@ const DeleteChatModal = ({ activeModal, setActiveModal }) => {
     )
 }
 
-export default DeleteChatModal
+export default React.memo(DeleteChatModal)

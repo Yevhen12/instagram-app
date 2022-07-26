@@ -32,4 +32,4 @@ const EmojiModal = ({ showPicker, setShowPicker, pickerStyle, setText }) => {
     )
 }
 
-export default EmojiModal
+export default React.memo(EmojiModal)

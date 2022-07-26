@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useContext, useEffect, useRef, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -182,7 +182,7 @@ const Chat = () => {
     const allMessages = messages.length > 0 && messages.map((elem, idx) => <Message key={idx} messages = {messages} message={elem} idx={idx} />)
   //  const shareMessage = messages.filter(elem => )
 
-    const strangeChatUser = currentChat.users.find(elem => elem.uid !== userRedux.uid)
+    const strangeChatUser = useMemo(() => currentChat.users.find(elem => elem.uid !== userRedux.uid), [currentChat.users])
 
 
     return (
@@ -274,4 +274,4 @@ const Chat = () => {
     )
 }
 
-export default Chat
+export default React.memo(Chat)

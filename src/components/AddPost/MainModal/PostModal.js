@@ -43,4 +43,4 @@ const PostModal = ({ activeModal, setActiveModal }) => {
 
 }
 
-export default PostModal
+export default React.memo(PostModal)

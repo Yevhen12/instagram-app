@@ -51,4 +51,4 @@ const Info = ({ setIsInfoActive, strangeChatUser }) => {
     )
 }
 
-export default Info
+export default React.memo(Info)

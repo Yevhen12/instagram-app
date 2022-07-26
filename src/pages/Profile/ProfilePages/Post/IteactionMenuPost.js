@@ -93,4 +93,4 @@ const IteractionMenuPost = ({ currentPost, isCurrentPostSaved, updatedCurrentPos
     )
 }
 
-export default IteractionMenuPost
+export default React.memo(IteractionMenuPost)
