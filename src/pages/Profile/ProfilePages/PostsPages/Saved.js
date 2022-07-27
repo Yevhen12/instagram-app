@@ -62,7 +62,7 @@ const Saved = () => {
                         userRedux.savedPosts.length > 0 ?
                             (
                                 <>
-                                    <div className="flex flex-wrap">
+                                    <div className="grid sm:gap-3 lg:gap-7 gap-1 grid-cols-3 grid-cols-3 auto-cols-[300px] auto-rows-auto mt-3">
                                         {mapSavedPosts}
                                     </div>
                                     <Outlet context={{ savedPosts: oldSavedPost }} />

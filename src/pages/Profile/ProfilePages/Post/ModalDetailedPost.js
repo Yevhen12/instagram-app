@@ -121,25 +121,25 @@ const ModalDetailedPost = () => {
 
             {
                 isNextPostExist && !isSavedPostArray && !isDashboard && !isExplore && !isDirect &&
-                <div className="h-8 w-8 bg-white absolute top-[50%] right-[30px] rounded-full cursor-pointer" onClick={(e) => nextPost(e)}>
+                <div className="h-8 w-8 bg-white absolute top-[50%] sm:right-[30px] right-[10px] rounded-full cursor-pointer" onClick={(e) => nextPost(e)}>
                     <img alt="next" src="/images/down-arrow.png" className="w-5 h-5 rotate-[270deg] mt-1.5 ml-1.5" />
                 </div>
             }
 
             {
                 isPrevPostExist && !isSavedPostArray && !isDashboard && !isExplore && !isDirect &&
-                <div className="h-8 w-8 bg-white absolute top-[50%] left-[30px] rounded-full cursor-pointer" onClick={(e) => prevPost(e)}>
+                <div className="h-8 w-8 bg-white absolute top-[50%] sm:left-[30px] left-[10px] rounded-full cursor-pointer" onClick={(e) => prevPost(e)}>
                     <img alt="next" src="/images/down-arrow.png" className="w-5 h-5 rotate-[90deg] mt-1.5 ml-1" />
                 </div>
             }
-            <div className={`max-w-[70%] w-full bg-white max-h-[85%] h-full my-5 flex items-center rounded-r-md`} onClick={(e) => e.stopPropagation()}>
-                <div className="w-3/5 h-full bg-black">
+            <div className={`max-w-[70%] w-full bg-white max-h-[85%] h-full my-5 flex lg:flex-row flex-col items-center rounded-r-md`} onClick={(e) => e.stopPropagation()}>
+                <div className="lg:w-3/5 w-full lg:h-full h-[40%] bg-black">
                     <img
                         src={postToShow?.image}
                         className="h-full w-full object-contain"
                     />
                 </div>
-                <div className="w-2/5 h-full">
+                <div className="lg:w-2/5 w-full lg:h-full h-[60%]">
                     <div className="flex flex-col h-full">
                         <div className="h-[60px] flex justify-between items-center border-b">
                             <div className="flex items-centerh-full">

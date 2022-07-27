@@ -12,7 +12,7 @@ const PostItem = ({ post, idx }) => {
         <>
 
             <div
-                className={` border relative cursor-pointer bg-black ${isBigPost ? 'row-span-2 col-span-2' : 'row-span-1 col-span-1'}`}
+                className={` border relative cursor-pointer aspect-square bg-black ${isBigPost ? 'row-span-2 col-span-2' : 'row-span-1 col-span-1'}`}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >

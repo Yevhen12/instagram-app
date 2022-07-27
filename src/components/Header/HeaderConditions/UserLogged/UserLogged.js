@@ -42,63 +42,63 @@ const UserLogged = () => {
 
     return (
         <div className="flex justify-between items-center">
-            <div className="mr-6 cursor-pointer">
+            <div className="xs:mr-6 mr-3 cursor-pointer">
                 <Link to={ROUTES.HOME}>
                     <img
                         data-name="home"
                         src={`/images/home-${location.pathname === '/' && !isActiveModals ? '' : 'un'}colored.png`}
                         alt="home"
-                        className="h-6"
+                        className="xs:h-6 h-5"
                     >
                     </img>
                 </Link>
             </div>
-            <div className="mr-6 cursor-pointer">
+            <div className="xs:mr-6 mr-3 cursor-pointer">
                 <Link to={`${ROUTES.DIRECT}`}>
                     <img
                         data-name="messenger"
                         src={`/images/messenger-${location.pathname.includes(ROUTES.DIRECT) && !isActiveModals ? '' : 'un'}colored.png`}
                         alt="messenger"
-                        className="h-6"
+                        className="xs:h-6 h-5"
                     >
                     </img>
                 </Link>
             </div>
-            <div className="mr-6 cursor-pointer" onClick={addPostModalHendler}>
+            <div className="xs:mr-6 mr-3 cursor-pointer" onClick={addPostModalHendler}>
                 <img data-name="add"
                     src={`/images/add-${addPostModal ? '' : 'un'}colored.png`}
                     alt="add"
-                    className="h-6"
+                    className="xs:h-6 h-5"
                 >
                 </img>
                 <PostModal activeModal={addPostModal} setActiveModal={addPostModalHendler} />
             </div>
-            <div className="mr-6 cursor-pointer">
+            <div className="xs:mr-6 mr-3 cursor-pointer">
                 <Link to={ROUTES.EXPLORE}>
                     <img
                         data-name="compass"
                         src={`/images/compass-${location.pathname === ROUTES.EXPLORE && !isActiveModals ? '' : 'un'}colored.png`}
                         alt="compass"
-                        className="h-6"
+                        className="xs:h-6 h-5"
                     >
                     </img>
                 </Link>
             </div>
-            <div className="mr-6 cursor-pointer relative">
+            <div className="xs:mr-6 mr-3 cursor-pointer relative">
                 <img
                     data-name="heart"
                     src={`/images/heart-${dropMenuHeart ? '' : 'un'}colored.png`}
                     alt="heart"
-                    className="h-6"
+                    className="xs:h-6 h-5"
                     onClick={dropHeartMenuHendler}
                 >
                 </img>
                 <HeartDropMenu dropMenuHeart = {dropMenuHeart} setDropMenuHeart = {setDropMenuHeart} />
             </div>
-            <div className="mr-6 cursor-pointer box-border relative">
+            <div className="xs:mr-6 mr-3 cursor-pointer box-border relative">
 
                 <button
-                    className={`rounded-full overflow-hidden mt-1 border p-0.5 h-[1.9rem] w-[1.9rem] 
+                    className={`rounded-full overflow-hidden mt-1 border p-0.5 xs:h-[1.9rem] xs:w-[1.9rem] h-[1.55rem] w-[1.55rem]
                 ${(location.pathname === '/' + userRedux.displayName || dropMenuProfile || location.pathname.includes('saved')
                             || (location.pathname.includes('tagged') && location.pathname.includes(userRedux.displayName))) && !dropMenuHeart && !addPostModal ? 'border-black' : 'border-transparent'}`}
                     data-name="profile"

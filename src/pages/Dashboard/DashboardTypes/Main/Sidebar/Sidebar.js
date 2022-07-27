@@ -28,7 +28,7 @@ const Sidebar = () => {
 
     const skeletonUsers = Array(USERS_TO_FETCH).fill(0).map((_, idx) => <UserSkeleton key={idx} />)
 
-    const mappedSuggestions = useMemo(() => suggestions.map(elem => <UserSuggestion key={elem.uid} {...elem} />), [])
+    const mappedSuggestions = useMemo(() => suggestions.map(elem => <UserSuggestion key={elem.uid} {...elem} />), [suggestions])
 
 
     return (

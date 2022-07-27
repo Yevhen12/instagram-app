@@ -21,11 +21,11 @@ const ModalBody = ({ post, setText, text }) => {
     }
 
     return (
-        <div className="flex h-[calc(100%-50px)]">
-            <div className="w-[700px] h-full">
-                <img alt='postphoto' src={URL.createObjectURL(post.images[0])} className="w-full h-full object-contain bg-black rounded-bl-xl" />
+        <div className="flex lg:flex-row flex-col h-[calc(100%-50px)]">
+            <div className="lg:w-[700px] w-[400px] lg:h-full h-[50%]">
+                <img alt='postphoto' src={URL.createObjectURL(post.images[0])} className="w-full h-full object-contain bg-black lg:rounded-bl-xl" />
             </div>
-            <div className="w-[calc(100%-700px)] py-5">
+            <div className="lg:w-[calc(100%-700px)] w-full py-5 lg:h-full h-[50%]">
                 <div className="flex flex-col">
                     <div className="flex">
                         <div className="overflow-hidden mr-3 pl-5">
@@ -33,7 +33,7 @@ const ModalBody = ({ post, setText, text }) => {
                         </div>
                         <p className="font-semibold mt-0.5">{userRedux.displayName}</p>
                     </div>
-                    <textarea value={text} className="outline-none mt-5 resize-none h-[170px] px-5" placeholder="Write a caption..." onChange={(e) => changeText(e)}></textarea>
+                    <textarea value={text} className="outline-none mt-5 resize-none lg:h-[170px] max-h-[100px] h-full px-5" placeholder="Write a caption..." onChange={(e) => changeText(e)}></textarea>
                     <div className="h-[50px] flex justify-between items-center border-b relative">
                         <button className="pl-5" onClick={() => setShowPicker(prevShowPicker => !prevShowPicker)}>
                             <img alt="emoji" src="/images/smile-icon.png" className="w-5 h-5 opacity-50" />

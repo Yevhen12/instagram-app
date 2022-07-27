@@ -1,21 +1,15 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState } from "react";
 import ModalChangePicture from "../../../components/Modals/ModalChangePicture";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { Link, Outlet } from "react-router-dom";
 import * as ProfileRoutes from '../../../constants/profileLinks'
-import { Context } from "../../../context/firebaseContext";
-import { setUser } from "../../../redux/actions/userActions";
-import { useParams } from "react-router-dom";
 import Loading from "../../../components/Loaders/Loaging";
 
 const RealUser = () => {
     const [activeModal, setActiveModal] = useState(false)
-    const {user} = useParams()
     const userRedux = useSelector((state) => state.userReducer.user)
     const location = useLocation()
-    const { doc, db, getDoc } = useContext(Context)
-    const dispatch = useDispatch()
     const [isLoading, setIsLoading] = useState(false)
 
 
@@ -43,8 +37,8 @@ const RealUser = () => {
                 userRedux.displayName &&
                 <section className="flex justify-center">
                     <div className="container max-w-5xl mt-7 relative pl-5 pr-5 flex flex-col">
-                        <div className="flex mb-10">
-                            <div className="max-w-[18rem] w-full min-w-[12rem] flex justify-center mr-5">
+                        <div className="w-full flex mb-10 md:flex-row flex-col justify-center">
+                            <div className="md:max-w-[18rem] w-full md:min-w-[12rem] flex justify-center mr-5 mb-5">
                                 <button
                                     className="rounded-full border overflow-hidden"
                                     onClick={hendleActiveModal}
@@ -61,8 +55,8 @@ const RealUser = () => {
 
                                 />
                             </div>
-                            <div className="w-full">
-                                <div className="flex items-center mb-8">
+                            <div className="w-full flex flex-col md:items-start items-center">
+                                <div className="flex items-start mb-8">
                                     <p className="font-thin text-3xl mr-5 ">{userRedux.displayName}</p>
                                     <button className="rounded border px-2.5 py-1 text-sm font-semibold mr-5" type="button">Edit profile</button>
                                     <div className="h-6 w-6">
@@ -82,7 +76,6 @@ const RealUser = () => {
                             </div>
                         </div>
                         <div className="border-t w-full flex justify-center">
-
                             <div
                                 className={`mr-14 opacity-50 border-t active:opacity-25 ${location.pathname === '/' + userRedux.displayName ? 'border-black opacity-100' : 'border-transparent'}`}
                                 data-name="posts"

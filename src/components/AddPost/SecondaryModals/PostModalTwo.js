@@ -22,7 +22,7 @@ const PostModalTwo = ({ activeModal, setActiveModal, setPage, setPost, post }) =
             closeModal={closeModal}
         >
             <div
-                className={`mx-5 max-w-[1050px] w-full h-[80vh] bg-white rounded-xl duration-300 ${activeModal ? 'opacity-1 scale-100' : 'opacity-0 scale-50'}`}
+                className={`mx-5 lg:max-w-[1050px] max-w-[400px] w-full h-[80vh] bg-white rounded-xl duration-300 ${activeModal ? 'opacity-1 scale-100' : 'opacity-0 scale-50'}`}
                 onClick={(e) => e.stopPropagation()}
             >
                 <HeaderModal

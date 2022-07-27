@@ -53,7 +53,7 @@ const Timeline = () => {
                     )
                     :
                     (
-                        <section className='max-w-[470px] w-full mr-10'>
+                        <section className='max-w-[470px] w-full md:mr-10'>
                             <div className='w-full'>
                                 <ul className='flex flex-col'>
                                     {mapedAllPosts}

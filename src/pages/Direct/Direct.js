@@ -68,7 +68,7 @@ const Direct = () => {
                     <section className="flex justify-center">
                         <div className="container max-w-5xl pt-3 pb-5 h-[calc(100vh-65px)] pl-6 pr-7">
                             <div className="border w-full h-full rounded bg-white flex">
-                                <div className="w-[350px]">
+                                <div className={`sm:w-[350px] w-full ${isChat ? 'sm:block hidden' : 'block'}`}>
                                     <div className="h-[60px] border-b border-r">
                                         <div className="h-[60px] flex justify-center items-center relative">
                                             <button type="button" className="p-2">
@@ -109,7 +109,7 @@ const Direct = () => {
                                 </div>
                                 {location.pathname === '/direct' ?
                                     (
-                                        <div className="w-[calc(100%-350px)]">
+                                        <div className="w-[calc(100%-350px)] hidden sm:block">
                                             <div className="h-full flex items-center justify-center flex-col">
                                                 <div className="w-24 h-24">
                                                     <img src="/images/send-message-circle-icon.png" />
@@ -118,7 +118,7 @@ const Direct = () => {
                                                     <p className="font-light text-2xl">Your Messages</p>
                                                 </div>
                                                 <div className="mt-2">
-                                                    <p className="font-light text-sm text-gray-500">Send private photos and messages to a friend or group.</p>
+                                                    <p className="font-light text-sm text-gray-500 text-center">Send private photos and messages to a friend or group.</p>
                                                 </div>
                                                 <button type="button" className="rounded bg-[#0195f6] px-2.5 py-1.5 text-sm text-white font-semibold mt-5" onClick={openModal}>
                                                     Send Message

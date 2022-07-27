@@ -48,7 +48,7 @@ const HeartDropMenu = ({ dropMenuHeart, setDropMenuHeart }) => {
     return (
         <DropMenu
             styleForWindowBlock="w-full h-full fixed top-0 left-0 flex justify-center items-center z-20 cursor-default "
-            styleForContainerBlock={`absolute w-[32rem] ${isLoading ? 'h-[9rem]' : 'h-[18rem]'} shadow-defaultModal rounded bg-white flex items-center top-10 -right-10 p-0 m-0 z-30 cursor-pointer`}
+            styleForContainerBlock={`absolute w-[24rem] sm:w-[32rem] ${isLoading ? 'h-[9rem]' : 'h-[18rem]'} shadow-defaultModal rounded bg-white flex items-center top-10 -right-10 p-0 m-0 z-30 cursor-pointer`}
             styleForInnerBlock='flex items-center flex-col w-full h-full'
             dropMenuProfile={dropMenuHeart}
             setDropMenuProfile={setDropMenuHeart}

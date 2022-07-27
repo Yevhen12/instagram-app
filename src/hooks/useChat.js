@@ -39,7 +39,6 @@ const useChat = (chatsArray) => {
             return uniqKey
         }
 
-
     }
 
     return { createChat }

@@ -48,7 +48,7 @@ const Posts = () => {
                     posts.length > 0 ?
                         (
                             <>
-                                <div className="flex flex-wrap">
+                                <div className="grid sm:gap-3 lg:gap-7 gap-1 grid-cols-3 grid-cols-3 auto-cols-[300px] auto-rows-auto mt-3">
                                     {mapPosts}
                                     <Outlet context={{posts: posts.sort((a, b) => b.uid - a.uid)}} />
                                 </div>
@@ -74,7 +74,7 @@ const Posts = () => {
                     userRedux.posts.length > 0 ?
                         (
                             <>
-                                <div className="flex flex-wrap">
+                                <div className="grid sm:gap-3 lg:gap-7 gap-1 grid-cols-3 grid-cols-3 auto-cols-[300px] auto-rows-auto mt-3">
                                     {mapPosts}
                                     <Outlet context={{posts: posts.sort((a, b) => b.uid - a.uid)}} />
                                 </div>
@@ -83,7 +83,7 @@ const Posts = () => {
                         :
                         (
                             <div className="flex">
-                                <img className="h-96" src="/images/in-profile-some.jpg" alt="happy-people"></img>
+                                <img className="max-h-96 h-hull" src="/images/in-profile-some.jpg" alt="happy-people"></img>
                                 <div className="bg-white w-full flex flex-col items-center justify-center">
                                     <p className="text-lg font-semibold">Start capturing and sharing your moments.</p>
                                     <p className="text-base">Get the app to share your first photo or video.</p>

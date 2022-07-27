@@ -25,7 +25,7 @@ const Tagged = () => {
                 :
                 (
                     <div className="flex">
-                        <img className="h-96" src="/images/in-profile-some.jpg"></img>
+                        <img className="h-96 max-w-96" src="/images/in-profile-some.jpg" />
                         <div className="bg-white w-full flex flex-col items-center justify-center">
                             <p className="text-lg font-semibold">Take photos and videos of interesting moments and share them</p>
                             <p className="text-base">Download the app to share your first photo or video.</p>

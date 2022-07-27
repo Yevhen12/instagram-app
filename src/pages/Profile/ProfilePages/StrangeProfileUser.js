@@ -47,8 +47,8 @@ const StrangeProfileUser = () => {
                     (
                         <section className="flex justify-center">
                             <div className="container max-w-5xl mt-7 relative pl-5 pr-5 flex flex-col">
-                                <div className="flex mb-10">
-                                    <div className="max-w-[18rem] w-full min-w-[12rem] flex justify-center mr-5">
+                                <div className="flex mb-10 md:flex-row flex-col">
+                                    <div className="md:max-w-[18rem] w-full md:min-w-[12rem] flex justify-center mr-5 mb-5">
                                         <div className="w-36 h-36 rounded-full border overflow-hidden">
                                             <img
                                                 className="w-full h-full object-cover "
@@ -58,7 +58,7 @@ const StrangeProfileUser = () => {
                                         </div>
                                     </div>
                                     <div className="w-full">
-                                        <div className="flex items-center mb-8">
+                                        <div className="flex items-center mb-8 w-full md:justify-start justify-center">
                                             <p className="font-thin text-3xl mr-7 mt-0 pt-0 mb-1">{currentProfileUserRedux.displayName}</p>
                                             {
                                                 isUserReduxFollowing ?
@@ -127,7 +127,7 @@ const StrangeProfileUser = () => {
                                                     )
                                             }
                                         </div>
-                                        <div className="flex items-center">
+                                        <div className="flex items-center md:justify-start justify-center">
                                             <div className="mr-10">
                                                 <p><span className="font-semibold">{currentProfileUserRedux.posts.length} </span>posts</p>
                                             </div>

@@ -18,6 +18,9 @@ module.exports = {
           '100%': {transform: 'scale(1)'},
         }
       },
+      screens: {
+        'xs': {'min': '470px'},
+      },
     },
   },
   plugins: [],

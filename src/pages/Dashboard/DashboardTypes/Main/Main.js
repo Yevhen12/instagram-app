@@ -1,13 +1,22 @@
 import React from 'react'
-import Suggestion from '../Suggestion/Suggestion'
 import Sidebar from './Sidebar/Sidebar'
 import Timeline from './Timeline/Timeline'
+import useWindowWidth from '../../../../hooks/useWindowWidth'
+
 
 const Main = () => {
+    const windowWidth = useWindowWidth()
     return (
-        <div className='flex justify-center mt-7'>
+        <div className='flex justify-center mt-7 px-3'>
             <Timeline />
-            <Sidebar />
+            {
+                windowWidth.innerWidth > 768 ?
+                    (
+                        <Sidebar />
+                    )
+                    : null
+            }
+
         </div>
     )
 }
