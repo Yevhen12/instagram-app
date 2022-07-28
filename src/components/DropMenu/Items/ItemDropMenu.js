@@ -17,9 +17,19 @@ const ItemDropMenu = ({ text, style, imageUrl, action, link }) => {
     return (
 
         <div onClick={action} style={imageUrl ? styleImage : styleExit} className={`${style}`}>
-            <Link to={link}>
-                <p>{text}</p>
-            </Link>
+            {
+                link ?
+                    (
+                        <Link to={link}>
+                            <p>{text}</p>
+                        </Link>
+                    )
+                    :
+                    (
+                        <p>{text}</p>
+                    )
+            }
+
         </div>
 
     )

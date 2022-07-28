@@ -12,7 +12,7 @@ const Modal = ({ children, activeModal, setActiveModal, textTitle, nav, styleBlo
     return (
         <div
             onClick={closeModal}
-            className={`fixed w-screen h-screen bg-black/60 top-0 left-0 flex justify-center items-center z-20 duration-300 px-3 ${activeModal ? 'opacity-1 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+            className={`fixed w-screen h-screen cursor-default bg-black/60 top-0 left-0 flex justify-center items-center z-20 duration-300 px-3 ${activeModal ? 'opacity-1 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         >
             <div
                 onClick={(e) => e.stopPropagation()}
