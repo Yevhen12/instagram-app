@@ -7,7 +7,7 @@ const UserSuggestItem = ({user, redirectToAnotherUser}) => {
                 <div className="w-[2.75rem] h-[2.75rem] rounded-full overflow-hidden mt-1">
                     <img
                         className="w-full h-full object-cover"
-                        src={`${user.imageUrl ? user.imageUrl : '/images/standart-profile.png'}`}
+                        src={`${user.imageUrl ? user.imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}`}
                         alt="UserPhoto"
                     />
                 </div>

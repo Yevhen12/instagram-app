@@ -85,7 +85,7 @@ const SearchUsers = () => {
                                 type="button"
                                 onClick={clearInput}
                             >
-                                <img src="/images/close-for-search.png" />
+                                <img src={process.env.PUBLIC_URL + "/images/close-for-search.png"} />
                             </div>
                             <ModalSuggestions isLoading = {isLoading} usersSuggestions={usersSuggestions} activeModal={activeModal} setActiveModal={setActiveModal} redirectToAnotherUser={redirectToAnotherUser} />
                         </>
@@ -100,7 +100,7 @@ const SearchUsers = () => {
                             (
                                 !activeModal &&
                                 <div className="h-3.5 w-3.5 absolute opacity-40 top-3 left-4">
-                                    <img src="/images/zoom-for-search.png"></img>
+                                    <img src={process.env.PUBLIC_URL + "/images/zoom-for-search.png"} />
                                 </div>
                             )
                     )

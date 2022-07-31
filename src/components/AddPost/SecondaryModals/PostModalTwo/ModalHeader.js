@@ -67,7 +67,7 @@ const HeaderModal = ({ setPage, post, text, setActiveModal, setPost }) => {
             <div className='border-b h-[50px]'>
                 <div className='flex justify-between h-full items-center px-5'>
                     <button onClick={() => backFunc()}>
-                        <img src="/images/left-arrow-icon.png" className="w-7 h-7" alt="back" />
+                        <img src={process.env.PUBLIC_URL + "/images/left-arrow-icon.png"} className="w-7 h-7" alt="back" />
                     </button>
                     <p className="font-semibold">Create new post</p>
                     <button onClick={() => createPost()} type='button'>

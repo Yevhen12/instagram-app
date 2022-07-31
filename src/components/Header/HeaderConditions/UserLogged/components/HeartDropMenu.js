@@ -67,8 +67,8 @@ const HeartDropMenu = ({ dropMenuHeart, setDropMenuHeart }) => {
                     (
                         <div className="flex items-center justify-center flex-col h-full">
                             <div className="relative">
-                                <img alt="circle" src="/images/circle-contor.png" className="h-14 w-14" />
-                                <img alt="heart" src="/images/heart-uncolored.png" className="h-7 w-7 absolute top-3.5 left-3.5" />
+                                <img alt="circle" src={process.env.PUBLIC_URL + "/images/circle-contor.png"} className="h-14 w-14" />
+                                <img alt="heart" src={process.env.PUBLIC_URL + "/images/heart-uncolored.png"} className="h-7 w-7 absolute top-3.5 left-3.5" />
                             </div>
                             <p className="text-sm mt-3">Activity On Your Posts</p>
                             <p className="text-sm max-w-[420px] text-center mt-3">When someone likes or comments on one of your posts, you'll see it here.</p>

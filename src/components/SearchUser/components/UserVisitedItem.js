@@ -31,7 +31,7 @@ const UserVisitedItem = ({ user, redirectToAnotherUser, recentUsers, setRecentUs
                 <div className="w-[2.75rem] h-[2.75rem] rounded-full overflow-hidden mt-1 mr-3">
                     <img
                         className="w-full h-full object-cover"
-                        src={`${user.imageUrl ? user.imageUrl : '/images/standart-profile.png'}`}
+                        src={`${user.imageUrl ? user.imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}`}
                         alt="UserPhoto"
                     />
                 </div>
@@ -41,7 +41,7 @@ const UserVisitedItem = ({ user, redirectToAnotherUser, recentUsers, setRecentUs
                     </p>
                 </div>
                 <button type="button" className="p-1" onClick={(e) => clearVisitedUser(user.uid, e)}>
-                    <img alt="close" src="/images/close-icon.png" className="w-3.5 h-3.5 opacity-60" />
+                    <img alt="close" src={process.env.PUBLIC_URL + "/images/close-icon.png"} className="w-3.5 h-3.5 opacity-60" />
                 </button>
             </div>
         </li>

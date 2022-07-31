@@ -21,7 +21,7 @@ const Modal = ({ children, activeModal, setActiveModal, textTitle, nav, styleBlo
                 <div className={`w-full border-b relative`}>
                     <p className="text-center font-semibold p-2">{textTitle}</p>
                     <img
-                        src="/images/close-icon.png"
+                        src={process.env.PUBLIC_URL + "/images/close-icon.png"}
                         className="h-4 absolute top-3 right-3 cursor-pointer"
                         onClick={closeModal}
                         alt="close"

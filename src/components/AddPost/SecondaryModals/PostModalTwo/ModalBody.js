@@ -29,14 +29,14 @@ const ModalBody = ({ post, setText, text }) => {
                 <div className="flex flex-col">
                     <div className="flex">
                         <div className="overflow-hidden mr-3 pl-5">
-                            <img alt="userPhoto" src={userRedux.imageUrl ? userRedux.imageUrl : '/images/standart-profile.png'} className="w-7 h-7 object-cover rounded-full" />
+                            <img alt="userPhoto" src={userRedux.imageUrl ? userRedux.imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'} className="w-7 h-7 object-cover rounded-full" />
                         </div>
                         <p className="font-semibold mt-0.5">{userRedux.displayName}</p>
                     </div>
                     <textarea value={text} className="outline-none mt-5 resize-none lg:h-[170px] max-h-[100px] h-full px-5" placeholder="Write a caption..." onChange={(e) => changeText(e)}></textarea>
                     <div className="h-[50px] flex justify-between items-center border-b relative">
                         <button className="pl-5" onClick={() => setShowPicker(prevShowPicker => !prevShowPicker)}>
-                            <img alt="emoji" src="/images/smile-icon.png" className="w-5 h-5 opacity-50" />
+                            <img alt="emoji" src={process.env.PUBLIC_URL + "/images/smile-icon.png"} className="w-5 h-5 opacity-50" />
                         </button>
                         <EmojiModal
                             showPicker={showPicker}

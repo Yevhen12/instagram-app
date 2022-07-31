@@ -105,7 +105,7 @@ const UserLogged = () => {
                     onClick={dropMenuHendler}
                 >
                     <img
-                        src={userRedux.imageUrl ? userRedux.imageUrl : '/images/standart-profile.png'}
+                        src={userRedux.imageUrl ? userRedux.imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}
                         className="w-full h-full object-cover overflow-hidden rounded-full "
                         alt="profile"
                     />

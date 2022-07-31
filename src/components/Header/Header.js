@@ -19,7 +19,7 @@ const Header = () => {
                 <div className="flex justify-between items-center">
                     <div className="max-w-[33%] w-full">
                         <Link to={ROUTES.HOME}>
-                            <img src="/images/instagram.png" alt="instagram" className="h-10"></img>
+                            <img src={process.env.PUBLIC_URL + "/images/instagram.png"} alt="instagram" className="h-10"></img>
                         </Link>
                     </div>
                     {

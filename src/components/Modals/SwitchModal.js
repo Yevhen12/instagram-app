@@ -17,12 +17,12 @@ const SwitchModal = ({ activeModal, setActiveModal }) => {
         >
             <div className="flex flex-row px-5 py-3 justify-between items-center border-b ">
                 <div className="flex items-center">
-                    <img className="w-[56px] h-[56px] rounded-full object-cover mr-3" alt="userPhoto" src={userRedux.imageUrl ? userRedux.imageUrl : '/images/standart-profile.png'} />
+                    <img className="w-[56px] h-[56px] rounded-full object-cover mr-3" alt="userPhoto" src={userRedux.imageUrl ? userRedux.imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'} />
                     <p className="font-semibold text-sm">{userRedux.displayName}</p>
                 </div>
                 <div className="relative">
-                    <img src={`/images/circle-full-blue-icon.png`} className='h-6 w-6 ml-5' />
-                    <img src='/images/check-white-icon.png' className='absolute h-5 w-5 top-0.5 right-0.5' />
+                    <img src={process.env.PUBLIC_URL + `/images/circle-full-blue-icon.png`} className='h-6 w-6 ml-5' />
+                    <img src={process.env.PUBLIC_URL + '/images/check-white-icon.png'} className='absolute h-5 w-5 top-0.5 right-0.5' />
                 </div>
             </div>
             <div className="flex justify-center">

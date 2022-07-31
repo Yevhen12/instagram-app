@@ -18,7 +18,7 @@ const UnfollowModal = ({ imageUrl, displayName, activeModal, setActiveModal, nam
                 <div className="w-[5.5rem] h-[5.5rem] rounded-full border overflow-hidden my-8">
                     <img
                         className="w-full h-full object-cover"
-                        src={`${imageUrl ? imageUrl : '/images/standart-profile.png'}`}
+                        src={`${imageUrl ? imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}`}
                         alt="profilePhoto"
                     ></img>
                 </div>

@@ -25,7 +25,7 @@ const WithImageModal = ({post, setPost}) => {
                 (
                     <>
                         <div className="w-20 h-20 mb-5">
-                            <img src="/images/multimedia-icon.png" />
+                            <img src={process.env.PUBLIC_URL + "/images/multimedia-icon.png"} />
                         </div>
                         <p className="font-light text-2xl mb-5 cursor-text">Drag photos and videos here</p>
                         <div>

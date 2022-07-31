@@ -26,7 +26,7 @@ const FollowerItem = ({ activity }) => {
         <div className="flex items-center my-3">
             <Link to={`/${activity.displayName}`}>
                 <div className="overflow-hidden rounded-full w-[44px] h-[44px] mr-3">
-                    <img alt="userPhoto" src={`${activity.imageUrl ? activity.imageUrl : '/images/standart-profile.png'}`} className='w-full h-full object-cover' />
+                    <img alt="userPhoto" src={`${activity.imageUrl ? activity.imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}`} className='w-full h-full object-cover' />
                 </div>
             </Link>
             <div className="w-full flex">
