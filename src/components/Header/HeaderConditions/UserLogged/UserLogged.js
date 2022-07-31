@@ -53,43 +53,43 @@ const UserLogged = () => {
                     </img>
                 </Link>
             </div>
-            <div className="xs:mr-6 mr-3 cursor-pointer">
+            <div className="xs:mr-6 mr-3 cursor-pointer xs:h-6 xs:w-6 h-5 w-5">
                 <Link to={`${ROUTES.DIRECT}`}>
                     <img
                         data-name="messenger"
-                        src={`/images/messenger-${location.pathname.includes(ROUTES.DIRECT) && !isActiveModals ? '' : 'un'}colored.png`}
+                        src={process.env.PUBLIC_URL + `/images/messenger-${location.pathname.includes(ROUTES.DIRECT) && !isActiveModals ? '' : 'un'}colored.png`}
                         alt="messenger"
-                        className="xs:h-6 h-5"
+                        className="xs:h-6 xs:w-6 h-5 w-5"
                     >
                     </img>
                 </Link>
             </div>
-            <div className="xs:mr-6 mr-3 cursor-pointer" onClick={addPostModalHendler}>
+            <div className="xs:mr-6 mr-3 cursor-pointer xs:h-6 xs:w-6 h-5 w-5" onClick={addPostModalHendler}>
                 <img data-name="add"
-                    src={`/images/add-${addPostModal ? '' : 'un'}colored.png`}
+                    src={process.env.PUBLIC_URL + `/images/add-${addPostModal ? '' : 'un'}colored.png`}
                     alt="add"
-                    className="xs:h-6 h-5"
+                    className="xs:h-6 xs:w-6 h-5 w-5"
                 >
                 </img>
                 <PostModal activeModal={addPostModal} setActiveModal={addPostModalHendler} />
             </div>
-            <div className="xs:mr-6 mr-3 cursor-pointer">
+            <div className="xs:mr-6 mr-3 cursor-pointer xs:h-6 xs:w-6 h-5 w-5">
                 <Link to={ROUTES.EXPLORE}>
                     <img
                         data-name="compass"
-                        src={`/images/compass-${location.pathname === ROUTES.EXPLORE && !isActiveModals ? '' : 'un'}colored.png`}
+                        src={process.env.PUBLIC_URL + `/images/compass-${location.pathname === ROUTES.EXPLORE && !isActiveModals ? '' : 'un'}colored.png`}
                         alt="compass"
-                        className="xs:h-6 h-5"
+                        className="xs:h-6 xs:w-6 h-5 w-5"
                     >
                     </img>
                 </Link>
             </div>
-            <div className="xs:mr-6 mr-3 cursor-pointer relative">
+            <div className="xs:mr-6 mr-3 cursor-pointer xs:h-6 xs:w-6 h-5 w-5 relative">
                 <img
                     data-name="heart"
-                    src={`/images/heart-${dropMenuHeart ? '' : 'un'}colored.png`}
+                    src={process.env.PUBLIC_URL + `/images/heart-${dropMenuHeart ? '' : 'un'}colored.png`}
                     alt="heart"
-                    className="xs:h-6 h-5"
+                    className="xs:h-6 xs:w-6 h-5 w-5"
                     onClick={dropHeartMenuHendler}
                 >
                 </img>
