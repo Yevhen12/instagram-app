@@ -42,7 +42,7 @@ const UserLogged = () => {
 
     return (
         <div className="flex justify-between items-center">
-            <div className="xs:mr-6 mr-3 cursor-pointer">
+            <div className="xs:mr-6 mr-3 cursor-pointer xs:h-6 xs:w-6 h-5 w-5">
                 <Link to={ROUTES.HOME}>
                     <img
                         data-name="home"
