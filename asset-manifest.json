@@ -1,39 +1,39 @@
 {
   "files": {
-    "main.css": "/instagram-app/static/css/main.2a741e5f.css",
-    "main.js": "/instagram-app/static/js/main.c898a55b.js",
+    "main.css": "/instagram-app/static/css/main.17268440.css",
+    "main.js": "/instagram-app/static/js/main.586d0fd9.js",
     "static/css/44.1e64e579.chunk.css": "/instagram-app/static/css/44.1e64e579.chunk.css",
     "static/js/44.26a4a2c3.chunk.js": "/instagram-app/static/js/44.26a4a2c3.chunk.js",
-    "static/js/570.d58c80b6.chunk.js": "/instagram-app/static/js/570.d58c80b6.chunk.js",
+    "static/js/570.0fd60c87.chunk.js": "/instagram-app/static/js/570.0fd60c87.chunk.js",
     "static/js/847.c2cad3c6.chunk.js": "/instagram-app/static/js/847.c2cad3c6.chunk.js",
     "static/js/131.02908009.chunk.js": "/instagram-app/static/js/131.02908009.chunk.js",
     "static/js/697.cfa791a7.chunk.js": "/instagram-app/static/js/697.cfa791a7.chunk.js",
-    "static/js/415.51855553.chunk.js": "/instagram-app/static/js/415.51855553.chunk.js",
+    "static/js/415.46409ab7.chunk.js": "/instagram-app/static/js/415.46409ab7.chunk.js",
     "static/css/606.1e64e579.chunk.css": "/instagram-app/static/css/606.1e64e579.chunk.css",
     "static/js/606.057a7b58.chunk.js": "/instagram-app/static/js/606.057a7b58.chunk.js",
     "static/js/526.37b382a1.chunk.js": "/instagram-app/static/js/526.37b382a1.chunk.js",
     "static/js/788.9e9dfcc3.chunk.js": "/instagram-app/static/js/788.9e9dfcc3.chunk.js",
     "static/js/446.e5b92f1f.chunk.js": "/instagram-app/static/js/446.e5b92f1f.chunk.js",
-    "static/js/480.98090a57.chunk.js": "/instagram-app/static/js/480.98090a57.chunk.js",
+    "static/js/480.1d279299.chunk.js": "/instagram-app/static/js/480.1d279299.chunk.js",
     "index.html": "/instagram-app/index.html",
-    "main.2a741e5f.css.map": "/instagram-app/static/css/main.2a741e5f.css.map",
-    "main.c898a55b.js.map": "/instagram-app/static/js/main.c898a55b.js.map",
+    "main.17268440.css.map": "/instagram-app/static/css/main.17268440.css.map",
+    "main.586d0fd9.js.map": "/instagram-app/static/js/main.586d0fd9.js.map",
     "44.1e64e579.chunk.css.map": "/instagram-app/static/css/44.1e64e579.chunk.css.map",
     "44.26a4a2c3.chunk.js.map": "/instagram-app/static/js/44.26a4a2c3.chunk.js.map",
-    "570.d58c80b6.chunk.js.map": "/instagram-app/static/js/570.d58c80b6.chunk.js.map",
+    "570.0fd60c87.chunk.js.map": "/instagram-app/static/js/570.0fd60c87.chunk.js.map",
     "847.c2cad3c6.chunk.js.map": "/instagram-app/static/js/847.c2cad3c6.chunk.js.map",
     "131.02908009.chunk.js.map": "/instagram-app/static/js/131.02908009.chunk.js.map",
     "697.cfa791a7.chunk.js.map": "/instagram-app/static/js/697.cfa791a7.chunk.js.map",
-    "415.51855553.chunk.js.map": "/instagram-app/static/js/415.51855553.chunk.js.map",
+    "415.46409ab7.chunk.js.map": "/instagram-app/static/js/415.46409ab7.chunk.js.map",
     "606.1e64e579.chunk.css.map": "/instagram-app/static/css/606.1e64e579.chunk.css.map",
     "606.057a7b58.chunk.js.map": "/instagram-app/static/js/606.057a7b58.chunk.js.map",
     "526.37b382a1.chunk.js.map": "/instagram-app/static/js/526.37b382a1.chunk.js.map",
     "788.9e9dfcc3.chunk.js.map": "/instagram-app/static/js/788.9e9dfcc3.chunk.js.map",
     "446.e5b92f1f.chunk.js.map": "/instagram-app/static/js/446.e5b92f1f.chunk.js.map",
-    "480.98090a57.chunk.js.map": "/instagram-app/static/js/480.98090a57.chunk.js.map"
+    "480.1d279299.chunk.js.map": "/instagram-app/static/js/480.1d279299.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2a741e5f.css",
-    "static/js/main.c898a55b.js"
+    "static/css/main.17268440.css",
+    "static/js/main.586d0fd9.js"
   ]
 }
