@@ -46,7 +46,7 @@ const UserLogged = () => {
                 <Link to={ROUTES.HOME}>
                     <img
                         data-name="home"
-                        src={`/images/home-${location.pathname === '/' && !isActiveModals ? '' : 'un'}colored.png`}
+                        src={process.env.PUBLIC_URL + `/images/home-${location.pathname === '/' && !isActiveModals ? '' : 'un'}colored.png`}
                         alt="home"
                         className="xs:h-6 h-5"
                     >
