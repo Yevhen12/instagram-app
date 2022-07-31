@@ -59,7 +59,7 @@ const SavePost = ({updatedCurrentPost, currentPost}) => {
     return (
         <img
             alt="save"
-            src={`${isSaved ? '/images/save-post-black-icon.png' : '/images/save-icon.png'}`}
+            src={`${isSaved ? process.env.PUBLIC_URL + '/images/save-post-black-icon.png' : process.env.PUBLIC_URL + '/images/save-icon.png'}`}
             className={`${isSaved ? '' : 'hover:opacity-50'} h-[22px] w-[22px] cursor-pointer`}
             onClick={savePost}
         />

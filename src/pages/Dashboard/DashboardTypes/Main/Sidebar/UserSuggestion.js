@@ -19,7 +19,7 @@ const UserSuggestion = ({ displayName, name, uid, imageUrl }) => {
         <div className="flex justify-between items-center w-full my-2">
             <Link to={ROUTES.HOME + displayName}>
                 <div className="rounded-full w-[32px] mr-3">
-                    <img alt="userImage" src={`${imageUrl ? imageUrl : '/images/standart-profile.png'}`} className='h-[32px] object-cover' />
+                    <img alt="userImage" src={`${imageUrl ? imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}`} className='h-[32px] object-cover' />
                 </div>
             </Link>
             <div className="flex flex-col w-full">

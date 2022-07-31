@@ -17,7 +17,7 @@ const Message = ({ message, messages, idx }) => {
                 (
                     <div className="rounded-full overflow-hidden w-6 h-6 mr-3 mb-1">
                         <Link to={`/${message.user.displayName}`}>
-                            <img className="w-6 h-6" alt="userPhoto" src={`${message.user.imageUrl ? message.user.imageUrl : '/images/standart-profile.png'}`} />
+                            <img className="w-6 h-6" alt="userPhoto" src={`${message.user.imageUrl ? message.user.imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}`} />
                         </Link>
                     </div>
                 )

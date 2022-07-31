@@ -98,7 +98,7 @@ const ModalSharePost = ({ activeModal, setActiveModal, updatedCurrentPost }) => 
                         <div className="w-[2.75rem] h-[2.75rem] rounded-full overflow-hidden mt-1">
                             <img
                                 className="w-full h-full object-cover"
-                                src={`${elem.imageUrl ? elem.imageUrl : '/images/standart-profile.png'}`}
+                                src={`${elem.imageUrl ? elem.imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}`}
                                 alt="UserPhoto"
                             />
                         </div>
@@ -108,9 +108,9 @@ const ModalSharePost = ({ activeModal, setActiveModal, updatedCurrentPost }) => 
                             </p>
                         </div>
                         <div className="relative">
-                            <img src={`${(findUser) ? '/images/circle-full-blue-icon.png' : '/images/circle-contor.png'}`} className='h-6 w-6 ml-5' />
+                            <img src={`${(findUser) ? process.env.PUBLIC_URL + '/images/circle-full-blue-icon.png' : process.env.PUBLIC_URL + '/images/circle-contor.png'}`} className='h-6 w-6 ml-5' />
                             {
-                                findUser && <div><img src='/images/check-white-icon.png' className='absolute h-5 w-5 top-0.5 right-0.5' /></div>
+                                findUser && <div><img src={process.env.PUBLIC_URL + '/images/check-white-icon.png'} className='absolute h-5 w-5 top-0.5 right-0.5' /></div>
                             }
                         </div>
                     </div>

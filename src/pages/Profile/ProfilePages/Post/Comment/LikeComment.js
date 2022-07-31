@@ -112,7 +112,7 @@ const LikeComment = ({updatedCurrentPost, postComment, setUpdatedCurrentPost}) =
         <div className="mt-2 cursor-pointer">
             <img
                 alt="like"
-                src={`/images/heart-${isLiked ? 'red' : 'black'}-icon.png`}
+                src={process.env.PUBLIC_URL + `/images/heart-${isLiked ? 'red' : 'black'}-icon.png`}
                 className={`w-3 h-3 ${(likeAnimation && isLiked) && 'animate-[likeAnim_0.25s_ease-in-out_1]'}`}
                 onClick={() => likeComment()}
                 onAnimationEnd={() => setLikeAnimation(false)}

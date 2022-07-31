@@ -122,14 +122,14 @@ const ModalDetailedPost = () => {
             {
                 isNextPostExist && !isSavedPostArray && !isDashboard && !isExplore && !isDirect &&
                 <div className="h-8 w-8 bg-white absolute top-[50%] sm:right-[30px] right-[10px] rounded-full cursor-pointer" onClick={(e) => nextPost(e)}>
-                    <img alt="next" src="/images/down-arrow.png" className="w-5 h-5 rotate-[270deg] mt-1.5 ml-1.5" />
+                    <img alt="next" src={process.env.PUBLIC_URL + "/images/down-arrow.png"} className="w-5 h-5 rotate-[270deg] mt-1.5 ml-1.5" />
                 </div>
             }
 
             {
                 isPrevPostExist && !isSavedPostArray && !isDashboard && !isExplore && !isDirect &&
                 <div className="h-8 w-8 bg-white absolute top-[50%] sm:left-[30px] left-[10px] rounded-full cursor-pointer" onClick={(e) => prevPost(e)}>
-                    <img alt="next" src="/images/down-arrow.png" className="w-5 h-5 rotate-[90deg] mt-1.5 ml-1" />
+                    <img alt="next" src={process.env.PUBLIC_URL + "/images/down-arrow.png"} className="w-5 h-5 rotate-[90deg] mt-1.5 ml-1" />
                 </div>
             }
             <div className={`max-w-[70%] w-full bg-white max-h-[85%] h-full my-5 flex lg:flex-row flex-col items-center rounded-r-md`} onClick={(e) => e.stopPropagation()}>
@@ -144,14 +144,14 @@ const ModalDetailedPost = () => {
                         <div className="h-[60px] flex justify-between items-center border-b">
                             <div className="flex items-centerh-full">
                                 <Link to={`/${postToShow?.user?.displayName}`}>
-                                    <img className="w-8 h-8 rounded-full object-cover mx-5" src={updatedCurrentPost && updatedCurrentPost.user && updatedCurrentPost.user.imageUrl ? updatedCurrentPost.imageUrl : '/images/standart-profile.png'} />
+                                    <img className={process.env.PUBLIC_URL + "w-8 h-8 rounded-full object-cover mx-5"} src={updatedCurrentPost && updatedCurrentPost.user && updatedCurrentPost.user.imageUrl ? updatedCurrentPost.imageUrl : '/images/standart-profile.png'} />
                                 </Link>
                                 <Link to={`/${postToShow?.user?.displayName}`}>
                                     <p className="font-semibold text-sm mt-1">{postToShow?.user?.displayName}</p>
                                 </Link>
                             </div>
                             <div>
-                                <img alt="option" src="/images/option-icon.png" className="w-5 h-5 cursor-pointer mx-5" />
+                                <img alt="option" src={process.env.PUBLIC_URL + "/images/option-icon.png"} className="w-5 h-5 cursor-pointer mx-5" />
                             </div>
                         </div>
                         <div className="h-[calc(100%-220px)] w-full border-b overflow-hidden">
@@ -164,7 +164,7 @@ const ModalDetailedPost = () => {
                                                     <div className="flex justify-between px-5 mb-5">
                                                         <div className="mr-5">
                                                             <Link to={`/${postToShow?.user.displayName}`}>
-                                                                <img alt="userPhoto" src={`${postToShow?.user?.imageUrl || '/images/standart-profile.png'}`} className='w-8 h-8 object-cover rounded-full' />
+                                                                <img alt="userPhoto" src={`${postToShow?.user?.imageUrl || 'process.env.PUBLIC_URL + /images/standart-profile.png'}`} className='w-8 h-8 object-cover rounded-full' />
                                                             </Link>
                                                         </div>
                                                         <div style={{ wordWrap: "break-word" }} className="flex flex-col w-full max-w-[calc(100%-65px)] text-sm ">

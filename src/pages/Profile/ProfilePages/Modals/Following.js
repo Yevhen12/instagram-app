@@ -18,7 +18,7 @@ const Following = () => {
     }) :
     (
         <div className="flex flex-col items-center justify-center h-[350px] w-full">
-            <img alt="followers" src="/images/followers-profile-icon.png" className="w-24 h-24" />
+            <img alt="followers" src={process.env.PUBLIC_URL + "/images/followers-profile-icon.png"} className="w-24 h-24" />
             <p className="text-2xl font-thin">People you follow</p>
             <p className="text-sm font-thin">Once you follow people, you'll see them here.</p>
         </div>

@@ -54,12 +54,12 @@ const SignIn = () => {
     return (
         <div className="flex max-w-screen-lg items-center mx-auto h-screen">
             <div className="flex w-2/3">
-                <img src="images\backgroundPhonesInstagram.png" alt="iPhone with Instagram app" className="h-full" />
+                <img src={process.env.PUBLIC_URL + "images\backgroundPhonesInstagram.png"} alt="iPhone with Instagram app" className="h-full" />
             </div>
             <div className="flex flex-col w-1/3">
                 <div className="flex flex-col p-7 items-center border bg-white mb-5">
                     <div className="flex justify-center w-full">
-                        <img src="images\instagram.png" className="mt-2 mb-4 w-2/4" />
+                        <img src={process.env.PUBLIC_URL + "images\instagram.png"} className="mt-2 mb-4 w-2/4" />
                     </div>
                     {error && <p className="text-sm text-red-500 mb-5"> {error.message}</p>}
                     <form method="POST">

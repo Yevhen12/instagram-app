@@ -77,13 +77,13 @@ const Direct = () => {
                                                         <p className="font-semibold">{userRedux.displayName}</p>
                                                     </div>
                                                     <div>
-                                                        <img className="h-6 w-6" src="/images/down-arrow.png" />
+                                                        <img className="h-6 w-6" src={process.env.PUBLIC_URL + "/images/down-arrow.png"} />
                                                     </div>
                                                 </div>
                                             </button>
                                             <div className="mt-1.5 absolute top-3.5 right-3.5">
                                                 <button type="button">
-                                                    <img src="/images/new-message-icon.png" className="w-5 h-5" onClick={openModal} />
+                                                    <img src={process.env.PUBLIC_URL + "/images/new-message-icon.png"} className="w-5 h-5" onClick={openModal} />
                                                 </button>
                                             </div>
                                         </div>
@@ -112,7 +112,7 @@ const Direct = () => {
                                         <div className="w-[calc(100%-350px)] hidden sm:block">
                                             <div className="h-full flex items-center justify-center flex-col">
                                                 <div className="w-24 h-24">
-                                                    <img src="/images/send-message-circle-icon.png" />
+                                                    <img src={process.env.PUBLIC_URL + "/images/send-message-circle-icon.png"} />
                                                 </div>
                                                 <div className="mt-3">
                                                     <p className="font-light text-2xl">Your Messages</p>

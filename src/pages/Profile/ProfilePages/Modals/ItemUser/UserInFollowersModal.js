@@ -19,7 +19,7 @@ const UserInFollowersModal = ({ currentUser }) => {
                     <div className="h-[2.1rem] w-[2.1rem] rounded-full border overflow-hidden mt-1">
                         <img
                             className="w-full h-full object-cover"
-                            src={`${imageUrl ? imageUrl : '/images/standart-profile.png'}`}
+                            src={`${imageUrl ? imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}`}
                             alt="UserPhoto"
                         />
                     </div>

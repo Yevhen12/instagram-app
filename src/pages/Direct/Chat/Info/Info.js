@@ -14,7 +14,7 @@ const Info = ({ setIsInfoActive, strangeChatUser }) => {
                         <p className="font-semibold text-center">Details</p>
                     </div>
                     <div className="cursor-pointer">
-                        <img className="h-6 w-6" alt="info" src='/images/info-black-icon.png' onClick={() => setIsInfoActive(false)} />
+                        <img className="h-6 w-6" alt="info" src={process.env.PUBLIC_URL + '/images/info-black-icon.png'} onClick={() => setIsInfoActive(false)} />
                     </div>
                 </div>
                 <div className="border-b pb-5">
@@ -25,7 +25,7 @@ const Info = ({ setIsInfoActive, strangeChatUser }) => {
                                 <div className="w-[3.5rem] h-[3.5rem] rounded-full overflow-hidden mt-5 mr-4">
                                     <img
                                         className="w-full h-full object-cover"
-                                        src={`${strangeChatUser.imageUrl ? strangeChatUser.imageUrl : '/images/standart-profile.png'}`}
+                                        src={`${strangeChatUser.imageUrl ? strangeChatUser.imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}`}
                                         alt="UserPhoto"
                                     />
                                 </div>

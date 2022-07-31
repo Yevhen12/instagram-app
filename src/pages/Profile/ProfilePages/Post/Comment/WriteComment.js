@@ -81,7 +81,7 @@ const WriteComment = ({ textComment, setTextComment, commentRef, setShowPicker, 
 
     return (
         <div className="flex flex-row min-h-[50px] max-h-[100px] w-full items-center relative">
-            <img alt="smile" src="/images/smile-icon.png" className="w-5 h-5 cursor-pointer" onClick={() => setShowPicker(prevShowPicker => !prevShowPicker)} />
+            <img alt="smile" src={process.env.PUBLIC_URL + "/images/smile-icon.png"} className="w-5 h-5 cursor-pointer" onClick={() => setShowPicker(prevShowPicker => !prevShowPicker)} />
             <input
                 value={textComment}
                 onChange={(e) => setTextComment(e.target.value)}

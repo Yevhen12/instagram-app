@@ -7,7 +7,7 @@ const SharePost = ({updatedCurrentPost}) => {
 
     return (
         <>
-            <img alt="send" src="/images/send-message-icon.png" className="h-[22px] w-[22px] cursor-pointer hover:opacity-50" onClick={() => setActiveSharePost(true)} />
+            <img alt="send" src={process.env.PUBLIC_URL + "/images/send-message-icon.png"} className="h-[22px] w-[22px] cursor-pointer hover:opacity-50" onClick={() => setActiveSharePost(true)} />
             <ModalSharePost
                 activeModal={activeSharePost}
                 setActiveModal={setActiveSharePost}

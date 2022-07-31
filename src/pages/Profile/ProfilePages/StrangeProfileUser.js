@@ -52,7 +52,7 @@ const StrangeProfileUser = () => {
                                         <div className="w-36 h-36 rounded-full border overflow-hidden">
                                             <img
                                                 className="w-full h-full object-cover "
-                                                src={`${currentProfileUserRedux.imageUrl ? currentProfileUserRedux.imageUrl : '/images/standart-profile.png'}`}
+                                                src={`${currentProfileUserRedux.imageUrl ? currentProfileUserRedux.imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}`}
                                                 alt="profilePhoto"
                                             ></img>
                                         </div>
@@ -76,7 +76,7 @@ const StrangeProfileUser = () => {
                                                                 type="button"
                                                                 onClick={() => setActiveModal(true)}
                                                             >
-                                                                <img className="w-5 h-5" src="/images/checked-user.png" alt="checked-user" />
+                                                                <img className="w-5 h-5" src={process.env.PUBLIC_URL + "/images/checked-user.png"} alt="checked-user" />
                                                             </button>
                                                             <ReusebleModal
                                                                 activeModal={activeModal}
@@ -93,10 +93,10 @@ const StrangeProfileUser = () => {
                                                                 />
                                                             </ReusebleModal>
                                                             <button className="border rounded rounded-[0.15] px-3 py-2.5 text-sm font-semibold mr-5 bg-transparent text-black active:opacity-60" type="button">
-                                                                <img className="h-3" src="/images/arrow-down-gray.png" alt="arrow"></img>
+                                                                <img className="h-3" src={process.env.PUBLIC_URL + "/images/arrow-down-gray.png"} alt="arrow"></img>
                                                             </button>
                                                             <div className="h-6 w-6">
-                                                                <img src="/images/option-icon.png" alt="options"></img>
+                                                                <img src={process.env.PUBLIC_URL + "/images/option-icon.png"} alt="options"></img>
                                                             </div>
                                                         </>
 
@@ -118,10 +118,10 @@ const StrangeProfileUser = () => {
                                                                 Follow
                                                             </button>
                                                             <button className="active:opacity-60 rounded rounded-[0.15] px-3 py-2.5 text-sm font-semibold mr-5 bg-[#0195f6] text-white" type="button">
-                                                                <img className="h-3" src="/images/down-arrow-white.png" alt="arrow"></img>
+                                                                <img className="h-3" src={process.env.PUBLIC_URL + "/images/down-arrow-white.png"} alt="arrow"></img>
                                                             </button>
                                                             <div className="h-6 w-6">
-                                                                <img src="/images/option-icon.png" alt="options"></img>
+                                                                <img src={process.env.PUBLIC_URL + "/images/option-icon.png"} alt="options"></img>
                                                             </div>
                                                         </>
                                                     )
@@ -153,7 +153,7 @@ const StrangeProfileUser = () => {
                                     >
                                         <Link to={`${ProfileRoutes.POSTS}`}>
                                             <div className="h-12 flex justify-between items-center">
-                                                <img className="h-3 mr-2" src="/images/grid-icon.png" alt="grid" />
+                                                <img className="h-3 mr-2" src={process.env.PUBLIC_URL + "/images/grid-icon.png"} alt="grid" />
                                                 <p className="text-xs tracking-widest font-medium">POSTS</p>
                                             </div>
                                         </Link>
@@ -164,7 +164,7 @@ const StrangeProfileUser = () => {
                                     >
                                         <Link to={`${ProfileRoutes.TAGGED}`}>
                                             <div className="h-12 flex justify-between items-center">
-                                                <img className="h-3 mr-2" src="/images/mark-profile-icon.png" alt="profile" />
+                                                <img className="h-3 mr-2" src={process.env.PUBLIC_URL +"/images/mark-profile-icon.png"} alt="profile" />
                                                 <p className="text-xs tracking-widest font-medium">TAGGED</p>
                                             </div>
                                         </Link>

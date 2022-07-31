@@ -45,7 +45,7 @@ const IteractionMenuPost = ({ currentPost, isCurrentPostSaved, updatedCurrentPos
                             updatedCurrentPost={updatedCurrentPost}
                             setUpdatedCurrentPost={setUpdatedCurrentPost}
                         />
-                        <img alt="comment" src="/images/comment-icon.png" className="h-[22px] w-[22px] mr-5 cursor-pointer hover:opacity-50" onClick={() => commentRef.current.focus()} />
+                        <img alt="comment" src={process.env.PUBLIC_URL +"/images/comment-icon.png"} className="h-[22px] w-[22px] mr-5 cursor-pointer hover:opacity-50" onClick={() => commentRef.current.focus()} />
 
                         <SharePost
                             updatedCurrentPost={updatedCurrentPost}

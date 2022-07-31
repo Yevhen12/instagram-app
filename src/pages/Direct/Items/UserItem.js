@@ -27,7 +27,7 @@ const UserItem = ({chat, idx}) => {
                     <div className="w-[3.5rem] h-[3.5rem] rounded-full overflow-hidden mt-1 mr-3">
                         <img
                             className="w-full h-full object-cover"
-                            src={`${strangeUser.imageUrl ? strangeUser.imageUrl : '/images/standart-profile.png'}`}
+                            src={`${strangeUser.imageUrl ? strangeUser.imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}`}
                             alt="UserPhoto"
                         />
                     </div>

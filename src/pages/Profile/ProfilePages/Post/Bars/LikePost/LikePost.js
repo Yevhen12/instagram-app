@@ -98,7 +98,7 @@ const LikePost = ({ updatedCurrentPost, setUpdatedCurrentPost }) => {
     return (
         <img
             alt="heart"
-            src={`${isLiked ? '/images/heart-red-icon.png' : '/images/heart-black-icon.png'}`}
+            src={`${isLiked ? process.env.PUBLIC_URL + '/images/heart-red-icon.png' : process.env.PUBLIC_URL + '/images/heart-black-icon.png'}`}
             className={`h-6 w-6 mr-5 cursor-pointer ${isLiked ? '' : 'hover:opacity-50'} ${(likeAnimation && isLiked) && 'animate-[likeAnim_0.25s_ease-in-out_1]'}`}
             onClick={() => likePost()}
             onAnimationEnd={() => setLikeAnimation(false)}

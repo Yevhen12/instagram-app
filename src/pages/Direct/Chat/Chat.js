@@ -201,12 +201,12 @@ const Chat = () => {
                             <div className="flex justify-between items-center h-[60px] px-10">
                                 <button className="flex cursor-pointer" onClick={() => navigate(`/${strangeChatUser.displayName}`)}>
                                     <div className="rounded-full overflow-hidden mr-4 ">
-                                        <img className="w-6 h-6 object-cover" alt="userPhoto" src={strangeChatUser.imageUrl ? `${strangeChatUser.imageUrl}` : '/images/standart-profile.png'} />
+                                        <img className="w-6 h-6 object-cover" alt="userPhoto" src={strangeChatUser.imageUrl ? `${strangeChatUser.imageUrl}` : process.env.PUBLIC_URL + '/images/standart-profile.png'} />
                                     </div>
                                     <p className="font-semibold">{strangeChatUser.displayName}</p>
                                 </button>
                                 <div className="cursor-pointer" onClick={() => setIsInfoActive(true)}>
-                                    <img className="h-6 w-6" alt="info" src='/images/info-contor-icon.png' />
+                                    <img className="h-6 w-6" alt="info" src={process.env.PUBLIC_URL + '/images/info-contor-icon.png'} />
                                 </div>
                             </div>
                         </div>
@@ -224,7 +224,7 @@ const Chat = () => {
                                 onChange={(e) => hendleText(e)}
                             />
                             <button className="absolute top-2.5 left-5" onClick={() => setShowPicker(prevShowPicker => !prevShowPicker)}>
-                                <img alt="smile" src="/images/smile-icon.png" className="w-6 h-6" />
+                                <img alt="smile" src={process.env.PUBLIC_URL + "/images/smile-icon.png"} className="w-6 h-6" />
                             </button>
                             <EmojiModal
                                 showPicker={showPicker}
@@ -246,7 +246,7 @@ const Chat = () => {
                                 (
                                     <div>
                                         <div className="absolute top-2.5 right-5 cursor-pointer" onClick={() => sendHeart()}>
-                                            <img alt="heart" src="/images/heart-uncolored.png" className="h-6 w-6" />
+                                            <img alt="heart" src={process.env.PUBLIC_URL + "/images/heart-uncolored.png"} className="h-6 w-6" />
                                         </div>
                                         <div className="absolute top-2.5 right-14 cursor-pointer">
                                             <label className="cursor-pointer w-full text-sm font-bold text-sky-600 block text-center">
@@ -255,7 +255,7 @@ const Chat = () => {
                                                     className="hidden"
                                                     onChange={(e) => sendImage(e)}
                                                 />
-                                                <img alt="sendPhoto" src="/images/image-photo-icon.png" className="h-6 w-6" />
+                                                <img alt="sendPhoto" src={process.env.PUBLIC_URL + "/images/image-photo-icon.png"} className="h-6 w-6" />
                                             </label>
                                         </div>
                                     </div>

@@ -13,7 +13,7 @@ const ShareMessage = ({ message, messages, idx }) => {
                     <Link to={`/${message.post.currentPost.user.displayName}`}>
                         <img
                             alt="userPhoto"
-                            src={`${message.post.currentPost.user.imageUrl ? message.post.currentPost.user.imageUrl : '/images/standart-profile.png'}`}
+                            src={`${message.post.currentPost.user.imageUrl ? message.post.currentPost.user.imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}`}
                             className='w-8 h-8 object-cover mr-3 rounded-full'
                         />
                     </Link>

@@ -59,7 +59,7 @@ const Posts = () => {
                             < div className="min-h-[15rem]">
                                 <div className="flex flex-col justify-center items-center pt-14 pr-8">
                                     <div>
-                                        <img className="h-7 mb-10" src="/images/camera-icon.png" alt="camera" />
+                                        <img className="h-7 mb-10" src={process.env.PUBLIC_URL + "/images/camera-icon.png"} alt="camera" />
                                     </div>
                                     <div>
                                         <p className="text-3xl font-light" >No Posts Yet</p>

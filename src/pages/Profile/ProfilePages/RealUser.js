@@ -44,7 +44,7 @@ const RealUser = () => {
                                     onClick={hendleActiveModal}
                                 >
                                     <div className="w-36 h-36 relative">
-                                        <img className={`w-full h-full object-cover ${isLoading && 'opacity-45'}`}src={`${userRedux.imageUrl ? userRedux.imageUrl : '/images/standart-profile.png'}`} />
+                                        <img className={`w-full h-full object-cover ${isLoading && 'opacity-45'}`}src={`${userRedux.imageUrl ? userRedux.imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}`} />
                                         {isLoading && <div className="absolute top-16 left-16" ><Loading height={23} width={23} /></div>}
                                     </div>
                                 </button>
@@ -60,7 +60,7 @@ const RealUser = () => {
                                     <p className="font-thin text-3xl mr-5 ">{userRedux.displayName}</p>
                                     <button className="rounded border px-2.5 py-1 text-sm font-semibold mr-5" type="button">Edit profile</button>
                                     <div className="h-6 w-6">
-                                        <img src="/images/settings-icon.png"></img>
+                                        <img src={process.env.PUBLIC_URL + "/images/settings-icon.png"}></img>
                                     </div>
                                 </div>
                                 <div className="flex items-center">
@@ -82,7 +82,7 @@ const RealUser = () => {
                             >
                                 <Link to={`${ProfileRoutes.POSTS}`}>
                                     <div className="h-12 flex justify-between items-center">
-                                        <img className="h-3 mr-2" src="/images/grid-icon.png" />
+                                        <img className="h-3 mr-2" src={process.env.PUBLIC_URL + "/images/grid-icon.png"} />
                                         <p className="text-xs tracking-widest font-medium">POSTS</p>
                                     </div>
                                 </Link>
@@ -93,7 +93,7 @@ const RealUser = () => {
                             >
                                 <Link to={`${ProfileRoutes.SAVED}`}>
                                     <div className="h-12 flex justify-between items-center">
-                                        <img className="h-3 mr-2" src="/images/save-icon.png" />
+                                        <img className="h-3 mr-2" src={process.env.PUBLIC_URL + "/images/save-icon.png"} />
                                         <p className="text-xs tracking-widest font-medium">SAVED</p>
                                     </div>
                                 </Link>
@@ -104,7 +104,7 @@ const RealUser = () => {
                             >
                                 <Link to={`${ProfileRoutes.TAGGED}`}>
                                     <div className="h-12 flex justify-between items-center">
-                                        <img className="h-3 mr-2" src="/images/mark-profile-icon.png" />
+                                        <img className="h-3 mr-2" src={process.env.PUBLIC_URL + "/images/mark-profile-icon.png"} />
                                         <p className="text-xs tracking-widest font-medium">TAGGED</p>
                                     </div>
                                 </Link>

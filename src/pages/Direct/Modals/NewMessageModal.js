@@ -60,7 +60,7 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
                         <div className="w-[2.75rem] h-[2.75rem] rounded-full overflow-hidden mt-1">
                             <img
                                 className="w-full h-full object-cover"
-                                src={`${elem.imageUrl ? elem.imageUrl : '/images/standart-profile.png'}`}
+                                src={`${elem.imageUrl ? elem.imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}`}
                                 alt="UserPhoto"
                             />
                         </div>
@@ -70,9 +70,9 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
                             </p>
                         </div>
                         <div className="relative">
-                            <img src={`${(findUser) ? '/images/circle-full-blue-icon.png' : '/images/circle-contor.png'}`} className='h-6 w-6 ml-5' />
+                            <img src={`${(findUser) ? process.env.PUBLIC_URL + '/images/circle-full-blue-icon.png' : process.env.PUBLIC_URL + '/images/circle-contor.png'}`} className='h-6 w-6 ml-5' />
                             {
-                                findUser && <img src='/images/check-white-icon.png' className='absolute h-5 w-5 top-0.5 right-0.5' />
+                                findUser && <img src={process.env.PUBLIC_URL + '/images/check-white-icon.png'} className='absolute h-5 w-5 top-0.5 right-0.5' />
                             }
                         </div>
                     </div>
@@ -87,7 +87,7 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
                     <div type="button" className=" text-[#0195f6] rounded text-sm">
                         {elem.displayName}
                     </div>
-                    <img src="/images/close-icon-blue.png" className="w-3 h-3 ml-2 mt-0.5"></img>
+                    <img src={process.env.PUBLIC_URL + "/images/close-icon-blue.png"} className="w-3 h-3 ml-2 mt-0.5"></img>
                 </div>
             )
         })
@@ -107,7 +107,7 @@ const NewMessageModal = ({ activeModal, setActiveModal }) => {
                 <div className="border-b px-4 py-2">
                     <div className="flex justify-between ">
                         <button className="h-3.5 w-3.5 mt-2" onClick={() => closeModal()}>
-                            <img src="/images/close-icon.png" />
+                            <img src={process.env.PUBLIC_URL + "/images/close-icon.png"} />
                         </button>
                         <div>
                             <p className="font-semibold">New message</p>

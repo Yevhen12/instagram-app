@@ -32,7 +32,7 @@ const Comment = ({ postComment, updatedCurrentPost, setUpdatedCurrentPost }) => 
         <div className="flex justify-between px-5 mb-5">
             <div className="mr-5">
                 <Link to={`/${postComment.displayName}`}>
-                    <img alt="userPhoto" src={`${newUser && newUser.imageUrl ? newUser.imageUrl : '/images/standart-profile.png'}`} className='w-8 h-8 object-cover rounded-full' />
+                    <img alt="userPhoto" src={`${newUser && newUser.imageUrl ? newUser.imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}`} className='w-8 h-8 object-cover rounded-full' />
                 </Link>
             </div>
             <div style={{ wordWrap: "break-word" }} className="flex flex-col w-full max-w-[calc(100%-90px)] text-sm ">

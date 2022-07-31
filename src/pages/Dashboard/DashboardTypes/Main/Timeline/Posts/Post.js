@@ -54,7 +54,7 @@ const Post = ({ post  }) => {
             <div className="w-full flex justify-between p-3 items-center">
                 <Link to={ROUTES.HOME + post.user.displayName}>
                     <div className="rounded-full h-[32px] w-[32px] mr-3 overflow-hidden">
-                        <img alt="userPhoto" src={post.user.imageUrl ? post.user.imageUrl : '/images/standart-profile.png'} className="h-[32px] object-cover" />
+                        <img alt="userPhoto" src={post.user.imageUrl ? post.user.imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'} className="h-[32px] object-cover" />
                     </div>
                 </Link>
                 <div className="w-full">
@@ -63,7 +63,7 @@ const Post = ({ post  }) => {
                     </Link>
                 </div>
                 <button type="button">
-                    <img alt="settings" src="/images/option-icon.png" className="h-[18px] " />
+                    <img alt="settings" src={process.env.PUBLIC_URL + "/images/option-icon.png"} className="h-[18px] " />
                 </button>
             </div>
             <div className="w-full min-h-[470px] max-h-[600px] bg-black flex items-center">
@@ -77,7 +77,7 @@ const Post = ({ post  }) => {
                         setUpdatedCurrentPost={setUpdatedCurrentPost}
                     />
 
-                    <img alt="comment" src="/images/comment-icon.png" className="h-[22px] w-[22px] mr-5 cursor-pointer hover:opacity-50" onClick={() => commentRef.current.focus()} />
+                    <img alt="comment" src={process.env.PUBLIC_URL + "/images/comment-icon.png"} className="h-[22px] w-[22px] mr-5 cursor-pointer hover:opacity-50" onClick={() => commentRef.current.focus()} />
                     <SharePost
                         updatedCurrentPost={updatedCurrentPost}
                     />

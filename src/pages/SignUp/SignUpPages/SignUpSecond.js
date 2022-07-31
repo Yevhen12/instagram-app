@@ -94,7 +94,7 @@ const SignUpSecond = ({ setUserData, setPage, userData }) => {
             <div className="flex flex-col">
                 <div className="flex flex-col p-7 items-center border bg-white mb-5">
                     <div className="flex justify-center w-full">
-                        <img src="images\birthday-auth.png" className="mt-2 mb-4 w-2/4" />
+                        <img src={process.env.PUBLIC_URL + "images\birthday-auth.png"} className="mt-2 mb-4 w-2/4" />
                     </div>
                     <p className="text-base font-semibold mb-5">Chosse your birthday</p>
                     <p className="text-sm text-center">This information will not be displayed in your public profile.</p>
@@ -110,7 +110,7 @@ const SignUpSecond = ({ setUserData, setPage, userData }) => {
                         textTitle="Birthdays"
                         styleBlock = 'bg-white w-1/5 rounded-xl duration-300 '
                     >
-                        <img src="images\birthday-auth.png" className="mt-4 mb-4 w-1/3 mr-auto ml-auto" />
+                        <img src={process.env.PUBLIC_URL + "images\birthday-auth.png"} className="mt-4 mb-4 w-1/3 mr-auto ml-auto" />
                         <p className="text-center text-xl font-semibold">Birthdays in instagram</p>
                         <p className="px-10 text-center mt-3 text-sm mb-5">
                             Birthday information helps you improve the features and advertising you see,
