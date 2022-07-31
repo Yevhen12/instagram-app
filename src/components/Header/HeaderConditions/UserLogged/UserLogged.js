@@ -95,7 +95,7 @@ const UserLogged = () => {
                 </img>
                 <HeartDropMenu dropMenuHeart = {dropMenuHeart} setDropMenuHeart = {setDropMenuHeart} />
             </div>
-            <div className="xs:mr-6 mr-3 cursor-pointer box-border relative">
+            <div className="xs:mr-6 mr-3 cursor-pointer box-border relative ">
 
                 <button
                     className={`rounded-full overflow-hidden mt-1 border p-0.5 xs:h-[1.9rem] xs:w-[1.9rem] h-[1.55rem] w-[1.55rem]

@@ -36,7 +36,7 @@ const Sidebar = () => {
             <div className='w-full'>
                 <div className='w-full flex justify-between items-center'>
                     <div className='rounded-full min-w-[56px] mr-4 overflow-hidden'>
-                        <img alt='userPhoto' src={`${userRedux.imageUrl ? userRedux.imageUrl : '/images/standart-profile.png'}`} className='h-[56px] w-[56px] object-cover' />
+                        <img alt='userPhoto' src={`${userRedux.imageUrl ? userRedux.imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}`} className='h-[56px] w-[56px] object-cover' />
                     </div>
                     <div className='flex flex-col w-full'>
                         <p className='font-semibold text-sm'>{userRedux.displayName}</p>

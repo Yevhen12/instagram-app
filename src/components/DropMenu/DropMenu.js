@@ -11,7 +11,7 @@ const DropMenu = ({ children, styleForContainerBlock, styleForInnerBlock, dropMe
         ${dropMenuProfile ? 'block pointer-events-auto' : 'hidden pointer-events-none'}`}>
             </div>
             <div
-                className={`${styleForContainerBlock} ${dropMenuProfile ? 'block' : 'hidden'}`}
+                className={`${styleForContainerBlock} duration-200 ${dropMenuProfile ? 'opacity-1 top-12 pointer-events-auto' : 'opacity-0 top-6 pointer-events-none'}`}
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className={styleForInnerBlock}>

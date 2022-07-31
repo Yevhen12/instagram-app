@@ -63,7 +63,7 @@ const ProfileDropMenu = ({ dropMenuProfile, setDropMenuProfile }) => {
         <>
             <DropMenu
                 styleForWindowBlock="w-full h-full fixed top-0 left-0 flex justify-center items-center z-20 cursor-default "
-                styleForContainerBlock='absolute w-60 shadow-defaultModal rounded bg-white flex items-center top-12 right-0 p-0 m-0 z-30 '
+                styleForContainerBlock='absolute w-60 shadow-defaultModal rounded bg-white flex items-center right-0 p-0 m-0 z-30'
                 styleForInnerBlock='flex items-center flex-col w-full'
                 dropMenuProfile={dropMenuProfile}
                 setDropMenuProfile={setDropMenuProfile}

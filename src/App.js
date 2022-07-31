@@ -1,6 +1,6 @@
 import './App.css';
 import React, { Suspense, lazy } from 'react';
-import { Route, Routes, BrowserRouter as Router } from 'react-router-dom'
+import { Route, Routes, HashRouter as Router } from 'react-router-dom'
 import * as ROUTES from './constants/pagesLinks'
 import * as ProfileRoutes from './constants/profileLinks'
 import Posts from './pages/Profile/ProfilePages/PostsPages/Posts';
