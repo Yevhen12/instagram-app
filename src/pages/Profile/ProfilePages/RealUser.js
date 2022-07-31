@@ -77,7 +77,7 @@ const RealUser = () => {
                         </div>
                         <div className="border-t w-full flex justify-center">
                             <div
-                                className={`mr-14 opacity-50 border-t active:opacity-25 ${location.pathname === '/' + userRedux.displayName ? 'border-black opacity-100' : 'border-transparent'}`}
+                                className={`mr-14 opacity-50 border-t active:opacity-25 ml-14 ${location.pathname === '/' + userRedux.displayName ? 'border-black opacity-100' : 'border-transparent'}`}
                                 data-name="posts"
                             >
                                 <Link to={`${ProfileRoutes.POSTS}`}>
