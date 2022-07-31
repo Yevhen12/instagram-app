@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/instagram-app/static/css/main.2a741e5f.css",
-    "main.js": "/instagram-app/static/js/main.5056e418.js",
+    "main.js": "/instagram-app/static/js/main.8f4f813b.js",
     "static/css/44.1e64e579.chunk.css": "/instagram-app/static/css/44.1e64e579.chunk.css",
     "static/js/44.b646fbc8.chunk.js": "/instagram-app/static/js/44.b646fbc8.chunk.js",
     "static/js/570.5b9e212e.chunk.js": "/instagram-app/static/js/570.5b9e212e.chunk.js",
@@ -14,10 +14,10 @@
     "static/js/526.37b382a1.chunk.js": "/instagram-app/static/js/526.37b382a1.chunk.js",
     "static/js/788.9e9dfcc3.chunk.js": "/instagram-app/static/js/788.9e9dfcc3.chunk.js",
     "static/js/446.e5b92f1f.chunk.js": "/instagram-app/static/js/446.e5b92f1f.chunk.js",
-    "static/js/480.4f7e8be3.chunk.js": "/instagram-app/static/js/480.4f7e8be3.chunk.js",
+    "static/js/480.98090a57.chunk.js": "/instagram-app/static/js/480.98090a57.chunk.js",
     "index.html": "/instagram-app/index.html",
     "main.2a741e5f.css.map": "/instagram-app/static/css/main.2a741e5f.css.map",
-    "main.5056e418.js.map": "/instagram-app/static/js/main.5056e418.js.map",
+    "main.8f4f813b.js.map": "/instagram-app/static/js/main.8f4f813b.js.map",
     "44.1e64e579.chunk.css.map": "/instagram-app/static/css/44.1e64e579.chunk.css.map",
     "44.b646fbc8.chunk.js.map": "/instagram-app/static/js/44.b646fbc8.chunk.js.map",
     "570.5b9e212e.chunk.js.map": "/instagram-app/static/js/570.5b9e212e.chunk.js.map",
@@ -30,10 +30,10 @@
     "526.37b382a1.chunk.js.map": "/instagram-app/static/js/526.37b382a1.chunk.js.map",
     "788.9e9dfcc3.chunk.js.map": "/instagram-app/static/js/788.9e9dfcc3.chunk.js.map",
     "446.e5b92f1f.chunk.js.map": "/instagram-app/static/js/446.e5b92f1f.chunk.js.map",
-    "480.4f7e8be3.chunk.js.map": "/instagram-app/static/js/480.4f7e8be3.chunk.js.map"
+    "480.98090a57.chunk.js.map": "/instagram-app/static/js/480.98090a57.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2a741e5f.css",
-    "static/js/main.5056e418.js"
+    "static/js/main.8f4f813b.js"
   ]
 }
