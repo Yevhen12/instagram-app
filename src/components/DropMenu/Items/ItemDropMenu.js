@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const ItemDropMenu = ({ text, style, imageUrl, action, link }) => {
     const styleImage = {
-        backgroundImage: `url(${imageUrl})`,
+        backgroundImage: `url(${process.env.PUBLIC_URL + imageUrl})`,
         backgroundSize: '15px 15px',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'top 15px left 15px'

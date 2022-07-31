@@ -142,9 +142,9 @@ const ModalDetailedPost = () => {
                 <div className="lg:w-2/5 w-full lg:h-full h-[60%]">
                     <div className="flex flex-col h-full">
                         <div className="h-[60px] flex justify-between items-center border-b">
-                            <div className="flex items-centerh-full">
+                            <div className="flex items-center h-full">
                                 <Link to={`/${postToShow?.user?.displayName}`}>
-                                    <img className={process.env.PUBLIC_URL + "w-8 h-8 rounded-full object-cover mx-5"} src={updatedCurrentPost && updatedCurrentPost.user && updatedCurrentPost.user.imageUrl ? updatedCurrentPost.imageUrl : '/images/standart-profile.png'} />
+                                    <img className={"w-8 h-8 rounded-full object-cover mx-5"} alt="userPhoto" src={(updatedCurrentPost && updatedCurrentPost.user && updatedCurrentPost.user.imageUrl) ? updatedCurrentPost.user.imageUrl : process.env.PUBLIC_URL +  '/images/standart-profile.png'} />
                                 </Link>
                                 <Link to={`/${postToShow?.user?.displayName}`}>
                                     <p className="font-semibold text-sm mt-1">{postToShow?.user?.displayName}</p>
@@ -164,7 +164,7 @@ const ModalDetailedPost = () => {
                                                     <div className="flex justify-between px-5 mb-5">
                                                         <div className="mr-5">
                                                             <Link to={`/${postToShow?.user.displayName}`}>
-                                                                <img alt="userPhoto" src={`${postToShow?.user?.imageUrl || 'process.env.PUBLIC_URL + /images/standart-profile.png'}`} className='w-8 h-8 object-cover rounded-full' />
+                                                                <img alt="userPhoto" src={`${postToShow?.user?.imageUrl || process.env.PUBLIC_URL + '/images/standart-profile.png'}`} className='w-8 h-8 object-cover rounded-full' />
                                                             </Link>
                                                         </div>
                                                         <div style={{ wordWrap: "break-word" }} className="flex flex-col w-full max-w-[calc(100%-65px)] text-sm ">
