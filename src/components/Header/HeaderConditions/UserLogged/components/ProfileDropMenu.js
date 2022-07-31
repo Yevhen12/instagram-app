@@ -70,7 +70,7 @@ const ProfileDropMenu = ({ dropMenuProfile, setDropMenuProfile }) => {
             >
 
                 <ItemDropMenu
-                    imageUrl='../images/user-icon.png'
+                    imageUrl='/images/user-icon.png'
                     text='Profile'
                     action={openProfileUser}
                     style='leading-[2.7rem] hover:bg-slate-50 w-full flex-1 text-sm relative pl-12'
@@ -78,7 +78,7 @@ const ProfileDropMenu = ({ dropMenuProfile, setDropMenuProfile }) => {
                 />
 
                 <ItemDropMenu
-                    imageUrl='../images/save-icon.png'
+                    imageUrl='/images/save-icon.png'
                     text='Saved'
                     action={redirectToSaved}
                     style='leading-[2.7rem] hover:bg-slate-50 w-full flex-1 text-sm relative pl-12'
@@ -86,14 +86,14 @@ const ProfileDropMenu = ({ dropMenuProfile, setDropMenuProfile }) => {
 
                 />
                 <ItemDropMenu
-                    imageUrl='../images/settings-icon.png'
+                    imageUrl='/images/settings-icon.png'
                     text='Settings'
                     action={userSignOut}
                     style='leading-[2.7rem] hover:bg-slate-50 w-full flex-1 text-sm relative pl-12'
                     link={`/${userRedux.displayName}`}
                 />
                 <ItemDropMenu
-                    imageUrl='../images/exchange-icon.png'
+                    imageUrl='/images/exchange-icon.png'
                     text='Change user'
                     action={openSwitchModal}
                     style='leading-[2.7rem] hover:bg-slate-50 w-full flex-1 text-sm relative pl-12'
