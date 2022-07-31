@@ -1,15 +1,17 @@
 import React, { useCallback, useState, useMemo } from "react";
 import EmojiModal from "../../../EmojiModal/EmojiModal";
 import { useSelector } from "react-redux";
+import useWindowWidth from "../../../../hooks/useWindowWidth";
 
 const ModalBody = ({ post, setText, text }) => {
     const userRedux = useSelector(state => state.userReducer.user)
+    const windowWidth = useWindowWidth()
     const [showPicker, setShowPicker] = useState(false)
 
     const pickerStyle = {
         width: '250px',
         position: "absolute",
-        top: '50px',
+        top: windowWidth.innerWidth < 1024 ? '-320px' :'50px',
         left: '0px',
         zIndex: '21'
     }

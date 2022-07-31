@@ -5,6 +5,7 @@ import WriteComment from "./Comment/WriteComment";
 import LikePost from "./Bars/LikePost/LikePost";
 import SavePost from "./Bars/SavePost/SavePost";
 import SharePost from "./Bars/SharePost/SharePost";
+import useWindowWidth from "../../../../hooks/useWindowWidth";
 
 const IteractionMenuPost = ({ currentPost, isCurrentPostSaved, updatedCurrentPost, setUpdatedCurrentPost }) => {
 
@@ -14,6 +15,7 @@ const IteractionMenuPost = ({ currentPost, isCurrentPostSaved, updatedCurrentPos
     const [activeModal, setActiveModal] = useState(false)
 
     const [showPicker, setShowPicker] = useState(false)
+    const windowWidth = useWindowWidth()
 
 
     const commentRef = useRef(null)
@@ -28,7 +30,7 @@ const IteractionMenuPost = ({ currentPost, isCurrentPostSaved, updatedCurrentPos
     }
 
     const pickerStyle = {
-        width: '310px',
+        width: windowWidth.innerWidth < 470 ? '245px': '310px',
         position: "absolute",
         top: '-330px',
         left: '0px',

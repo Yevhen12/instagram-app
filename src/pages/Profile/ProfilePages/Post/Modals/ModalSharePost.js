@@ -178,7 +178,7 @@ const ModalSharePost = ({ activeModal, setActiveModal, updatedCurrentPost }) => 
                             <p className="font-semibold">Share</p>
                         </div>
                         <button className="h-3.5 w-3.5 mt-2 absolute top-1.5 right-2.5" onClick={() => closeModal()}>
-                            <img src="/images/close-icon.png" />
+                            <img src={process.env.PUBLIC_URL + "/images/close-icon.png"} />
                         </button>
                     </div>
                 </div>

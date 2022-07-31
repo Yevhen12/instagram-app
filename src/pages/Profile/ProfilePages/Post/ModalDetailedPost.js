@@ -133,13 +133,13 @@ const ModalDetailedPost = () => {
                 </div>
             }
             <div className={`max-w-[70%] w-full bg-white max-h-[85%] h-full my-5 flex lg:flex-row flex-col items-center rounded-r-md`} onClick={(e) => e.stopPropagation()}>
-                <div className="lg:w-3/5 w-full lg:h-full h-[40%] bg-black">
+                <div className="lg:w-3/5 w-full lg:h-full h-[45%] bg-black">
                     <img
                         src={postToShow?.image}
                         className="h-full w-full object-contain"
                     />
                 </div>
-                <div className="lg:w-2/5 w-full lg:h-full h-[60%]">
+                <div className="lg:w-2/5 w-full lg:h-full h-[55%]">
                     <div className="flex flex-col h-full">
                         <div className="h-[60px] flex justify-between items-center border-b">
                             <div className="flex items-center h-full">

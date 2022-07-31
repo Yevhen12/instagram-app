@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Context } from "../../context/firebaseContext";
 import { setUser } from "../../redux/actions/userActions";
 import { useDispatch } from "react-redux";
+import useWindowWidth from "../../hooks/useWindowWidth";
 
 
 const SignIn = () => {
@@ -14,7 +15,7 @@ const SignIn = () => {
             password: ''
         }
     )
-
+    const windowWidth = useWindowWidth()
 
     const dispatch = useDispatch()
 
@@ -55,12 +56,15 @@ const SignIn = () => {
 
     }
     return (
-        <div className="flex max-w-screen-lg items-center mx-auto h-screen">
-            <div className="flex w-2/3">
-                <img src={process.env.PUBLIC_URL + "/images/backgroundPhonesInstagram.png"} alt="iPhone with Instagram app" className="h-full" />
-            </div>
-            <div className="flex flex-col w-1/3">
-                <div className="flex flex-col p-7 items-center border bg-white mb-5">
+        <div className={`flex max-w-screen-lg items-center mx-auto h-screen w-full justify-center`}>
+            {
+                windowWidth.innerWidth > 1100 &&
+                <div className="flex w-2/3">
+                    <img src={process.env.PUBLIC_URL + "/images/backgroundPhonesInstagram.png"} alt="iPhone with Instagram app" className="h-full" />
+                </div>
+            }
+            <div className={'flex w-[340px] flex-col px-3'}>
+                <div className="flex flex-col p-7 items-center border bg-white mb-5" >
                     <div className="flex justify-center w-full">
                         <img src={process.env.PUBLIC_URL + "/images/instagram.png"} className="mt-2 mb-4 w-2/4" />
                     </div>
@@ -82,7 +86,6 @@ const SignIn = () => {
                             placeholder="Password"
                             onChange={(e) => changetextForm(e)}
                         />
-
                         <button
                             type="submit"
                             className="bg-blue-500 text-white w-full rounded h-8 font-bold"

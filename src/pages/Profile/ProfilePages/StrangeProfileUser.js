@@ -92,7 +92,7 @@ const StrangeProfileUser = () => {
                                                                     setActiveModal={setActiveModal}
                                                                 />
                                                             </ReusebleModal>
-                                                            <button className="border rounded rounded-[0.15] px-3 py-2.5 text-sm font-semibold mr-5 bg-transparent text-black active:opacity-60" type="button">
+                                                            <button className="border xs:block hidden rounded rounded-[0.15] px-3 py-2.5 text-sm font-semibold mr-5 bg-transparent text-black active:opacity-60" type="button">
                                                                 <img className="h-3" src={process.env.PUBLIC_URL + "/images/arrow-down-gray.png"} alt="arrow"></img>
                                                             </button>
                                                             <div className="h-6 w-6">
@@ -128,7 +128,7 @@ const StrangeProfileUser = () => {
                                             }
                                         </div>
                                         <div className="flex items-center md:justify-start justify-center">
-                                            <div className="mr-10">
+                                            <div className="mr-10 ml-10">
                                                 <p><span className="font-semibold">{currentProfileUserRedux.posts.length} </span>posts</p>
                                             </div>
                                             <div className="mr-10">
@@ -148,7 +148,7 @@ const StrangeProfileUser = () => {
                                 <div className="border-t w-full flex justify-center">
 
                                     <div
-                                        className={`mr-14 opacity-50 border-t active:opacity-25 ${location.pathname === '/' + currentProfileUserRedux.displayName ? 'border-black opacity-100' : 'border-transparent'}`}
+                                        className={`mr-14 ml-14 opacity-50 border-t active:opacity-25 ${location.pathname === '/' + currentProfileUserRedux.displayName ? 'border-black opacity-100' : 'border-transparent'}`}
                                         data-name="posts"
                                     >
                                         <Link to={`${ProfileRoutes.POSTS}`}>

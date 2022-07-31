@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import useFollow from "../../../../../hooks/useFollow";
 import ReusebleModal from "../../../../../components/Modals/ReusebleModal";
 import UnfollowModal from "../../../../../components/Modals/UnfollowModal";
+import { Link } from "react-router-dom";
 
 const UserInFollowersModal = ({ currentUser }) => {
 
@@ -17,14 +18,18 @@ const UserInFollowersModal = ({ currentUser }) => {
             <div className="flex justify-between items-center">
                 <div className="flex items-center">
                     <div className="h-[2.1rem] w-[2.1rem] rounded-full border overflow-hidden mt-1">
-                        <img
-                            className="w-full h-full object-cover"
-                            src={`${imageUrl ? imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}`}
-                            alt="UserPhoto"
-                        />
+                        <Link to={`/${currentUser.displayName}`}>
+                            <img
+                                className="w-full h-full object-cover"
+                                src={`${imageUrl ? imageUrl : process.env.PUBLIC_URL + '/images/standart-profile.png'}`}
+                                alt="UserPhoto"
+                            />
+                        </Link>
                     </div>
                     <div className="flex flex-col ml-2">
-                        <span className="text-sm font-semibold">{displayName}</span>
+                        <Link to={`/${currentUser.displayName}`}>
+                            <span className="text-sm font-semibold">{displayName}</span>
+                        </Link>
                         <span className="text-sm">{name}</span>
                     </div>
                 </div>

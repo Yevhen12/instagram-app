@@ -7,7 +7,7 @@ const Info = ({ setIsInfoActive, strangeChatUser }) => {
     const [activeModal, setActiveModal] = useState(false)
     
     return (
-        <div className="w-[calc(100%-350px)] h-[100%-60px] flex flex-col ">
+        <div className="sm:w-[calc(100%-350px)] w-full h-[100%-60px] flex flex-col ">
             <div className="w-full h-[60px] border-b">
                 <div className="flex justify-between items-center h-[60px] px-10">
                     <div className="w-full">
