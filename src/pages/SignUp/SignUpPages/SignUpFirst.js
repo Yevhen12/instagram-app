@@ -87,7 +87,7 @@ const SignUpFirst = ({ setUserData, setPage }) => {
             <div className="flex flex-col">
                 <div className="flex flex-col p-7 items-center border bg-white mb-5">
                     <div className="flex justify-center w-full">
-                        <img src={process.env.PUBLIC_URL + "images\instagram.png"} className="mt-2 mb-4 w-2/4" />
+                        <img src={process.env.PUBLIC_URL + "/images/instagram.png"} className="mt-2 mb-4 w-2/4" />
                     </div>
 
                     {error && <p className="text-sm text-red-500 mb-5"> {error}</p>}
