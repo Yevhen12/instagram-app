@@ -48,7 +48,7 @@ const UserLogged = () => {
                         data-name="home"
                         src={process.env.PUBLIC_URL + `/images/home-${location.pathname === '/' && !isActiveModals ? '' : 'un'}colored.png`}
                         alt="home"
-                        className="xs:h-6 h-5"
+                        className="xs:h-6 xs:w-6 h-5 w-5"
                     >
                     </img>
                 </Link>
