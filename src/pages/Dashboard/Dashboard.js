@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import Suggestion from './DashboardTypes/Suggestion/Suggestion'
 import * as ROUTES from '../../constants/pagesLinks'
 import Main from "./DashboardTypes/Main/Main";
-import Loading from "../../components/Loaders/Loaging";
 
 const Dashboard = () => {
 
@@ -14,21 +13,24 @@ const Dashboard = () => {
     const { auth, db, doc, getDoc } = useContext(Context)
     const userRedux = useSelector(state => state.userReducer.user)
     const [isSuggestions, setIsSuggestions] = useState(false)
+    console.log(userRedux)
 
     useEffect(() => {
+        if (auth.currentUser) {
+            setAllPosts([])
+            const getAllPosts = () => {
+                userRedux.following.forEach(async (user) => {
+                    const docUser = doc(db, "users", user.uid);
+                    const docSnap = await getDoc(docUser);
+                    const followingUser = docSnap.data()
+                    setAllPosts(prevAllPosts => [...prevAllPosts, ...followingUser.posts])
+                });
+                if (!userRedux.following.length) setIsSuggestions(true)
+            }
 
-        setAllPosts([])
-        const getAllPosts = () => {
-            userRedux.following.forEach(async (user) => {
-                const docUser = doc(db, "users", user.uid);
-                const docSnap = await getDoc(docUser);
-                const followingUser = docSnap.data()
-                setAllPosts(prevAllPosts => [...prevAllPosts, ...followingUser.posts])
-            });
-            if (!userRedux.following.length) setIsSuggestions(true)
+            getAllPosts()
         }
 
-        getAllPosts()
     }, [])
 
 

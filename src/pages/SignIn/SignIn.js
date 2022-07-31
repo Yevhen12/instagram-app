@@ -15,6 +15,7 @@ const SignIn = () => {
         }
     )
 
+
     const dispatch = useDispatch()
 
 
@@ -49,6 +50,8 @@ const SignIn = () => {
         dispatch(setUser(docUser.data()))
 
         navigate('/')
+
+        console.log('sign-in')
 
     }
     return (
