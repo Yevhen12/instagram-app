@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkinstagram=self.webpackChunkinstagram||[]).push([[697],{3697:function(t,e,n){n.r(e);var a=n(2791),s=n(184),r=function(){return(0,s.jsx)("h1",{className:"text-center text-[50px] font-bold mt-[100px]",children:"Not Found!"})};e.default=a.memo(r)}}]);
+//# sourceMappingURL=697.a2044708.chunk.js.map
