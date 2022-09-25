@@ -1,6 +1,6 @@
 # Instagram clone
 
-Instagram clone is a project that implement the main functionality of real instagram including **authentication**, **posts** (*comments, likes, save posts, ability to add new post*), **following/follow system**,  **dashboard** (*observe posts of people you follow*), **direct** (*ability to send messages, photos, share posts in real-time with anyone*) **difirent types of modals** and other feature that u can see in demo-version below.
+Instagram clone is a project that implemented the main functionality of real instagram including **authentication**, **posts** (*comments, likes, save posts, ability to add new post*), **following/follow system**,  **dashboard** (*observe posts of people you follow*), **direct** (*ability to send messages, photos, share posts in real-time with anyone*) **difirent types of modals** and other features that you can see in demo-version below.
  
 
 ## Installation
