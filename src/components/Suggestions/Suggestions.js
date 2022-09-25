@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { Context } from "../../context/firebaseContext";
-import { useSelector } from "react-redux";
 import UserSuggest from "./UserSuggest";
 import useSuggestions from "../../hooks/useSuggestions";
 

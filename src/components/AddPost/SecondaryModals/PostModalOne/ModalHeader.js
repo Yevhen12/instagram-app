@@ -1,7 +1,5 @@
 import React from "react";
 
-
-
 const ModalHeader = ({setPage, post, setPost}) => {
 
     const backToChoose = () => {
@@ -9,7 +7,6 @@ const ModalHeader = ({setPage, post, setPost}) => {
             images: []
         })
     }
-
 
     return (
         <div className='border-b h-[50px]'>

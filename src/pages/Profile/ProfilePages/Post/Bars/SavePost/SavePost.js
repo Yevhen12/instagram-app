@@ -1,18 +1,15 @@
-import React, {useState, useContext, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../../../../../redux/actions/userActions";
-import { Context } from "../../../../../../context/firebaseContext";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../../../../../firebase/firebase";
 
 const SavePost = ({updatedCurrentPost, currentPost}) => {
 
     const userRedux = useSelector(state => state.userReducer.user)
     const dispatch = useDispatch()
 
-
-
-    const {doc, db, updateDoc, getDoc} = useContext(Context)
     const [isSaved, setIsSaved] = useState()
-
 
     useEffect(() => {
         const getUser = async () => {

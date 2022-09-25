@@ -1,19 +1,18 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import DropMenu from '../DropMenu/DropMenu'
+import React, { useState, useRef, useEffect } from "react";
 import useSearch from "../../hooks/useSearch";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/actions/userActions";
-import { Context } from "../../context/firebaseContext";
 import ModalSuggestions from "./components/ModalTypes/ModalSuggestions";
 import ModalRecentUsers from "./components/ModalTypes/ModalRecentUsers";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase/firebase";
 
 const SearchUsers = () => {
 
     const userRedux = useSelector((state) => state.userReducer.user)
     const dispatch = useDispatch()
     const inputEl = useRef(null);
-    const { doc, db, updateDoc } = useContext(Context)
     const { searchUsers } = useSearch()
     const [searchText, setSearchText] = useState('')
     const [activeModal, setActiveModal] = useState(false)

@@ -1,18 +1,16 @@
-import React, { useState, useEffect, useContext, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import { Context } from '../../../../../context/firebaseContext'
 import Post from './Posts/Post'
-import { useLocation, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import Loading from '../../../../../components/Loaders/Loaging'
+import { db } from '../../../../../firebase/firebase'
+import { doc, getDoc } from 'firebase/firestore'
 
 const Timeline = () => {
 
     const userRedux = useSelector(state => state.userReducer.user)
-    const { doc, db, getDoc } = useContext(Context)
     const [allPosts, setAllPosts] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-
-    const location = useLocation()
 
     useEffect(() => {
         const wrapper = async () => {

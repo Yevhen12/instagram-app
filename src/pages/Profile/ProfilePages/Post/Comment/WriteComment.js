@@ -1,19 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import EmojiModal from "../../../../../components/EmojiModal/EmojiModal";
 import { useSelector, useDispatch } from "react-redux";
-import { Context } from "../../../../../context/firebaseContext";
 import { setUser } from "../../../../../redux/actions/userActions";
 import { setCurrentProfileUser } from "../../../../../redux/actions/currentProfileUser";
-import { createUnixTime } from "../../../../../helpers/createUnixTime";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../../../../firebase/firebase";
 
 const WriteComment = ({ textComment, setTextComment, commentRef, setShowPicker, showPicker, updatedCurrentPost, setUpdatedCurrentPost, isCurrentPostSaved, pickerStyle }) => {
 
     const userRedux = useSelector(state => state.userReducer.user)
     const currentUserInProfile = useSelector(state => state.currentProfileUserReducer.user)
     const dispatch = useDispatch()
-    const { doc, db, getDoc, updateDoc } = useContext(Context)
-
-
 
     const commentPost = async () => {
 

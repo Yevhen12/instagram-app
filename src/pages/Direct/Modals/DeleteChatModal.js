@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
+import React from "react";
 import ReusebleModal from "../../../components/Modals/ReusebleModal";
-import { Navigate, useParams } from "react-router-dom";
-import { Context } from "../../../context/firebaseContext";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setChats } from "../../../redux/actions/chatsAction";
+import { db } from "../../../firebase/firebase";
+import { doc, deleteDoc } from "firebase/firestore";
 
 const DeleteChatModal = ({ activeModal, setActiveModal }) => {
 
     const { chat } = useParams()
-    const { doc, db, deleteDoc } = useContext(Context)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const chatsRedux = useSelector((state) => state.chatsReducer.chats)

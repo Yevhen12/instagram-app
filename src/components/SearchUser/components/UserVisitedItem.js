@@ -1,12 +1,12 @@
-import React, {useContext} from "react";
-import { Context } from "../../../context/firebaseContext";
+import React from "react";
 import { setUser } from "../../../redux/actions/userActions";
 import { useSelector, useDispatch } from "react-redux";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../../firebase/firebase";
 
 const UserVisitedItem = ({ user, redirectToAnotherUser, recentUsers, setRecentUsers }) => {
     const userRedux = useSelector(state => state.userReducer.user)
     const dispatch = useDispatch()
-    const {doc, db, updateDoc} = useContext(Context)
 
     const clearVisitedUser = async (uid, e) => {
         e.stopPropagation()

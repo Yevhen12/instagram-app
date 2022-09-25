@@ -50,7 +50,7 @@ function App() {
                     <Route path={ROUTES.SIGN_IN} element={<SignIn />} />
                     <Route path={ROUTES.PEOPLE} element={<People />} />
                     <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
-                    <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
+
                     <Route path={ROUTES.PROFILE} element={<Profile />}>
                       <Route path={ProfileRoutes.POSTS} element={<Posts />}>
                         <Route path={ProfileRoutes.POST} element={<ModalDetailedPost />} />
@@ -70,6 +70,7 @@ function App() {
                     <Route path={ROUTES.EXPLORE} element={<Explore />}>
                       <Route path={ROUTES.EXPLORE_POST} element={<ModalDetailedPost />} />
                     </Route>
+                    <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
                   </Routes>
                 </Router>
               </Suspense>

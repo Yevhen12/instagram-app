@@ -1,15 +1,13 @@
-import React, { useContext } from "react"
+import React from "react"
 import { Link } from 'react-router-dom'
-import { Context } from "../../context/firebaseContext"
 import * as ROUTES from '../../constants/pagesLinks'
 import SearchUsers from '../SearchUser/SearchUsers'
 import UserUnlogged from "./HeaderConditions/UserUnlogged/UserUnlogged"
 import UserLogged from "./HeaderConditions/UserLogged/UserLogged"
 import useWindowWidth from "../../hooks/useWindowWidth"
+import { auth } from "../../firebase/firebase"
 
 const Header = () => {
-
-    const { auth } = useContext(Context)
 
     const windowWidth = useWindowWidth()
     console.log(windowWidth)

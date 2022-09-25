@@ -1,9 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Post from "../Post/Post";
-import { Context } from "../../../../context/firebaseContext";
 import { setCurrentProfileUser } from "../../../../redux/actions/currentProfileUser";
-import { useLocation, Outlet } from "react-router-dom";
+import { useLocation, Outlet, useParams } from "react-router-dom";
+import { getDocs, where, query, collection } from "firebase/firestore";
+import { db } from "../../../../firebase/firebase";
+
 
 
 const Posts = () => {
@@ -12,20 +14,21 @@ const Posts = () => {
     const userRedux = useSelector((state) => state.userReducer.user)
     const currentProfileUserRedux = useSelector((state) => state.currentProfileUserReducer.user)
     const isUserOnStrangeProfile = userRedux.uid !== currentProfileUserRedux.uid
-    const { db, doc, getDoc } = useContext(Context)
     const dispatch = useDispatch()
     const location = useLocation()
+    const {user} = useParams()
 
     useEffect(() => {
         setIsLoading(true)
         const getPosts = async () => {
-            const userRef = doc(db, 'users', currentProfileUserRedux.uid)
-            const userDoc = await getDoc(userRef)
-
-            dispatch(setCurrentProfileUser(userDoc.data()))
-
-
-            setPosts(userDoc.data().posts)
+            const usersRef = collection(db, "users");
+            const q = query(usersRef, where("displayName", "==", `${user}`))
+            console.log(user)
+            const docSnap = await getDocs(q)
+            docSnap.forEach((doc) => {
+                setPosts(doc.data().posts)
+                dispatch(setCurrentProfileUser(doc.data()));
+            })
             setIsLoading(false)
         }
 

@@ -1,8 +1,7 @@
-import { useContext } from "react"
-import { Context } from "../context/firebaseContext"
+import { collection, where, query, getDocs } from "firebase/firestore"
+import { db } from "../firebase/firebase"
 
 const useSearch = () => {
-    const { collection, db, where, query, getDocs } = useContext(Context)
 
     const searchUsers = async (searhStr) => {
         const usersArray = []

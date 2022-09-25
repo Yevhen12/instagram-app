@@ -1,10 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import * as ROUTES from '../../constants/pagesLinks'
-import { Link, useNavigate } from 'react-router-dom'
-import { Context } from "../../context/firebaseContext";
+import { useNavigate } from 'react-router-dom'
 import { setUser } from "../../redux/actions/userActions";
 import { useDispatch } from "react-redux";
 import useWindowWidth from "../../hooks/useWindowWidth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../../firebase/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 
 const SignIn = () => {
@@ -16,14 +18,9 @@ const SignIn = () => {
         }
     )
     const windowWidth = useWindowWidth()
-
     const dispatch = useDispatch()
-
-
     const [error, setError] = useState()
     const navigate = useNavigate()
-    const { signInWithEmailAndPassword, auth, doc, db, getDoc } = useContext(Context)
-
 
     const changetextForm = (e) => {
         const { name, value } = e.target

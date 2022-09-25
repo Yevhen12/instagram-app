@@ -1,22 +1,22 @@
-import React, { useState, useEffect, useContext, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Header from "../../components/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
 import NewMessageModal from "./Modals/NewMessageModal";
-import { Context } from "../../context/firebaseContext";
 import { setChats } from "../../redux/actions/chatsAction";
-import { Outlet, Link, useLocation, useParams } from "react-router-dom";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 import NotFound from "../NotFound/NotFound";
 import UserItem from "./Items/UserItem";
 import SkeletonItem from "./Items/SkeletonItem";
 import 'react-loading-skeleton/dist/skeleton.css'
 import Loading from "../../components/Loaders/Loaging";
+import { db } from "../../firebase/firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 const Direct = () => {
     const [activeModal, setActiveModal] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const userRedux = useSelector((state) => state.userReducer.user)
     const chatsArray = useSelector((state) => state.chatsReducer.chats)
-    const { db, collection, getDocs } = useContext(Context)
     const dispatch = useDispatch()
     const location = useLocation()
     const { chat } = useParams()

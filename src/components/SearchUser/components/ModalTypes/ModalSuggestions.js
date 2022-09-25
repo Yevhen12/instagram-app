@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import React, { useMemo } from "react";
 import DropMenu from "../../../DropMenu/DropMenu";
 import Loading from "../../../Loaders/Loaging";
 import UserSuggestItem from "../UserSuggestItem";

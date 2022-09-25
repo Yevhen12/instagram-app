@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Context } from "../../../../context/firebaseContext";
 import { setUser } from "../../../../redux/actions/userActions";
 import UserVisitedItem from "../UserVisitedItem";
 import DropMenu from "../../../DropMenu/DropMenu";
 import Loading from "../../../Loaders/Loaging";
+import { doc, updateDoc, getDoc } from "firebase/firestore";
+import { db } from "../../../../firebase/firebase";
 
 const ModalRecentUsers = ({ activeModal, setActiveModal, redirectToAnotherUser }) => {
 
@@ -12,8 +13,6 @@ const ModalRecentUsers = ({ activeModal, setActiveModal, redirectToAnotherUser }
     const [recentUsers, setRecentUsers] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const dispatch = useDispatch()
-
-    const { db, doc, updateDoc, getDoc } = useContext(Context)
 
     const clearAllVisitedUsers = async () => {
         const ReduxUserRef = doc(db, "users", `${userRedux.uid}`);

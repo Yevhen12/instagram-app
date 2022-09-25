@@ -13,7 +13,6 @@ const WithImageModal = ({post, setPost}) => {
         }
     }
 
-
     return (
         <div className="flex flex-col items-center justify-center w-full h-[calc(100%-50px)]">
         {

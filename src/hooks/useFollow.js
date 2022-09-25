@@ -1,15 +1,14 @@
-import { useContext } from "react";
-import { Context } from "../context/firebaseContext";
 import { setUser } from "../redux/actions/userActions";
 import { setCurrentProfileUser } from "../redux/actions/currentProfileUser";
 import { useDispatch, useSelector } from "react-redux";
 import { createUnixTime } from "../helpers/createUnixTime";
+import { doc, updateDoc, getDoc } from "firebase/firestore";
+import { db } from "../firebase/firebase";
 
 
 const useFollow = (currentProfileUser) => {
     const { imageUrl, uid, name, displayName } = currentProfileUser
     const dispatch = useDispatch()
-    const { doc, db, updateDoc, getDoc } = useContext(Context)
 
     const userRedux = useSelector((state) => state.userReducer.user)
     const UserThatInPage = useSelector((state) => state.currentProfileUserReducer.user)

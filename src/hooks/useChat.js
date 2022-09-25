@@ -1,12 +1,10 @@
-import { useContext } from "react";
-import { Context } from "../context/firebaseContext";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { db } from "../firebase/firebase";
+import { getDocs, doc, setDoc, collection } from "firebase/firestore";
 import { setChats } from "../redux/actions/chatsAction";
 
 const useChat = (chatsArray) => {
 
-    const { getDocs, db, collection, doc, setDoc } = useContext(Context)
     const userRedux = useSelector(state => state.userReducer.user)
     const dispatch = useDispatch()
 

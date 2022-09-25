@@ -1,20 +1,12 @@
 import React, { createContext, useEffect, useState } from "react";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
-import { firebase, storage } from '../firebase/firebase'
-import { doc, setDoc, getFirestore, getDoc, collection, getDocs, updateDoc, query, where, arrayRemove, arrayUnion, onSnapshot, deleteDoc } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser as setCurruntReduxUser } from "../redux/actions/userActions";
 import { setIsLoading } from "../redux/actions/isLoadingAction";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, db, firebase } from "../firebase/firebase";
+import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 
 const Context = createContext(null)
-const auth = getAuth();
-const db = getFirestore(firebase)
-
-
-
-
-
 
 const FirebaseContextProvider = ({ children }) => {
     const [user, setUser] = useState(null)
@@ -42,10 +34,8 @@ const FirebaseContextProvider = ({ children }) => {
         func()
     }, [])
 
-
-
     const isNameAvailable = async (name) => {
-        const allUsers = await getDocs(collection(db, "cities"));
+        const allUsers = await getDocs(collection(db, "users"));
         const bool = true
         allUsers.forEach((user) => {
             const nameUser = user.data().displayName
@@ -62,34 +52,11 @@ const FirebaseContextProvider = ({ children }) => {
         <Context.Provider value={
             {
                 firebase,
-                auth,
-                createUserWithEmailAndPassword,
-                doc,
-                setDoc,
-                db,
-                signInWithEmailAndPassword,
                 user,
                 setUser,
-                getDoc,
                 setFirestoreCurrentUser,
                 firestoreCurrentUser,
-                signOut,
-                collection,
-                getDocs,
-                isNameAvailable,
-                ref,
-                storage,
-                uploadBytes,
-                getDownloadURL,
-                updateDoc,
-                deleteObject,
-                updateProfile,
-                query,
-                where,
-                arrayRemove,
-                arrayUnion,
-                onSnapshot,
-                deleteDoc,
+                isNameAvailable
             }
         }>
             {children}

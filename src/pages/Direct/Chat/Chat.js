@@ -1,12 +1,14 @@
-import React, { useState, useContext, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Context } from "../../../context/firebaseContext";
 import { setChats } from "../../../redux/actions/chatsAction";
 import Info from "./Info/Info";
 import EmojiModal from "../../../components/EmojiModal/EmojiModal";
 import Message from "./Messages/Message";
+import { doc, updateDoc, getDoc, onSnapshot } from "firebase/firestore";
+import { db, storage } from "../../../firebase/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const Chat = () => {
     const chatsRedux = useSelector((state) => state.chatsReducer.chats)
@@ -21,7 +23,6 @@ const Chat = () => {
 
     const currentChat = chatsRedux.find(elem => elem.uid === chat)
 
-    const { updateDoc, doc, db, getDoc, onSnapshot, storage, ref, uploadBytes, getDownloadURL } = useContext(Context)
     const [text, setText] = useState('')
 
     const navigate = useNavigate()

@@ -8,6 +8,8 @@ import { Context } from "../../../../../context/firebaseContext";
 import { setUser } from "../../../../../redux/actions/userActions";
 import DropMenu from "../../../../DropMenu/DropMenu";
 import SwitchModal from "../../../../Modals/SwitchModal";
+import { signOut } from "firebase/auth";
+import { auth } from "../../../../../firebase/firebase";
 
 
 const ProfileDropMenu = ({ dropMenuProfile, setDropMenuProfile }) => {
@@ -15,7 +17,7 @@ const ProfileDropMenu = ({ dropMenuProfile, setDropMenuProfile }) => {
     const userRedux = useSelector(state => state.userReducer.user)
     const [switchModal, setSwitchModal] = useState(false)
 
-    const { signOut, auth, setFirestoreCurrentUser, firestoreCurrentUser } = useContext(Context)
+    const { setFirestoreCurrentUser, firestoreCurrentUser } = useContext(Context)
 
     const navigate = useNavigate()
     const dispatch = useDispatch()

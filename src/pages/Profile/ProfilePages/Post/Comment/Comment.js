@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Context } from "../../../../../context/firebaseContext";
 import convertUnixTime from "../../../../../helpers/converUnixTime";
 import LikesModal from "../Modals/LikesModal";
 import LikeComment from "./LikeComment";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../../../../firebase/firebase";
 
 const Comment = ({ postComment, updatedCurrentPost, setUpdatedCurrentPost }) => {
-
-    const { db, doc, getDoc } = useContext(Context)
 
     const [activeModal, setActiveModal] = useState(false)
     const [newUser, setNewUser] = useState()

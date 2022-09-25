@@ -1,8 +1,9 @@
-import React, { useContext, useState } from "react";
-import { Context } from "../../../../../context/firebaseContext";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../../../../redux/actions/userActions";
 import { setCurrentProfileUser } from "../../../../../redux/actions/currentProfileUser";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../../../../firebase/firebase";
 
 const LikeComment = ({updatedCurrentPost, postComment, setUpdatedCurrentPost}) => {
 
@@ -14,9 +15,6 @@ const LikeComment = ({updatedCurrentPost, postComment, setUpdatedCurrentPost}) =
     const [isLiked, setIsLiked] = useState(isCommentLiked)
     const [likeAnimation, setLikeAnimation] = useState(false)
     const dispatch = useDispatch()
-
-
-    const { doc, db, getDoc, updateDoc } = useContext(Context)
 
     const likeComment = async () => {
 

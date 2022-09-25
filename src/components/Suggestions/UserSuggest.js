@@ -7,7 +7,6 @@ import UnfollowModal from "../Modals/UnfollowModal";
 import ReusebleModal from "../Modals/ReusebleModal";
 
 const UserSuggest = ({ displayName, uid, imageUrl, name }) => {
-    console.log(displayName, uid, imageUrl, name)
 
     const [activeModal, setActiveModal] = useState(false)
     const { hendleFollow } = useFollow({ displayName, uid, imageUrl, name })

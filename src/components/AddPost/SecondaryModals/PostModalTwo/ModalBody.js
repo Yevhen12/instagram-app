@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo } from "react";
+import React, { useState } from "react";
 import EmojiModal from "../../../EmojiModal/EmojiModal";
 import { useSelector } from "react-redux";
 import useWindowWidth from "../../../../hooks/useWindowWidth";

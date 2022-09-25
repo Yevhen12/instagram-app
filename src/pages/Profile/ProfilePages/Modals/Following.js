@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "../../../../components/Modals/Modal";
 import { useSelector } from "react-redux";
 import { nanoid } from 'nanoid'

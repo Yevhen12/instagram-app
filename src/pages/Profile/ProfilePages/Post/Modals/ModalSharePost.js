@@ -1,11 +1,11 @@
-import React, { useState, useContext, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import useSearch from "../../../../../hooks/useSearch";
-import { Context } from "../../../../../context/firebaseContext";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import useChat from "../../../../../hooks/useChat";
 import ReusebleModal from "../../../../../components/Modals/ReusebleModal";
 import { setChats } from "../../../../../redux/actions/chatsAction";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../../../../firebase/firebase";
 
 const ModalSharePost = ({ activeModal, setActiveModal, updatedCurrentPost }) => {
     const [text, setText] = useState('')
@@ -13,8 +13,6 @@ const ModalSharePost = ({ activeModal, setActiveModal, updatedCurrentPost }) => 
     const [usersFound, setUsersFound] = useState([])
     const [selectedUsers, setSelectedUsers] = useState([])
     const { searchUsers } = useSearch()
-
-    const { doc, db, updateDoc, getDoc } = useContext(Context)
 
     const chatsArray = useSelector((state) => state.chatsReducer.chats)
     const userRedux = useSelector((state) => state.userReducer.user)

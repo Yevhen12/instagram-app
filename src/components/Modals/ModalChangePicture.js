@@ -1,12 +1,14 @@
-import { async } from "@firebase/util";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext  } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Context } from "../../context/firebaseContext";
 import { setUser } from "../../redux/actions/userActions";
+import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
+import { storage, auth, db } from "../../firebase/firebase";
+import { doc, updateDoc } from "firebase/firestore";
 
 const ModalChangePicture = ({ activeModal, setActiveModal, setIsLoading  }) => {
 
-    const { ref, storage, uploadBytes, auth, getDownloadURL, doc, db, updateDoc, getDoc, deleteObject, setFirestoreCurrentUser } = useContext(Context)
+    const { setFirestoreCurrentUser } = useContext(Context)
     const userRedux = useSelector((state) => state.userReducer.user)
     const dispatch = useDispatch()
 

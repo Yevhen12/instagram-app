@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link, useLocation, useOutletContext } from "react-router-dom";
 import ReusebleModal from "../../../../components/Modals/ReusebleModal";
 import IteractionMenuPost from './IteactionMenuPost';
 import Comment from "./Comment/Comment";
 import convertUnixTime from "../../../../helpers/converUnixTime";
-import { Context } from "../../../../context/firebaseContext";
+import { doc, getDoc, getDocs, collection, where, query } from "firebase/firestore";
+import { db } from "../../../../firebase/firebase";
 
 
 
@@ -14,7 +15,6 @@ const ModalDetailedPost = () => {
     const { userPost, savedPost, user } = useParams()
 
     const { posts, savedPosts } = useOutletContext()
-    const { doc, db, getDoc, collection, where, getDocs, query } = useContext(Context)
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -23,17 +23,12 @@ const ModalDetailedPost = () => {
     const isDashboard = location.pathname.split('/').includes('dashboard')
     const isExplore = location.pathname.split('/').includes('explore')
     const isDirect = location.pathname.split('/').includes('direct')
-
-    console.log(savedPosts, 'dfsdfsdf', posts)
-
+    
     const postsToIterate = (isSavedPostArray ? savedPosts : posts)
     console.log(postsToIterate)
 
     const currentPost = postsToIterate.find(elem => isSavedPostArray ? elem.uid === savedPost : elem.uid === userPost)
-
     const postToShow = currentPost ? currentPost : updatedCurrentPost
-
-
 
     useEffect(() => {
         if (!currentPost) {

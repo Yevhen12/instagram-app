@@ -1,16 +1,16 @@
-import React, { useEffect, useState, useContext, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Post from "../Post/Post";
-import { Outlet, useLocation } from "react-router-dom";
-import { Context } from "../../../../context/firebaseContext";
+import { Outlet } from "react-router-dom";
 import { setUser } from "../../../../redux/actions/userActions";
 import Loading from "../../../../components/Loaders/Loaging";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../../../firebase/firebase";
 
 const Saved = () => {
 
     const [oldSavedPost, setOldSavedPost] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    const { doc, db, getDoc } = useContext(Context)
 
     const userRedux = useSelector(state => state.userReducer.user)
     const dispatch = useDispatch()

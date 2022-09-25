@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link, useLocation, useNavigate, Outlet } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as ROUTES from '../../../../../../constants/pagesLinks'
 import LikePost from "../../../../../Profile/ProfilePages/Post/Bars/LikePost/LikePost";
 import SharePost from "../../../../../Profile/ProfilePages/Post/Bars/SharePost/SharePost";

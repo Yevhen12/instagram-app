@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
-import { Context } from "../../context/firebaseContext";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Suggestion from './DashboardTypes/Suggestion/Suggestion'
 import * as ROUTES from '../../constants/pagesLinks'
 import Main from "./DashboardTypes/Main/Main";
+import { getDoc, doc } from "firebase/firestore";
+import { auth, db } from "../../firebase/firebase";
 
 const Dashboard = () => {
 
     const [allPosts, setAllPosts] = useState([])
-    const { auth, db, doc, getDoc } = useContext(Context)
     const userRedux = useSelector(state => state.userReducer.user)
     const [isSuggestions, setIsSuggestions] = useState(false)
     console.log(userRedux)

@@ -1,9 +1,10 @@
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { useSelector } from "react-redux"
-import { Context } from "../context/firebaseContext"
+import { doc, collection, getDocs, getDoc } from "firebase/firestore"
+import { db } from "../firebase/firebase"
 
 const useSuggestions = () => {
-    const { doc, db, collection, getDocs, getDoc } = useContext(Context)
+
     const userRedux = useSelector(state => state.userReducer.user)
     const [currentUserInfo, setCurrenUserInfo] = useState()
 

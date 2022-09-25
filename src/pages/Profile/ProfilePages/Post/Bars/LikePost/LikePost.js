@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Context } from "../../../../../../context/firebaseContext";
 import { setUser } from "../../../../../../redux/actions/userActions";
 import { setCurrentProfileUser } from "../../../../../../redux/actions/currentProfileUser";
 import { createUnixTime } from "../../../../../../helpers/createUnixTime";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../../../../../firebase/firebase";
 
 const LikePost = ({ updatedCurrentPost, setUpdatedCurrentPost }) => {
 
@@ -14,7 +15,6 @@ const LikePost = ({ updatedCurrentPost, setUpdatedCurrentPost }) => {
 
     const [isLiked, setIsLiked] = useState(isPostLiked)
     const [likeAnimation, setLikeAnimation] = useState(false)
-    const {doc, db, getDoc, updateDoc} = useContext(Context)
     const dispatch = useDispatch()
 
     useEffect(() => {

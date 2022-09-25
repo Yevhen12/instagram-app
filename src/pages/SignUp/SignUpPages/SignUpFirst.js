@@ -1,14 +1,12 @@
-import React, { useState, useContext } from "react";
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
 import * as ROUTES from '../../../constants/pagesLinks'
-import { Context } from "../../../context/firebaseContext";
 import { useNavigate } from "react-router-dom";
+import { getDocs, collection } from "firebase/firestore";
+import { db } from "../../../firebase/firebase";
 
 
 const SignUpFirst = ({ setUserData, setPage }) => {
 
-
-    const { getDocs, collection, db } = useContext(Context)
     const [textForm, setTextForm] = useState(
         {
             displayName: '',
