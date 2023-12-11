@@ -36,10 +36,3 @@ npm start
 ## Project status
 Under development.
 
-## Link
-
-App: [https://yevhen12.github.io/instagram-app/#/](https://yevhen12.github.io/instagram-app/#/)
-
-login: *test@gmail.com*
-
-password: *123456789*
